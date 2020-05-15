@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  register form</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/tempcss.css" type="text/css">
+    <script type="text/javascript" src="../src/register.js"></script>
+</head>
+<body>
+<br><br><br><br><br><br><br><br><br><br><br>
+<div id="register">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 left">
+                <h4> Welcome !</h4>
+                <p>please enter your register details</p>
+                <form>
+                    <div class="form-group">
+                        <label for="userName">User name</label>
+                        <input type="text" v-model="userName" class="form-control" placeholder="Enter Username">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" v-model="password" class="form-control" placeholder="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="Re-password">Re-Password</label>
+                        <label for="Invaild" v-if=" invaildLebalShow">    Inconsistent passwords.</label>
+                        <input type="re-password" v-model="rePassword" class="form-control" placeholder="Re-password">
+                    </div>
+                    <input type="button" @click="save" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+            <div class="col-6 right" v-if="showDisplay">
+                <h4>Display!</h4>
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Password</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{showMyUsername}}</td>
+                        <td>{{showMyPassword}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+   var register = new Vue({
+        el: '#register',
+        data(){
+            return{
+                userName: "",
+                password: "",
+                rePassword:"",
+                showMyUsername: null,
+                showMyPassword: null,
+                showDisplay: false,
+                invaildLebalShow:false,
+                rePasswordLegal:false
+            }
+        },
+        methods: {
+            save:function(){
+                this.rePasswordLegal = this.rePassword === this.password;
+
+                if(this.rePasswordLegal) {
+                    this.showMyUsername = this.userName;
+                    this.showMyPassword = this.password;
+                    this.invaildLebalShow=false;
+                    this.userName = "";
+                    this.password = "";
+                    this.rePassword = "";
+                    this.showDisplay = true;
+                }else{
+                    this.invaildLebalShow=true;
+                    this.userName = "";
+                    this.password = "";
+                    this.rePassword = "";
+                    this.showDisplay = true;
+                }
+            }
+        }
+
+    });
+
+</script>
+
+
+</body>
+</html>

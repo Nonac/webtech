@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  login form</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/tempcss.css" type="text/css">
+
+</head>
+<body>
+<br><br><br><br><br><br><br><br><br><br><br>
+<div id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 left">
+                <h4> Welcome back!</h4>
+                <p>please enter your login details</p>
+                <form>
+                    <div class="form-group">
+                        <label for="userName">User name</label>
+                        <input type="text" v-model="userName" class="form-control" placeholder="Enter Username">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" v-model="password" class="form-control" placeholder="password">
+                    </div>
+                    <input type="button" @click="save()" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+            <div class="col-6 right" v-if="showDisplay">
+                <h4>Display!</h4>
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Password</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{showMyUsername}}</td>
+                        <td>{{showMyPassword}}</td>
+
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    new Vue({
+        el: '#login',
+        data(){
+            return{
+                userName: "",
+                password: "",
+                showMyUsername: null,
+                showMyPassword: null,
+                showDisplay: false
+
+            }
+
+        },
+        methods: {
+            save(){
+                this.showMyUsername= this.userName;
+                this.showMyPassword= this.password;
+                this.userName="";
+                this.password="";
+                this.showDisplay= true;
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
