@@ -22,9 +22,10 @@
 }
 .left{
     width: 50%;
-    border-radius: 10px;
-    background-color: blue;
-    padding: 30px 30px;
+    border-radius: 20px;
+    background-color: darkgrey;
+    padding: 100px 100px;
     color: #fff;
-
+    text-align: left;
 }
+
