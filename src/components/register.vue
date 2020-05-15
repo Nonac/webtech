@@ -1,6 +1,6 @@
 <template>
     <div>
-        <br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br>
         <div class="container">
             <div class="row">
                 <div class="col-6 left">
@@ -18,7 +18,8 @@
                         </div>
                         <div class="form-group">
                             <label for="Re-password">Re-Password</label>
-                            <label for="Invaild" v-if=" invaildLebalShow">    Inconsistent passwords.</label>
+                            <br>
+                            <label for="Invaild" v-show=" invaildLebalShow" class="invaild">Inconsistent passwords.</label>
                             <input type="re-password" v-model="rePassword" class="form-control" placeholder="Re-password">
                         </div>
                         <input type="button" @click="save" class="btn btn-primary" value="Submit">
@@ -48,8 +49,12 @@
 </template>
 
 <script>
+
+    import Utils from "@/js/utils";
+
     export default {
         name: "register",
+
         data(){
             return{
                 userName: "",
@@ -59,7 +64,8 @@
                 showMyPassword: null,
                 showDisplay: false,
                 invaildLebalShow:false,
-                rePasswordLegal:false
+                rePasswordLegal:false,
+                key:'abcdefgabcdefg12'
             }
         },
         methods: {
@@ -67,8 +73,8 @@
                 this.rePasswordLegal = this.rePassword === this.password;
 
                 if(this.rePasswordLegal) {
-                    this.showMyUsername = this.userName;
-                    this.showMyPassword = this.password;
+                    this.showMyUsername= Utils.encrypt(this.userName,this.key);
+                    this.showMyPassword= Utils.encrypt(this.password,this.key);
                     this.invaildLebalShow=false;
                     this.userName = "";
                     this.password = "";
@@ -86,6 +92,5 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped src="../view/index/assets/login.css">
 </style>

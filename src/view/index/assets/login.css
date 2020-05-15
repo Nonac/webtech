@@ -22,10 +22,14 @@
 }
 .left{
     width: 50%;
-    border-radius: 20px;
-    background-color: darkgrey;
+    border-radius: 10px;
+    background-color: #343A40;
     padding: 100px 100px;
     color: #fff;
     text-align: left;
+}
+
+.invaild{
+    color:red;
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <div><br><br><br><br><br><br><br><br><br><br><br>
+    <div><br><br><br><br><br>
     <div class="container">
 
             <div class="row">
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+    import Utils from '@/js/utils.js'
     export default {
         name: "login",
         data(){
@@ -51,15 +52,15 @@
                 password: "",
                 showMyUsername: null,
                 showMyPassword: null,
-                showDisplay: false
-
+                showDisplay: false,
+                key:'abcdefgabcdefg12'
             }
 
         },
         methods: {
             save(){
-                this.showMyUsername= this.userName;
-                this.showMyPassword= this.password;
+                this.showMyUsername= Utils.encrypt(this.userName,this.key);
+                this.showMyPassword= Utils.encrypt(this.password,this.key);
                 this.userName="";
                 this.password="";
                 this.showDisplay= true;
@@ -69,5 +70,6 @@
     }
 </script>
 
-<style scoped>
+<style scoped src="../view/index/assets/login.css">
+
 </style>

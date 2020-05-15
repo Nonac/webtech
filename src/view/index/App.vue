@@ -1,33 +1,58 @@
 <template>
-  <div><Menu></Menu>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <login v-show:></login>
-    <register/>
-  </div>
+  <div>
+    <Menu @menu-click="menuIndex"></Menu>
+    <div id="app">
+      <Home v-if="isHomePage"></Home>
+      <login v-if="isLoginPage"></login>
+      <register v-if="isRegisterPage"></register>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from '../../components/HelloWorld.vue';
+import Home from '@/components/Home.vue';
 import login from "@/components/login";
 import register from "@/components/register";
 import Menu from "@/components/Menu";
 
+
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Home,
     login,
     register,
     Menu
   },
+  methods:{
+    menuIndex(index){
+      switch (index) {
+        case "homepage":
+          this.isHomePage=true;
+          this.isLoginPage=false;
+          this.isRegisterPage=false;
+          break;
+        case "login":
+          this.isHomePage=false;
+          this.isLoginPage=true;
+          this.isRegisterPage=false;
+          break;
+        case "register":
+          this.isHomePage=false;
+          this.isLoginPage=false;
+          this.isRegisterPage=true;
+          break;
+      }
+    }
+  },
   data:function() {
-return {
+        return {
+          isHomePage:true,
+          isLoginPage:false,
+          isRegisterPage:false
+        };
 
-  };
-}
+  }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Make your own resume</a>
+        <a class="navbar-brand" href="#"  @click="clickMenu(`homepage`)">Make your own resume</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" @click="clickMenu(`homepage`)">
                         <i class="fa fa-home"></i>
                         Home
                         <span class="sr-only">(current)</span>
@@ -39,7 +39,7 @@
             </ul>
             <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" @click="clickMenu(`login`)">
                         <i class="fa fa-bell">
                             <span class="badge badge-info"></span>
                         </i>
@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" @click="clickMenu(`register`)">
                         <i class="fa fa-globe">
                             <span class="badge badge-success"></span>
                         </i>
@@ -65,7 +65,16 @@
 
 <script>
     export default {
-        name: "Menu"
+        name: "Menu",
+        data:function () {
+            return{
+            }
+        },
+        methods:{
+          clickMenu(menuIndex){
+              this.$emit('menu-click',menuIndex)
+          }
+        }
     }
 </script>
 
