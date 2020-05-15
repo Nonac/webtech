@@ -92,5 +92,5 @@
     }
 </script>
 
-<style scoped src="../view/index/assets/login.css">
+<style scoped src="../view/index/assets/register.css">
 </style>

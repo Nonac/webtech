@@ -2,9 +2,11 @@
   <div>
     <Menu @menu-click="menuIndex"></Menu>
     <div id="app">
+      <div class="background background-blur"></div>
       <Home v-if="isHomePage"></Home>
       <login v-if="isLoginPage"></login>
       <register v-if="isRegisterPage"></register>
+
     </div>
   </div>
 </template>
@@ -56,13 +58,5 @@ export default {
 }
 </script>
 
-<style>
-  #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped src="../index/assets/app.css">
 </style>
