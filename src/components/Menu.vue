@@ -7,13 +7,16 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <router-link to="/home">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#" @click="clickMenu(`homepage`)">
+                    <a class="nav-link" href="#" >
+<!--                    <a class="nav-link" href="#" @click="clickMenu(`homepage`)">-->
                         <i class="fa fa-home"></i>
                         Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                </router-link>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fa fa-envelope-o">

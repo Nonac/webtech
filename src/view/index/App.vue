@@ -1,6 +1,7 @@
 <template>
   <div>
     <Menu @menu-click="menuIndex"></Menu>
+    <router-view></router-view>
     <div id="app">
       <div class="background background-blur"></div>
       <Home v-if="isHomePage"></Home>
