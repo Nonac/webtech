@@ -1,22 +1,19 @@
 <template>
     <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"  @click="clickMenu(`homepage`)">Make Your Own Resume</a>
+        <a class="navbar-brand" href="#"  @click="homeClick">Make Your Own Resume</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <router-link to="/home">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#" >
-<!--                    <a class="nav-link" href="#" @click="clickMenu(`homepage`)">-->
+                    <a class="nav-link" href="#" @click="homeClick">
                         <i class="fa fa-home"></i>
                         Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                </router-link>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fa fa-envelope-o">
@@ -42,7 +39,7 @@
             </ul>
             <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="clickMenu(`login`)">
+                    <a class="nav-link" href="#" @click="loginClick">
                         <i class="fa fa-bell">
                             <span class="badge badge-info"></span>
                         </i>
@@ -50,7 +47,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="clickMenu(`register`)">
+                    <a class="nav-link" href="#" @click="registerClick">
                         <i class="fa fa-globe">
                             <span class="badge badge-success"></span>
                         </i>
@@ -69,14 +66,20 @@
 <script>
     export default {
         name: "Menu",
-        data:function () {
+            data:function () {
             return{
             }
         },
         methods:{
-          clickMenu(menuIndex){
-              this.$emit('menu-click',menuIndex)
-          }
+            homeClick(){
+                this.$router.replace('/home')
+          },
+            loginClick(){
+                this.$router.replace('/login')
+            },
+            registerClick(){
+                this.$router.replace('/register')
+            }
         }
     }
 </script>
