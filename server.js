@@ -1,15 +1,16 @@
 "use strict";
 // todo delete before release
 require('./util/test');
-
 const express = require('express');
 const app = express();
 
-const db = require('./util/dbManager');
-db.init();
-
 // import routes
 const authRoute = require('./routes/auth');
+
+
+// Middlewares
+app.use(express.json());
+// Route middlewares
 app.use('/api/user', authRoute);
 
 

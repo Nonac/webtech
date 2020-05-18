@@ -9,6 +9,7 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
