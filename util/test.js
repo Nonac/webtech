@@ -1,9 +1,23 @@
 console.log('test started...');
 const db = require('./dbManager');
-//db.run("INSERT INTO User (username, userhash) VALUES ('boris', 'asdfghjkl')");
-//db.getUsers((row) => console.log(row));
-//console.log(db.run(sql, 'User', 'username', 'boris'));
-db.resetDb();
+
+(async() =>
+{
+
+  let rv = await db.resetDb();
+  console.log(rv ? rv : "db reset.")
+  rv = await db.createNewUser(
+    {username:"BorisJohnson", userhash:"123456", email:"boris@gmail.com"});
+  console.log(rv ? rv : "boris created")
+  //
+
+  // rv = await db.createNewUser({
+  //       username:"ThereasaMay", userhash:"123456", email:"may@gmail.com"
+  // });
+  // console.log(rv ? rv : "may created")
+
+  await db.getUsers(row => console.log(row));
 
 
-console.log('test finished...');
+  console.log('test finished...');
+})();

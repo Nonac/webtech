@@ -1,6 +1,7 @@
 "use strict";
 const router = require('express').Router();
 const db = require('../util/dbManager');
+const bcrypt = require('bcryptjs');
 
 const {
   validateRegistation
@@ -13,21 +14,32 @@ router.post('/register', async (req, res) => {
   const {
     error,
     value: newUser
-  } = validateRegistation(req.body);
+  } = await validateRegistation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   // check existence
-  if(db.checkExistence('User', 'username', newUser.username) === true){
+  let is_existing = await db.checkExistence('User', 'username', newUser.username);
+  if(is_existing){
         return res.status(400).send(`username ${newUser.username} already exists.`);
   }
-  if(db.checkExistence('User', 'email', newUser.email) === true){
+  is_existing = await db.checkExistence('User', 'email', newUser.email);
+  if(is_existing){
         return res.status(400).send(`${newUser.email} has already been registered.`);
   }
 
-  const dbResult = await db.createNewUser(newUser);
-  console.log(dbResult);
-  res.send('Registration is successful');
+  // Hash password
+  const salt = await bcrypt.genSalt(10);
+  const userhash = await bcrypt.hash(newUser.password, salt);
 
+  // update into db
+  let dbResult = await db.createNewUser(
+    {username: newUser.username, userhash: userhash, email: newUser.email});
+  if(dbResult){
+    console.error(dbResult);
+    return res.status(400).send('Registration failed.');
+  }
+
+  res.send('Registration was successful');
 })
 
 
