@@ -6,12 +6,14 @@ const app = express();
 
 // import routes
 const authRoute = require('./routes/auth');
+const postRoute = require('./routes/post');
 
 
 // Middlewares
 app.use(express.json());
 // Route middlewares
 app.use('/api/user', authRoute);
+app.use('/api/post', postRoute);
 
 
 const publicDir = __dirname + '/dist/'

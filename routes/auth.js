@@ -2,13 +2,19 @@
 const router = require('express').Router();
 const db = require('../util/dbManager');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+
+
+const DBError = require('../util/DBError');
 const {
-  validateRegistation
+  validateRegistation,
+  validateLogin
 } = require('../util/validation');
 
 
-
+// register
 router.post('/register', async (req, res) => {
   // validate schema
   const {
@@ -17,29 +23,49 @@ router.post('/register', async (req, res) => {
   } = await validateRegistation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  // check existence
-  let is_existing = await db.checkExistence('User', 'username', newUser.username);
-  if(is_existing){
-        return res.status(400).send(`username ${newUser.username} already exists.`);
-  }
-  is_existing = await db.checkExistence('User', 'email', newUser.email);
-  if(is_existing){
-        return res.status(400).send(`${newUser.email} has already been registered.`);
-  }
-
-  // Hash password
-  const salt = await bcrypt.genSalt(10);
-  const userhash = await bcrypt.hash(newUser.password, salt);
-
   // update into db
-  let dbResult = await db.createNewUser(
-    {username: newUser.username, userhash: userhash, email: newUser.email});
-  if(dbResult){
-    console.error(dbResult);
-    return res.status(400).send('Registration failed.');
+  try{
+      const thisUser = await db.createNewUser(newUser);
+      console.log(thisUser);
+      res.status(200).send({userId:thisUser.id});
+      //res.send('registration succeeded.');
+  }catch(err){
+    if(err instanceof DBError){
+      return res.status(err.status).send(err.message);
+    }
+    console.error(err.message);
+    return res.status(400).send('registration failed.');
   }
+})
 
-  res.send('Registration was successful');
+// login
+router.post('/login', async (req, res) =>{
+  // validate schema
+  const {
+    error,
+    value: reqUser
+  } = await validateLogin(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  try{
+    const dbUser = await db.getUser(reqUser.username);
+    if(dbUser === null){
+      res.status(200).send(`Username or password is wrong.`);
+    }
+
+    // check password
+    const isPasswordValid = await bcrypt.compare(reqUser.password, dbUser.userhash);
+    if(!isPasswordValid){
+      return res.status(400).send('Username or password is wrong.');
+    }
+
+    // create a jwt
+    const token = jwt.sign({id:dbUser.id}, process.env.JWT_SECRET);
+    res.status(400).header('auth-token', token).send(token);
+    //console.log(JSON.stringify(thisUser));
+  }catch(err){
+    console.log(err)
+  }
 })
 
 
