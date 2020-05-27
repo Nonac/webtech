@@ -84,7 +84,6 @@
                 }
                 this.$http.post(this.serverRootUrl + '/api/user/register', newUser)
                 .then(function(data){
-                  console.log(data);
                   if(data.status == 201){ // succeeded
                     alert('Registration succeed.');
                     const authToken = data.headers.map['auth-token'];

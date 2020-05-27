@@ -16,7 +16,7 @@
                             <label for="password">Password</label>
                             <input type="password" v-model="password" class="form-control" placeholder="password">
                         </div>
-                        <input type="button" @click="save()" class="btn btn-primary" value="Submit">
+                        <input type="button" @click="submitLoginRequest()" class="btn btn-primary" value="Submit">
                     </form>
                 </div>
                 <div class="col-6 right" v-if="showDisplay">
@@ -44,6 +44,8 @@
 
 <script>
     import Utils from '@/js/utils.js'
+    import {bus} from '@/view/index/main';
+
     export default {
         name: "login",
         data(){
@@ -65,6 +67,29 @@
                 this.password="";
                 this.showDisplay= true;
 
+            },
+            submitLoginRequest(){
+              let user = {
+                username: this.userName,
+                password: this.password
+              }
+              this.$http.post(this.serverRootUrl + '/api/user/login', user)
+              .then(
+                (data) => {
+                  if(data.status == 201){
+                    alert('Logged in.');
+                    const authToken = data.headers.map['auth-token'];
+                    const username = data.body.username;
+                    this.$cookies.set('jwt', authToken);
+                    this.$cookies.set('username', username);
+                    bus.$emit('loggedIn', null);
+                  }else{
+                    alert('当我打出? 不是我有问题而是我觉得你有问题');
+                  }
+                }
+              ).catch(function(err){
+                alert(err.body);
+              });
             }
         }
     }
