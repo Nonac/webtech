@@ -65,6 +65,15 @@
                     </a>
                 </li>
 
+                <li class="nav-item" v-if="isLoggedIn">
+                    <a class="nav-link" @click.prevent="signOut">
+                        <i class="fa fa-globe">
+                            <span class="badge badge-success"></span>
+                        </i>
+                        Sign out
+                    </a>
+                </li>
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -94,6 +103,12 @@
             },
             registerClick(){
                 this.$router.replace('/register')
+            },
+            signOut(){
+              this.$cookies.remove('jwt');
+              this.$cookies.remove('username');
+              this.usernale = null;
+              this.isLoggedIn = false;
             }
         },
         created(){
