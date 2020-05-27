@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Menu></Menu>
+    <!-- <Menu></Menu> -->
     <router-view name="top"></router-view>
     <div id="app">
+              <router-view></router-view>
       <div class="background background-blur"></div>
-        <router-view></router-view>
+
     </div>
 
   </div>
@@ -12,13 +13,13 @@
 
 <script>
 
-import Menu from "@/components/Menu";
+// import Menu from "@/components/Menu";
 
 
 export default {
   name: 'App',
   components: {
-    Menu
+    // Menu
   },
   methods:{
 

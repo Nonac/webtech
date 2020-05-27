@@ -6,35 +6,41 @@ import Home from "@/components/Home";
 import Menu from "@/components/Menu";
 import Vue from 'vue'
 
+import App from "@/view/index/App"
+
+const routes = [{
+  path: '/',
+  component: App,
+
+  children: [
+    {
+      name: 'App',
+      path: '',
+      components: {default:Home, top:Menu},
+    },
+
+    {
+      path: 'login',
+      components: {default:login, top:Menu},
+    },
+
+    {
+      path: 'register',
+      components: {default:register, top:Menu}
+    },
+
+    {
+      path: 'home',
+      components: {default:Home, top:Menu}
+    }
+  ]
+}
+
+];
+
+
 Vue.use(VueRouter);
 
-let router = new VueRouter({
-    routes: [
-        {
-            path:'/',
-            name:'App',
-            component:{
-                default: Home,
-                top:Menu,
-            },
-            children:[{
-                path:'/login',
-                component:login
-            },
-                {
-                    path:'/register',
-                    component:register
-                },
-                {
-                    path:'/home',
-                    component:{
-                        top:Menu,
-                        default:Home
-                    }
-                },
-            ]
-        }]
-
+export default new VueRouter({
+  routes
 });
-
-export default router
