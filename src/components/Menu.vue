@@ -38,7 +38,8 @@
                 </li>
             </ul>
             <ul class="navbar-nav ">
-                <li class="nav-item">
+                <!-- when the user has not logged in -->
+                <li class="nav-item" v-if="!isLoggedIn">
                     <a class="nav-link" href="#" @click="loginClick">
                         <i class="fa fa-bell">
                             <span class="badge badge-info"></span>
@@ -46,7 +47,7 @@
                         Sign In
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="!isLoggedIn">
                     <a class="nav-link" href="#" @click="registerClick">
                         <i class="fa fa-globe">
                             <span class="badge badge-success"></span>
@@ -54,6 +55,16 @@
                         Sign Up
                     </a>
                 </li>
+                <!-- when the user has logged in -->
+                <li class="nav-item" v-if="isLoggedIn">
+                    <a class="nav-link">
+                        <i class="fa fa-globe">
+                            <span class="badge badge-success"></span>
+                        </i>
+                        {{username}}
+                    </a>
+                </li>
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -64,11 +75,15 @@
 </template>
 
 <script>
+    import {bus} from '@/view/index/main';
+
     export default {
         name: "Menu",
-            data:function () {
-            return{
-            }
+        data:function () {
+          return{
+            isLoggedIn: false,
+            username: null
+          }
         },
         methods:{
             homeClick(){
@@ -80,6 +95,12 @@
             registerClick(){
                 this.$router.replace('/register')
             }
+        },
+        created(){
+          bus.$on('loggedIn', () => {
+            this.isLoggedIn = true;
+            this.username = this.$cookies.get('username');
+          });
         }
     }
 </script>

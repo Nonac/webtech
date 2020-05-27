@@ -51,6 +51,7 @@
 <script>
 
     import Utils from "@/js/utils";
+    import {bus} from '@/view/index/main';
 
     export default {
         name: "register",
@@ -81,8 +82,14 @@
                   console.log(data);
                   if(data.status == 201){ // succeeded
                     alert('Registration succeed.');
+                    const authToken = data.headers.map['auth-token'];
+                    const username = data.body.username;
+                    this.$cookies.set('jwt', authToken);
+                    this.$cookies.set('username', username);
+                    // inform Menu.vue that the user has logged in
+                    bus.$emit('loggedIn', null);
                   }else{
-                    alert('?');
+                    alert('当我打出? 不是我有问题而是我觉得你有问题');
                   }
                 }).catch(function(err){
                   alert(err.body);

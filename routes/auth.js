@@ -27,7 +27,9 @@ router.post('/register', async (req, res) => {
   try{
       const thisUser = await db.createNewUser(newUser);
       console.log("\nNew user registered:\n" + JSON.stringify(thisUser));
-      res.status(201).send({userId:thisUser.id});
+      // create a jwt
+      const token = jwt.sign({id:thisUser.id}, process.env.JWT_SECRET);
+      res.status(201).header('auth-token', token).send({username:thisUser.username});
       //res.send('registration succeeded.');
   }catch(err){
     if(err instanceof DBError){
@@ -61,7 +63,7 @@ router.post('/login', async (req, res) =>{
 
     // create a jwt
     const token = jwt.sign({id:dbUser.id}, process.env.JWT_SECRET);
-    res.status(400).header('auth-token', token).send(token);
+    res.status(201).header('auth-token', token).send({username:dbUsesr.username});
     //console.log(JSON.stringify(thisUser));
   }catch(err){
     console.log(err)
