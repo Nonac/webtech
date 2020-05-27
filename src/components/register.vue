@@ -13,6 +13,10 @@
 
                         </div>
                         <div class="form-group">
+                            <label for="email">email</label>
+                            <input type="email" v-model="email" class="form-control" placeholder="email">
+                        </div>
+                        <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" v-model="password" class="form-control" placeholder="password">
                         </div>
@@ -59,6 +63,7 @@
         data(){
             return{
                 userName: "",
+                email: "",
                 password: "",
                 rePassword:"",
                 showMyUsername: null,
@@ -75,7 +80,7 @@
                 let newUser = {
                   username: this.userName,
                   password: this.password,
-                  email: 'dummy@gmail.com'
+                  email: this.email
                 }
                 this.$http.post(this.serverRootUrl + '/api/user/register', newUser)
                 .then(function(data){
