@@ -22,7 +22,7 @@
                             <label for="Invaild" v-show=" invaildLebalShow" class="invaild">Inconsistent passwords.</label>
                             <input type="re-password" v-model="rePassword" class="form-control" placeholder="Re-password">
                         </div>
-                        <input type="button" @click="save" class="btn btn-primary" value="Submit">
+                        <input type="button" @click.prevent="submitRegRequest" class="btn btn-primary" value="Submit">
                     </form>
                 </div>
                 <div class="col-6 right" v-if="showDisplay">
@@ -65,10 +65,32 @@
                 showDisplay: false,
                 invaildLebalShow:false,
                 rePasswordLegal:false,
-                key:'abcdefgabcdefg12'
+                key:'abcdefgabcdefg12',
+                registrationInfo: ''
             }
         },
         methods: {
+            submitRegRequest: function(){
+                let newUser = {
+                  username: this.userName,
+                  password: this.password,
+                  email: 'dummy@gmail.com'
+                }
+                this.$http.post(this.serverRootUrl + '/api/user/register', newUser)
+                .then(function(data){
+                  console.log(data);
+                  if(data.status == 201){ // succeeded
+                    alert('Registration succeed.');
+                  }else{
+                    alert('?');
+                  }
+                }).catch(function(err){
+                  alert(err.body);
+                });
+
+
+            },
+
             save:function(){
                 this.rePasswordLegal = this.rePassword === this.password;
 

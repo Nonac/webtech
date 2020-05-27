@@ -26,8 +26,8 @@ router.post('/register', async (req, res) => {
   // update into db
   try{
       const thisUser = await db.createNewUser(newUser);
-      console.log(thisUser);
-      res.status(200).send({userId:thisUser.id});
+      console.log("\nNew user registered:\n" + JSON.stringify(thisUser));
+      res.status(201).send({userId:thisUser.id});
       //res.send('registration succeeded.');
   }catch(err){
     if(err instanceof DBError){
@@ -50,7 +50,7 @@ router.post('/login', async (req, res) =>{
   try{
     const dbUser = await db.getUser(reqUser.username);
     if(dbUser === null){
-      res.status(200).send(`Username or password is wrong.`);
+      res.status(400).send(`Username or password is wrong.`);
     }
 
     // check password
