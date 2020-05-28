@@ -22,6 +22,13 @@
                         About
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" @click="formClick">
+                        <i class="fa fa-home"></i>
+                        Form
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-envelope-o">
@@ -98,6 +105,9 @@
             homeClick(){
                 this.$router.replace('/home')
           },
+            formClick(){
+                this.$router.replace('/form')
+            },
             loginClick(){
                 this.$router.replace('/login')
             },

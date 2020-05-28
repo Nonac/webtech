@@ -3,9 +3,8 @@
     <!-- <Menu></Menu> -->
     <router-view name="top"></router-view>
     <div id="app">
-              <router-view></router-view>
+      <router-view></router-view>
       <div class="background background-blur"></div>
-
     </div>
 
   </div>
