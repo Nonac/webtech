@@ -5,7 +5,8 @@
         <div class="resume">
 
             <div class="left">
-                <Brief :data="defaultData.Brief"/>
+                <!-- <Brief :data="defaultData.Brief"/> -->
+                <Brief />
             </div>
         </div>
         </div>
@@ -15,16 +16,17 @@
 
 <script>
 import Brief from '@/components/brief'
-import defaultData from '@/config/data.js'
+// import defaultData from '@/config/data.js'
     export default {
         name: "personalForm",
         components: {
             Brief
         },
         computed: {
-            defaultData () {
-                return defaultData
-            }
+            // defaultData () {
+            //   return '';
+            //     // return defaultData
+            // }
         }
     }
 </script>

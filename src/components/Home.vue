@@ -5,7 +5,7 @@
                 <p class="hero-work">The BEST Online Resume Builder</p>
                 <h2 class="hero-title">Make Your Own Resume</h2>
                 <p class="hero-sub-title">Sign up! Submit information! Generate! Post!</p>
-                <a href="#" class="btn btn-main btn-lg">Start</a>
+                <router-link to='/form'><a class="btn btn-main btn-lg">Start</a></router-link>
             </div>
     </div>
 </template>

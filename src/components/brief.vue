@@ -1,51 +1,63 @@
 <template>
     <div class="brief">
         <div class="avatar">
-            <EditImage :src="require('@/view/index/assets/logo_name.png')" width="100" height="100" :isCircle="true" class="img"/>
-            <div class="name" contenteditable="true" v-html="data.name" @input="contentChange('name', $event)"/>
-            <div class="job" contenteditable="true" v-html="data.position" @input="contentChange('position', $event)"/>
+            <!-- <EditImage :src="require('@/view/index/assets/logo_name.png')" width="100" height="100" :isCircle="true" class="img"/> -->
+            <div class="name" contenteditable="true" v-html="userdata.name" @input="contentChange('name', $event)"/>
+            <div class="job" contenteditable="true" v-html="userdata.position" @input="contentChange('position', $event)"/>
             <div class="location">
-                <div class="location-name" contenteditable="true" v-html="data.location" @input="contentChange('location', $event)"/>
+                <div class="location-name" contenteditable="true" v-html="userdata.location" @input="contentChange('location', $event)"/>
             </div>
         </div>
         <div class="info">
             <ul>
                 <li>
-                    <span class="value" contenteditable="true" v-html="data.sex" @input="contentChange('sex', $event)"/>
+                    <span class="value" contenteditable="true" v-html="userdata.gender" @input="contentChange('gender', $event)"/>
                     <br>
-                    <span class="key" contenteditable="true">SEX</span>
+                    <span class="key" contenteditable="true">Gender</span>
                 </li>
                 <li>
-                    <span class="value" contenteditable="true" v-html="data.age" @input="contentChange('age', $event)"/>
+                    <span class="value" contenteditable="true" v-html="userdata.age" @input="contentChange('age', $event)"/>
                     <br>
-                    <span class="key" contenteditable="true">AGE</span>
+                    <span class="key" contenteditable="true">Age</span>
                 </li>
                 <li>
-                    <span class="value" contenteditable="true" v-html="data.degree" @input="contentChange('degree', $event)"/>
+                    <span class="value" contenteditable="true" v-html="userdata.degree" @input="contentChange('degree', $event)"/>
                     <br>
-                    <span class="key" contenteditable="true">DEGREE</span>
+                    <span class="key" contenteditable="true">Degree</span>
                 </li>
             </ul>
         </div>
     </div>
 </template>
 <script>
-    import EditImage from '@/components/edit-image'
+    // import EditImage from '@/components/edit-image'
     export default {
         name: 'Brief',
         props: {
-            data: {
-                type: Object,
-                default: () => {}
-            }
+            // data: {
+            //     type: Object,
+            //     default: () => {}
+            // }
+        },
+        data: () => {
+          // default value for undefined key
+          const fieldDefaultValue = '';
+          return{
+            userdata: new Proxy({}, {
+              // if calls get on an undefined key, returns a default value
+              get: (target, key) =>
+                Object.prototype.hasOwnProperty.call(target, key) ? target[key] : fieldDefaultValue
+            }),
+          }
+
         },
         components: {
-            EditImage
+            // EditImage
         },
         methods: {
             contentChange (key, e) {
-                this.data[key] = e.target.innerText
-                console.log('brief-change', this.data)
+                this.userdata[key] = e.target.innerText
+                console.log('brief-change', this.userdata)
             }
         }
     }
