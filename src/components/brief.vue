@@ -1,5 +1,10 @@
 <template>
+  <div>
+    <h1>asdfdsafasdfsa</h1>
+    <link rel="stylesheet" :href="templatePath">
+
     <div class="cv">
+
         <div class="avatar">
             <!-- <EditImage :src="require('@/view/index/assets/logo_name.png')" width="100" height="100" :isCircle="true" class="img"/> -->
             <div class="name" contenteditable="true" v-html="userdata.name" @input="contentChange('name', $event)"/>
@@ -28,6 +33,7 @@
             </ul>
         </div>
     </div>
+  </div>
 </template>
 <script>
     // import EditImage from '@/components/edit-image'
@@ -64,19 +70,40 @@
                 console.log('brief-change', this.userdata)
             }
         },
+        computed:{
+          templatePath(){
+            return 'template.css';
+          }
+        },
         created(){
           // fetch template from the server
-          const url = this.serverRootUrl + '/api/template';
-          const params = `?id=${this.templateId}`;
-          this.$http.get(url + params)
-          .then((res) => {
+          (async () => {
+            const url = await this.serverRootUrl + 'template.css';
+            //const query = `?id=${this.templateId}`;
+            try{
+              const res = await this.$http.get(url);
               if(res.status === 200){
-                this.style = res.body.css;
+                // this.style = res.body.css;
+                console.log(res);
               }else{
                 alert('Sorry');
               }
-          })
-          .catch(err => console.log(err));
+            }catch(err){
+              console.log(err);
+            }
+
+          })();
+
+          // this.$http.get(url + query)
+          // .then((res) => {
+          //     if(res.status === 200){
+          //       // this.style = res.body.css;
+          //       console.log(res);
+          //     }else{
+          //       alert('Sorry');
+          //     }
+          // })
+          // .catch(err => console.log(err));
         }
     }
 </script>
