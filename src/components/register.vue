@@ -1,6 +1,7 @@
 <template>
     <div>
         <br><br><br><br><br>
+        <div class="background background-blur"></div>
         <div class="container">
             <div class="row">
                 <div class="col-6 left">
@@ -54,7 +55,6 @@
 
 <script>
 
-    import Utils from "@/js/utils";
     import {bus} from '@/view/index/main';
 
     export default {
@@ -106,8 +106,6 @@
                 this.rePasswordLegal = this.rePassword === this.password;
 
                 if(this.rePasswordLegal) {
-                    this.showMyUsername= Utils.encrypt(this.userName,this.key);
-                    this.showMyPassword= Utils.encrypt(this.password,this.key);
                     this.invaildLebalShow=false;
                     this.userName = "";
                     this.password = "";

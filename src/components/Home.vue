@@ -1,5 +1,6 @@
 <template>
     <div><br><br><br><br><br>
+        <div class="background background-blur"></div>
             <div class="content-front">
                 <p class="hero-work">The BEST Online Resume Builder</p>
                 <h2 class="hero-title">Make Your Own Resume</h2>

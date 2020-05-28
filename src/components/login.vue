@@ -1,5 +1,6 @@
 <template>
     <div><br><br><br><br><br>
+        <div class="background background-blur"></div>
     <div class="container">
 
             <div class="row">
@@ -43,7 +44,6 @@
 </template>
 
 <script>
-    import Utils from '@/js/utils.js'
     import {bus} from '@/view/index/main';
 
     export default {
@@ -61,12 +61,9 @@
         },
         methods: {
             save(){
-                this.showMyUsername= Utils.encrypt(this.userName,this.key);
-                this.showMyPassword= Utils.encrypt(this.password,this.key);
                 this.userName="";
                 this.password="";
                 this.showDisplay= true;
-
             },
             submitLoginRequest(){
               let user = {

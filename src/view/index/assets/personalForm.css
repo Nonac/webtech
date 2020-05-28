@@ -1,0 +1,54 @@
+.background {
+    background: url('./blackground.jpg') no-repeat center;
+    background-size: cover;
+    height:600px;
+    position:absolute;
+    line-height: 600px;
+    text-align: center;
+    z-index: -1;
+}
+
+.background-blur {
+    float: left;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+}
+
+.form{
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: left;
+    color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    .resume {
+        margin-top: 40px;
+        position: relative;
+        width: 790px;
+        height: 1754px;
+        border: 1px solid #dad8d7;
+        background-color: white;
+        overflow: hidden;
+        box-sizing: border-box;
+        .left {
+            width: 240px;
+            height: 100%;
+            box-sizing: border-box;
+            float: left;
+            background-color: #fdfefe;
+            position: relative;
+        }
+    }
+}
+
+
