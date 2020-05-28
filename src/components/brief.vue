@@ -72,38 +72,13 @@
         },
         computed:{
           templatePath(){
-            return this.serverRootUrl + '/api/template/template.css';
+            const url = this.serverRootUrl + '/api/template/template.css';
+            const query = `?id=${this.templateId}`;
+            return url + query;
           }
         },
         created(){
-          // fetch template from the server
-          (async () => {
-            const url = await this.serverRootUrl + '/api/template/template.css';
-            //const query = `?id=${this.templateId}`;
-            try{
-              const res = await this.$http.get(url);
-              if(res.status === 200){
-                // this.style = res.body.css;
-                console.log(res);
-              }else{
-                alert('Sorry');
-              }
-            }catch(err){
-              console.log(err);
-            }
 
-          })();
-
-          // this.$http.get(url + query)
-          // .then((res) => {
-          //     if(res.status === 200){
-          //       // this.style = res.body.css;
-          //       console.log(res);
-          //     }else{
-          //       alert('Sorry');
-          //     }
-          // })
-          // .catch(err => console.log(err));
         }
     }
 </script>
