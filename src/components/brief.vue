@@ -1,5 +1,5 @@
 <template>
-    <div class="brief">
+    <div class="cv">
         <div class="avatar">
             <!-- <EditImage :src="require('@/view/index/assets/logo_name.png')" width="100" height="100" :isCircle="true" class="img"/> -->
             <div class="name" contenteditable="true" v-html="userdata.name" @input="contentChange('name', $event)"/>
@@ -32,7 +32,7 @@
 <script>
     // import EditImage from '@/components/edit-image'
     export default {
-        name: 'Brief',
+        name: 'cv',
         props: {
             // data: {
             //     type: Object,
@@ -48,6 +48,10 @@
               get: (target, key) =>
                 Object.prototype.hasOwnProperty.call(target, key) ? target[key] : fieldDefaultValue
             }),
+            // the id of the chosen template on the server
+            templateId: 1, // by default.
+
+            style: '', // css template for the cv
           }
 
         },
@@ -59,86 +63,20 @@
                 this.userdata[key] = e.target.innerText
                 console.log('brief-change', this.userdata)
             }
+        },
+        created(){
+          // fetch template from the server
+          const url = this.serverRootUrl + '/api/template';
+          const params = `?id=${this.templateId}`;
+          this.$http.get(url + params)
+          .then((res) => {
+              if(res.status === 200){
+                this.style = res.body.css;
+              }else{
+                alert('Sorry');
+              }
+          })
+          .catch(err => console.log(err));
         }
     }
 </script>
-<style lang="less">
-    .brief {
-        width: 100%;
-        // height: 575px;
-        background-color: #f6f7f7;
-
-        .avatar {
-            height: 260px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            &>.img {
-                margin-bottom: 10px;
-            }
-
-            .name {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 5px;
-            }
-
-            .job {
-                font-size: 14px;
-                color: #555;
-                margin-bottom: 5px;
-            }
-
-            .location {
-                display: flex;
-                align-itmes: center;
-
-                .location-name {
-                    font-size: 12px;
-                    font-weight: bold;
-                    margin-left: 10px;
-                }
-            }
-        }
-
-        .info {
-            width: 100%;
-            overflow: hidden;
-            border-top: 1px solid #dad8d7;
-            border-bottom: 1px solid #dad8d7;
-            &>ul {
-                height: 100%;
-                li:not(:last-child) {
-                    border-right: 1px solid #dad8d7;
-                }
-
-                li {
-                    float: left;
-                    width: 33.1%;
-                    box-sizing: border-box;
-                    height: 100%;
-                    overflow: hidden;
-                    text-align: center;
-                    padding: 10px 0;
-                    span {
-                        display: inline-block;
-                        margin: 0 auto;
-                    }
-                    .value {
-                        margin-bottom: 5px;
-                        font-size: 14px;
-                        font-weight: bold;
-                    }
-                    .key {
-                        font-size: 12px;
-                        font-weight: bold;
-                        color: #555;
-                    }
-                }
-            }
-        }
-    }
-
-</style>

@@ -13,7 +13,7 @@ const assert = require('assert');
 // }
 
 // test cases
-(async() => {
+const testInit = async() => {
   console.log('test started...');
 
   // drop and create tables
@@ -46,10 +46,15 @@ const assert = require('assert');
 
 
   console.log('test finished...');
-})();
+};
+
+// testInit();
 
 // scratch space
 (async() =>
 {
+  let rv = await db.resetDb();
+  console.log(rv===null ? 'db reset' : rv.message);
 
+  await require('./dbInsertTemplates');
 })();

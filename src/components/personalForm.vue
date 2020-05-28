@@ -6,7 +6,7 @@
 
             <div class="left">
                 <!-- <Brief :data="defaultData.Brief"/> -->
-                <Brief />
+                <cv />
             </div>
         </div>
         </div>
@@ -15,12 +15,12 @@
 
 
 <script>
-import Brief from '@/components/brief'
+import cv from '@/components/brief'
 // import defaultData from '@/config/data.js'
     export default {
         name: "personalForm",
         components: {
-            Brief
+            cv
         },
         computed: {
             // defaultData () {

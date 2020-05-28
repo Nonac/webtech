@@ -73,7 +73,7 @@
               this.$http.post(this.serverRootUrl + '/api/user/login', user)
               .then(
                 (data) => {
-                  if(data.status == 201){
+                  if(data.status == 200){
                     alert('Logged in.');
                     const authToken = data.headers.map['auth-token'];
                     const username = data.body.username;

@@ -40,8 +40,13 @@ async function async_get(sql, params){
 
 
 async function resetDb() {
-  let rv = await async_run(`DROP TABLE IF EXISTS User;`);
-  return rv == null ? initTables() : rv;
+  const tableNames = ['User', 'Template'];
+
+  for(let tableName of tableNames){
+    let rv = await async_run(`DROP TABLE IF EXISTS ${tableName};`);
+    if(rv !== null) return rv;
+  }
+  return initTables();
 }
 
 async function initTables() {
@@ -100,6 +105,17 @@ async function getUsers(actionOnEachRow) {
   })
 }
 
+async function getTemplate(id) {
+  let sql = `SELECT css FROM Template WHERE id = ?;`;
+  try{
+    const css = await async_get(sql, [id]);
+    return css;
+  }catch(err){
+    throw err;
+  }
+
+}
+
 async function closeDb() {
   return new Promise((resolve) => {
     db.close((err) => resolve(console.log(err ? err.message : "db closed.")));
@@ -115,6 +131,7 @@ module.exports.resetDb = resetDb;
 module.exports.checkExistence = checkExistence;
 module.exports.createNewUser = createNewUser;
 module.exports.getUser = getUser;
+module.exports.getTemplate = getTemplate;
 
-// todo: delete
+module.exports.async_run = async_run;
 module.exports.async_get = async_get;
