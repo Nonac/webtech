@@ -12,7 +12,7 @@ app.use(express.json());
 // Route middlewares
 app.use('/api/user', require('./routes/auth'));
 app.use('/api/post', require('./routes/post'));
-// app.use('/api/template', require('./routes/template'));
+app.use('/api/template', require('./routes/template'));
 
 const publicDir = __dirname + '/dist/'
 app.use( express.static( publicDir ));

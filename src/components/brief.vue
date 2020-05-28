@@ -72,13 +72,13 @@
         },
         computed:{
           templatePath(){
-            return 'template.css';
+            return this.serverRootUrl + '/api/template/template.css';
           }
         },
         created(){
           // fetch template from the server
           (async () => {
-            const url = await this.serverRootUrl + 'template.css';
+            const url = await this.serverRootUrl + '/api/template/template.css';
             //const query = `?id=${this.templateId}`;
             try{
               const res = await this.$http.get(url);
