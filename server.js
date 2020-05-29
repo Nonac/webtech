@@ -13,21 +13,18 @@ app.use(express.json());
 app.use('/api/user', require('./routes/auth'));
 app.use('/api/post', require('./routes/post'));
 app.use('/api/template', require('./routes/template'));
+app.use('/api/toPdf', require('./routes/toPdf'));
 
 const publicDir = __dirname + '/dist/'
 app.use( express.static( publicDir ));
+
+const assetsDir = __dirname + '/assets/'
+app.use( express.static( assetsDir ));
 
 app.get('/', (req, res) => {
   res.sendFile(publicDir + 'index.html');
 })
 
-app.get('/template.css', async(req, res) =>{
-  let templateId = req.query.id != undefined ? req.query.id : 1; // 1 by default
-  // returns {css: data};
-  //const css = await db.getTemplate(templateId);
-  const cssFilePath = path.resolve(__dirname + `/util/templates/${templateId}.css`);
-  res.sendFile(cssFilePath);
-})
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log (`Server listening on port ${port}`));

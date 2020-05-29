@@ -1,44 +1,40 @@
-.cv * {
+.cv-contents * {
   margin: 0;
   padding: 0;
-}
-
-.cv body {
   font: 16px Helvetica, Sans-Serif;
   line-height: 24px;
-  background: url(images/noise.jpg);
+  /* background : url(images/noise.jpg); */
 }
 
-.cv .clear {
+.cv-contents .clear {
   clear: both;
 }
 
-.cv #page-wrap {
-  width: 800px;
-  margin: 40px auto 60px;
-}
 
-.cv #pic {
+.cv-contents #avatar {
   float: right;
+  border-radius: 8px;
+  width: 65mm;
   margin: -30px 0 0 0;
 }
 
-.cv h1 {
+.cv-contents h1 {
   margin: 0 0 16px 0;
   padding: 0 0 16px 0;
   font-size: 42px;
   font-weight: bold;
+  line-height: 42px;
   letter-spacing: -2px;
   border-bottom: 1px solid #999;
 }
 
-.cv h2 {
+.cv-contents h2 {
   font-size: 20px;
   margin: 0 0 6px 0;
   position: relative;
 }
 
-.cv h2 span {
+.cv-contents h2 span {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -49,37 +45,37 @@
   font-weight: normal;
 }
 
-.cv p {
+.cv-contents p {
   margin: 0 0 16px 0;
 }
 
-.cv a {
+.cv-contents a {
   color: #999;
   text-decoration: none;
   border-bottom: 1px dotted #999;
 }
 
-.cv a:hover {
+.cv-contents a:hover {
   border-bottom-style: solid;
   color: black;
 }
 
-.cv ul {
+.cv-contents ul {
   margin: 0 0 32px 17px;
 }
 
-.cv #objective {
+.cv-contents #objective {
   width: 500px;
   float: left;
 }
 
-.cv #objective p {
+.cv-contents #objective p {
   font-family: Georgia, Serif;
   font-style: italic;
   color: #666;
 }
 
-.cv dt {
+.cv-contents dt {
   font-style: italic;
   font-weight: bold;
   font-size: 18px;
@@ -91,12 +87,12 @@
   border-right: 1px solid #999;
 }
 
-.cv dd {
+.cv-contents dd {
   width: 600px;
   float: right;
 }
 
-.cv dd.clear {
+.cv-contents dd.clear {
   float: none;
   margin: 0;
   height: 15px;
