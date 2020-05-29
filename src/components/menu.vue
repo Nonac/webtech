@@ -19,7 +19,7 @@
                         <i class="fa fa-envelope-o">
                             <span class="badge badge-danger"></span>
                         </i>
-                        About
+                        About Us
                     </a>
                 </li>
                 <li class="nav-item">

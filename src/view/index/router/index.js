@@ -3,7 +3,7 @@ import login from "@/components/login";
 import register from "@/components/register";
 import Home from "@/components/home";
 import personalForm from "@/components/personalForm";
-import about from "@/components/about";
+import about from "@/components/aboutus";
 // import App from "@/view/index/App";
 import Menu from "@/components/menu";
 import Vue from 'vue'
