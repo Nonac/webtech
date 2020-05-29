@@ -43,3 +43,7 @@
   padding: 10mm;
   background-color: #ffffff;
 }
+
+.A4paper, ::after, ::before {
+  box-sizing: initial;
+}
