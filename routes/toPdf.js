@@ -3,7 +3,7 @@ const db = require('../util/dbManager');
 const path = require('path');
 const pdf = require('../util/htmlToPdf');
 
-// root/api/template
+// root/api/toPdf
 router.post('/', async(req, res) =>{
   let templateId = req.body.templateId;
   if(templateId == undefined) templateId = 0;
@@ -12,11 +12,9 @@ router.post('/', async(req, res) =>{
   const cvContents = req.body.cvContents;
 
   const html = `<html><head>${htmlHeaders}</head><body>${cvContents}</body></html>`;
-  console.log(html);
 
-  const pdfPath = await pdf.toPdf(html);
-  console.log(pdfPath);
-  res.download(pdfPath, err => console.log(err));
+  const newPdf = await pdf.toPdf(html);
+  res.status(201).send(newPdf);
 })
 
 
