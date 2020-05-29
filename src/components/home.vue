@@ -5,23 +5,32 @@
                 <p class="hero-work">The BEST Online Resume Builder</p>
                 <h2 class="hero-title">Make Your Own Resume</h2>
                 <p class="hero-sub-title">Sign up! Submit information! Generate! Post!</p>
-                <router-link to='/form'>
-<!--                    <a class="btn btn-main btn-lg">Start</a>-->
+                <a @click="startClick">
                     <hgroup class="svg-border-animation">
-                        <svg viewBox="0 0 320 60" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 320 60">
                             <rect class="shape" height="60" width="320"></rect>
                         </svg>
                         <div class="hover-text">Start</div>
                     </hgroup>
-                </router-link>
+                </a>
             </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
-
+    name: 'Home',
+    methods:{
+        startClick(){
+            var c_start=document.cookie.indexOf("username");
+            if(c_start === -1){
+                this.$router.replace('/login')
+            }
+            else{
+                this.$router.replace('/form')
+            }
+        }
+    }
 }
 </script>
 
