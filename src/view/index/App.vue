@@ -4,7 +4,6 @@
     <router-view name="top"></router-view>
     <div id="app">
       <router-view></router-view>
-
     </div>
 
   </div>

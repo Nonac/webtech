@@ -22,7 +22,7 @@ export default {
     name: 'Home',
     methods:{
         startClick(){
-            var c_start=document.cookie.indexOf("username");
+            var c_start=document.cookie.indexOf("jwt");
             if(c_start === -1){
                 this.$router.replace('/login')
             }
