@@ -18,16 +18,16 @@
 
         <!-- Microformats! -->
 
-        <h1 class="fn">Borisa Jahnsumia</h1>
+        <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>
 
         <p>
-          Cell: <span class="tel">555-666-7777</span><br />
-          Email: <a class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
+          Cell: <span contenteditable class="tel">555-666-7777</span><br />
+          Email: <a contenteditable class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
         </p>
       </div>
 
       <div id="objective">
-        <p>
+        <p contenteditable>
           I am an outgoing and energetic (ask anybody) young professional, seeking a
           career that fits my professional skills, personality, and murderous tendencies.
           My squid-like head is a masterful problem solver and inspires fear in who gaze upon it.
@@ -41,7 +41,7 @@
         <dd class="clear"></dd>
 
         <dt>Education</dt>
-        <dd>
+        <dd contenteditable>
           <h2>Withering Madness University - Planet Vhoorl</h2>
           <p><strong>Major:</strong> Public Relations<br />
             <strong>Minor:</strong> Scale Tending</p>
@@ -50,7 +50,7 @@
         <dd class="clear"></dd>
 
         <dt>Skills</dt>
-        <dd>
+        <dd contenteditable>
           <h2>Office skills</h2>
           <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
 
@@ -61,7 +61,7 @@
         <dd class="clear"></dd>
 
         <dt>Experience</dt>
-        <dd>
+        <dd contenteditable>
           <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
           <ul>
             <li>Inspired and won highest peasant death competition among servants</li>
@@ -80,12 +80,12 @@
         <dd class="clear"></dd>
 
         <dt>Hobbies</dt>
-        <dd>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+        <dd contenteditable>World Domination, Deep Sea Diving, Murder Most Foul</dd>
 
         <dd class="clear"></dd>
 
         <dt>References</dt>
-        <dd>Available on request</dd>
+        <dd contenteditable>Available on request</dd>
 
         <dd class="clear"></dd>
       </dl>
