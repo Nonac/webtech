@@ -18,6 +18,9 @@ app.use('/api/toPdf', require('./routes/toPdf'));
 const publicDir = __dirname + '/dist/'
 app.use( express.static( publicDir ));
 
+const assetsDir = __dirname + '/assets/'
+app.use( express.static( assetsDir ));
+
 app.get('/', (req, res) => {
   res.sendFile(publicDir + 'index.html');
 })

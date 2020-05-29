@@ -1,18 +1,24 @@
 <template>
-<div>
-  <button type="button" class="btn btn-secondary" @click="generatePdf" download>Download Pdf</button>
+<div class="cv-back">
 
-  <div class="cv" ref="cv" id="cv">
+
+
+  <div class="sidenav">
+    <button class="side-btn btn btn-secondary btn-block" @click="generatePdf" download>Download as Pdf</button>
+  </div>
+
+  <!-- cv contents -->
+  <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">
-    <div id="page-wrap">
+    <div class="cv-contents A4paper">
 
-      <!-- <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" /> -->
+      <img src="/img/templates/example_avatar.png" alt="Photo of Borisa" id="avatar" />
 
       <div id="contact-info" class="vcard">
 
         <!-- Microformats! -->
 
-        <h1 class="fn">C'thulhu</h1>
+        <h1 class="fn">Borisa Jahnsumia</h1>
 
         <p>
           Cell: <span class="tel">555-666-7777</span><br />
@@ -88,8 +94,10 @@
 
     </div>
   </div>
-</div>
 
+
+
+</div>
 </template>
 
 
@@ -118,29 +126,28 @@ export default {
     }
 
   },
-  components: {
-  },
+  components: {},
   methods: {
     contentChange(key, e) {
       this.userdata[key] = e.target.innerText
       console.log('brief-change', this.userdata)
     },
-    generatePdf(){
+    generatePdf() {
       let reqBody = {
         html: this.$refs.cv.innerHTML,
         templateId: this.templateId
       }
-      this.$http.post(this.serverRootUrl + '/api/toPdf', reqBody,  {responseType: 'arraybuffer'})
-      .then( res =>
-        {
+      this.$http.post(this.serverRootUrl + '/api/toPdf', reqBody, {
+          responseType: 'arraybuffer'
+        })
+        .then(res => {
           var blob = new Blob([res.data]);
           var link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
           link.download = "Filename.pdf";
           link.click();
-        }
-      )
-      .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
     }
   },
   computed: {
@@ -156,9 +163,5 @@ export default {
 }
 </script>
 
-<style scoped>
-button{
-  height: 100px;
-  margin: 0 auto;
-}
+<style scoped src='../view/index/assets/cvMaker.css'>
 </style>
