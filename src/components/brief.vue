@@ -1,9 +1,9 @@
 <template>
 <div>
-  <link rel="stylesheet" :href="templatePath">
-  <button @click="print">print</button>
+  <button type="button" class="btn btn-secondary" @click="generatePdf" download>Download Pdf</button>
 
-  <div class="cv" id="cv-printable">
+  <div class="cv" ref="cv" id="cv">
+    <link rel="stylesheet" :href="templatePath">
     <div id="page-wrap">
 
       <!-- <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" /> -->
@@ -94,7 +94,7 @@
 
 
 <script>
-import printJS from 'print-js';
+// import printJS from 'print-js';
 
 
 export default {
@@ -125,11 +125,22 @@ export default {
       this.userdata[key] = e.target.innerText
       console.log('brief-change', this.userdata)
     },
-    print(){
-      alert('printing');
-      printJS({ printable: 'cv-printable', type: 'html',
-      css: [  "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css",
-              this.templatePath] });
+    generatePdf(){
+      let reqBody = {
+        html: this.$refs.cv.innerHTML,
+        templateId: this.templateId
+      }
+      this.$http.post(this.serverRootUrl + '/api/toPdf', reqBody,  {responseType: 'arraybuffer'})
+      .then( res =>
+        {
+          var blob = new Blob([res.data]);
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = "Filename.pdf";
+          link.click();
+        }
+      )
+      .catch(err => console.log(err));
     }
   },
   computed: {
@@ -144,3 +155,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+button{
+  height: 100px;
+  margin: 0 auto;
+}
+</style>

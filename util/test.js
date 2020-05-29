@@ -48,13 +48,10 @@ const testInit = async() => {
   console.log('test finished...');
 };
 
-// testInit();
+testInit();
 
 // scratch space
 (async() =>
 {
-  let rv = await db.resetDb();
-  console.log(rv===null ? 'db reset' : rv.message);
-
-  await require('./dbInsertTemplates');
+  // require('./htmlToPdf.js');
 })();
