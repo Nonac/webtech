@@ -1,13 +1,11 @@
 .cv * {
   margin: 0;
   padding: 0;
-}
-
-.cv body {
   font: 16px Helvetica, Sans-Serif;
   line-height: 24px;
-  background: url(images/noise.jpg);
+  /* background: url(images/noise.jpg); */
 }
+
 
 .cv .clear {
   clear: both;

@@ -1,15 +1,6 @@
 <template>
-    <div><br><br><br><br><br>
-        <div class="background background-blur"></div>
-        <div class="form">
-        <div class="resume">
-
-            <div class="left">
-                <!-- <Brief :data="defaultData.Brief"/> -->
-                <cv />
-            </div>
-        </div>
-        </div>
+    <div>
+      <cv />
     </div>
 </template>
 
@@ -30,7 +21,3 @@ import cv from '@/components/brief'
         }
     }
 </script>
-
-<style scoped src="../view/index/assets/personalForm.css">
-
-</style>

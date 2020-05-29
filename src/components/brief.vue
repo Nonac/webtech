@@ -1,84 +1,136 @@
 <template>
-  <div>
-    <h1>Personal Information</h1>
-    <link rel="stylesheet" :href="templatePath">
+<div>
+  <link rel="stylesheet" :href="templatePath">
 
-    <div class="cv">
+  <div class="cv">
+    <div id="page-wrap">
 
-        <div class="avatar">
-            <!-- <EditImage :src="require('@/view/index/assets/logo_name.png')" width="100" height="100" :isCircle="true" class="img"/> -->
-            <div class="name" contenteditable="true" v-html="userdata.name" @input="contentChange('name', $event)"/>
-            <div class="job" contenteditable="true" v-html="userdata.position" @input="contentChange('position', $event)"/>
-            <div class="location">
-                <div class="location-name" contenteditable="true" v-html="userdata.location" @input="contentChange('location', $event)"/>
-            </div>
-        </div>
-        <div class="info">
-            <ul>
-                <li>
-                    <span class="value" contenteditable="true" v-html="userdata.gender" @input="contentChange('gender', $event)"/>
-                    <br>
-                    <span class="key" contenteditable="true">Gender</span>
-                </li>
-                <li>
-                    <span class="value" contenteditable="true" v-html="userdata.age" @input="contentChange('age', $event)"/>
-                    <br>
-                    <span class="key" contenteditable="true">Age</span>
-                </li>
-                <li>
-                    <span class="value" contenteditable="true" v-html="userdata.degree" @input="contentChange('degree', $event)"/>
-                    <br>
-                    <span class="key" contenteditable="true">Degree</span>
-                </li>
-            </ul>
-        </div>
+      <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" />
+
+      <div id="contact-info" class="vcard">
+
+        <!-- Microformats! -->
+
+        <h1 class="fn">C'thulhu</h1>
+
+        <p>
+          Cell: <span class="tel">555-666-7777</span><br />
+          Email: <a class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
+        </p>
+      </div>
+
+      <div id="objective">
+        <p>
+          I am an outgoing and energetic (ask anybody) young professional, seeking a
+          career that fits my professional skills, personality, and murderous tendencies.
+          My squid-like head is a masterful problem solver and inspires fear in who gaze upon it.
+          I can bring world domination to your organization.
+        </p>
+      </div>
+
+      <div class="clear"></div>
+
+      <dl>
+        <dd class="clear"></dd>
+
+        <dt>Education</dt>
+        <dd>
+          <h2>Withering Madness University - Planet Vhoorl</h2>
+          <p><strong>Major:</strong> Public Relations<br />
+            <strong>Minor:</strong> Scale Tending</p>
+        </dd>
+
+        <dd class="clear"></dd>
+
+        <dt>Skills</dt>
+        <dd>
+          <h2>Office skills</h2>
+          <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
+
+          <h2>Computer skills</h2>
+          <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
+        </dd>
+
+        <dd class="clear"></dd>
+
+        <dt>Experience</dt>
+        <dd>
+          <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
+          <ul>
+            <li>Inspired and won highest peasant death competition among servants</li>
+            <li>Helped coordinate managers to grow cult following</li>
+            <li>Provided untimely deaths to all who opposed</li>
+          </ul>
+
+          <h2>The Watering Hole <span>Bartender/Server - Milwaukee, WI - 2009</span></h2>
+          <ul>
+            <li>Worked on grass-roots promotional campaigns</li>
+            <li>Reduced theft and property damage percentages</li>
+            <li>Janitorial work, Laundry</li>
+          </ul>
+        </dd>
+
+        <dd class="clear"></dd>
+
+        <dt>Hobbies</dt>
+        <dd>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+
+        <dd class="clear"></dd>
+
+        <dt>References</dt>
+        <dd>Available on request</dd>
+
+        <dd class="clear"></dd>
+      </dl>
+
+      <div class="clear"></div>
+
     </div>
   </div>
+</div>
+
 </template>
+
+
 <script>
-    // import EditImage from '@/components/edit-image'
-    export default {
-        name: 'cv',
-        props: {
-            // data: {
-            //     type: Object,
-            //     default: () => {}
-            // }
-        },
-        data: () => {
-          // default value for undefined key
-          const fieldDefaultValue = '';
-          return{
-            userdata: new Proxy({}, {
-              // if calls get on an undefined key, returns a default value
-              get: (target, key) =>
-                Object.prototype.hasOwnProperty.call(target, key) ? target[key] : fieldDefaultValue
-            }),
-            // the id of the chosen template on the server
-            templateId: 1, // by default.
+export default {
+  name: 'cv',
+  props: {
 
-            style: '', // css template for the cv
-          }
+  },
+  data: () => {
+    // default value for undefined key
+    const fieldDefaultValue = '';
+    return {
+      userdata: new Proxy({}, {
+        // if calls get on an undefined key, returns a default value
+        get: (target, key) =>
+          Object.prototype.hasOwnProperty.call(target, key) ? target[key] : fieldDefaultValue
+      }),
+      // the id of the chosen template on the server
+      templateId: 0, // by default.
 
-        },
-        components: {
-            // EditImage
-        },
-        methods: {
-            contentChange (key, e) {
-                this.userdata[key] = e.target.innerText
-                console.log('brief-change', this.userdata)
-            }
-        },
-        computed:{
-          templatePath(){
-            const url = this.serverRootUrl + '/api/template/template.css';
-            const query = `?id=${this.templateId}`;
-            return url + query;
-          }
-        },
-        created(){
-
-        }
+      style: '', // css template for the cv
     }
+
+  },
+  components: {
+  },
+  methods: {
+    contentChange(key, e) {
+      this.userdata[key] = e.target.innerText
+      console.log('brief-change', this.userdata)
+    }
+  },
+  computed: {
+    templatePath() {
+      const url = this.serverRootUrl + '/api/template/template.css';
+      const query = `?id=${this.templateId}`;
+      return url + query;
+    }
+  },
+  created() {
+
+  }
+}
 </script>
