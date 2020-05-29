@@ -111,18 +111,16 @@ export default {
 
   },
   data: () => {
-    // default value for undefined key
-    const fieldDefaultValue = '';
+    // // default value for undefined key
+    // const fieldDefaultValue = '';
     return {
-      userdata: new Proxy({}, {
-        // if calls get on an undefined key, returns a default value
-        get: (target, key) =>
-          Object.prototype.hasOwnProperty.call(target, key) ? target[key] : fieldDefaultValue
-      }),
+      // userdata: new Proxy({}, {
+      //   // if calls get on an undefined key, returns a default value
+      //   get: (target, key) =>
+      //     Object.prototype.hasOwnProperty.call(target, key) ? target[key] : fieldDefaultValue
+      // }),
       // the id of the chosen template on the server
       templateId: 0, // by default.
-
-      style: '', // css template for the cv
     }
 
   },
@@ -134,9 +132,11 @@ export default {
     },
     generatePdf() {
       let reqBody = {
-        html: this.$refs.cv.innerHTML,
+        htmlHeaders: document.head.innerHTML,
+        cvContents: this.$refs.cv.innerHTML,
         templateId: this.templateId
       }
+      console.log(reqBody.htmlHeaders);
       this.$http.post(this.serverRootUrl + '/api/toPdf', reqBody, {
           responseType: 'arraybuffer'
         })
