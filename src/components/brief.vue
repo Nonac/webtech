@@ -111,15 +111,7 @@ export default {
 
   },
   data: () => {
-    // // default value for undefined key
-    // const fieldDefaultValue = '';
     return {
-      // userdata: new Proxy({}, {
-      //   // if calls get on an undefined key, returns a default value
-      //   get: (target, key) =>
-      //     Object.prototype.hasOwnProperty.call(target, key) ? target[key] : fieldDefaultValue
-      // }),
-      // the id of the chosen template on the server
       templateId: 0, // by default.
     }
 
@@ -136,7 +128,6 @@ export default {
         cvContents: this.$refs.cv.innerHTML,
         templateId: this.templateId
       }
-      console.log(reqBody.htmlHeaders);
       this.$http.post(this.serverRootUrl + '/api/toPdf', reqBody, {
           responseType: 'arraybuffer'
         })
@@ -144,7 +135,7 @@ export default {
           var blob = new Blob([res.data]);
           var link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
-          link.download = "Filename.pdf";
+          link.download = "cv.pdf";
           link.click();
         })
         .catch(err => console.log(err));

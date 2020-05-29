@@ -17,5 +17,17 @@ router.post('/', async(req, res) =>{
   res.status(201).send(newPdf);
 })
 
+// returns the temp html
+router.get('/htmlTransit/', async(req, res) => {
+  let userId = 1;
+  let htmlTmpPath = path.resolve(__dirname + `./../tmp/html/${userId}.html`);
+  try{
+      res.status(200).sendFile(htmlTmpPath);
+  }catch(err){
+    res.status(403).send('?真jb6啊');
+  }
+
+})
+
 
 module.exports = router;
