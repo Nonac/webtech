@@ -31,6 +31,3 @@ export default {
   }
 }
 </script>
-
-<style scoped src="../index/assets/app.css">
-</style>

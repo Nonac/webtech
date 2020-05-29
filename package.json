@@ -21,6 +21,7 @@
     "less-loader": "^6.1.0",
     "nodemon": "^2.0.4",
     "popper.js": "^1.16.1",
+    "print-js": "^1.0.63",
     "sqlite3": "^4.2.0",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.0",

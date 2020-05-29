@@ -1,11 +1,12 @@
 <template>
 <div>
   <link rel="stylesheet" :href="templatePath">
+  <button @click="print">print</button>
 
-  <div class="cv">
+  <div class="cv" id="cv-printable">
     <div id="page-wrap">
 
-      <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" />
+      <!-- <img src="images/cthulu.png" alt="Photo of Cthulu" id="pic" /> -->
 
       <div id="contact-info" class="vcard">
 
@@ -93,6 +94,9 @@
 
 
 <script>
+import printJS from 'print-js';
+
+
 export default {
   name: 'cv',
   props: {
@@ -120,6 +124,12 @@ export default {
     contentChange(key, e) {
       this.userdata[key] = e.target.innerText
       console.log('brief-change', this.userdata)
+    },
+    print(){
+      alert('printing');
+      printJS({ printable: 'cv-printable', type: 'html',
+      css: [  "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css",
+              this.templatePath] });
     }
   },
   computed: {
