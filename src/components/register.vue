@@ -90,7 +90,7 @@
                     const username = data.body.username;
                     this.$cookies.set('jwt', authToken);
                     this.$cookies.set('username', username);
-                    // inform Menu.vue that the user has logged in
+                    // inform menu.vue that the user has logged in
                     bus.$emit('loggedIn', null);
                   }else{
                     alert('当我打出? 不是我有问题而是我觉得你有问题');

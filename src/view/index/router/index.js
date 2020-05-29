@@ -1,10 +1,11 @@
 import VueRouter from 'vue-router';
 import login from "@/components/login";
 import register from "@/components/register";
-import Home from "@/components/Home";
+import Home from "@/components/home";
 import personalForm from "@/components/personalForm";
+import about from "@/components/about";
 // import App from "@/view/index/App";
-import Menu from "@/components/Menu";
+import Menu from "@/components/menu";
 import Vue from 'vue'
 
 import App from "@/view/index/App"
@@ -22,6 +23,10 @@ const routes = [{
     {
       path: 'form',
       components: {default:personalForm, top:Menu},
+    },
+    {
+      path: 'about',
+      components: {default:about, top:Menu},
     },
     {
       path: 'login',

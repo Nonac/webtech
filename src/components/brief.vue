@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>asdfdsafasdfsa</h1>
+    <h1>Personal Information</h1>
     <link rel="stylesheet" :href="templatePath">
 
     <div class="cv">

@@ -113,3 +113,55 @@
     -ms-filter: blur(15px);
     filter: blur(15px);
 }
+
+.svg-border-animation {
+    position: relative;
+    width: 320px;
+    height: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hover-text {
+    position: absolute;
+    line-height: 60px;
+    width: 320px;
+    top: 20px;
+    color: #333;
+    font-size: 28px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.shape {
+    fill: transparent;
+    stroke-width: 4px;
+    stroke: #333;
+    stroke-dasharray: 160 520;
+    stroke-dashoffset: -460;
+}
+
+.svg-border-animation:hover .hover-text {
+    transition: 0.5s;
+    color: #343A40;
+}
+
+.svg-border-animation:hover .shape {
+    -webkit-animation: draw 0.5s linear forwards;
+    animation: draw 0.5s linear forwards;
+}
+
+@keyframes draw {
+    0% {
+        stroke-dasharray: 160 520;
+        stroke-dashoffset: -460;
+        stroke-width: 4px;
+    }
+    100% {
+        stroke-dasharray: 760;
+        stroke-dashoffset: 0;
+        stroke-width: 2px;
+        stroke: #3F51B5;
+    }
+}

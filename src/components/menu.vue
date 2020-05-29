@@ -15,7 +15,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#"  @click="aboutClick">
                         <i class="fa fa-envelope-o">
                             <span class="badge badge-danger"></span>
                         </i>
@@ -107,6 +107,9 @@
           },
             formClick(){
                 this.$router.replace('/form')
+            },
+            aboutClick(){
+                this.$router.replace('/about')
             },
             loginClick(){
                 this.$router.replace('/login')
