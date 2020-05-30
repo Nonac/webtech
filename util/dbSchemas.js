@@ -8,8 +8,9 @@ const User =
 
 const Template =
 ` Create TABLE IF NOT EXISTS Template (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    css TEXT NOT NULL
+    id INTEGER PRIMARY KEY,
+    css TEXT NOT NULL,
+    description TEXT NOT NULL
 );`
 
 module.exports = [User, Template];

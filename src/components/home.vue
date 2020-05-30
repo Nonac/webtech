@@ -27,7 +27,7 @@ export default {
                 this.$router.replace('/login')
             }
             else{
-                this.$router.replace('/form')
+                this.$router.replace('/selectTemplate')
             }
         }
     }

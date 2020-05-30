@@ -1,6 +1,8 @@
 <template>
 <div class="cv-back">
   <download-button @buttonClicked="buttonPass" v-bind:inputTime=this.downloadExpectedTime></download-button>
+
+  <a @click="generatePdf"> Download </a>
   <!-- cv contents -->
   <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">
@@ -93,7 +95,6 @@
 
 
 <script>
-// import printJS from 'print-js';
 import downloadButton from "@/components/downloadButton";
 
 export default {
@@ -114,10 +115,6 @@ export default {
     downloadButton
   },
   methods: {
-    contentChange(key, e) {
-      this.userdata[key] = e.target.innerText
-      console.log('brief-change', this.userdata)
-    },
     generatePdf() {
       let reqBody = {
         htmlHeaders: document.head.innerHTML,

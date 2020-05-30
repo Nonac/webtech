@@ -6,13 +6,8 @@ const bcrypt = require('bcryptjs');
 
 const DBError = require('../util/DBError');
 const dbSchemas = require('./dbSchemas');
-// const db = new sqlite3.Database(dbPath, (err) => {
-//   if (err) {
-//     console.error(err.message);
-// 	return;
-//   }
-//   console.log(`Connected to the ${dbPath} database.`);
-// });
+
+
 const db = new sqlite3.Database(dbPath, err =>
       console.log(err ? err.message : "connected to db.")
 );
@@ -37,6 +32,15 @@ async function async_get(sql, params){
   })
 }
 
+// returns all rows if and only if succeeds
+async function async_all(sql, params) {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      err? reject(err) : resolve(rows);
+    })
+  })
+}
+
 
 
 async function resetDb() {
@@ -53,6 +57,7 @@ async function initTables() {
   for(let sql of dbSchemas){
     await async_run(sql);
   }
+  require('./dbInsertTemplates').init();
   return null;
 }
 
@@ -135,3 +140,4 @@ module.exports.getTemplate = getTemplate;
 
 module.exports.async_run = async_run;
 module.exports.async_get = async_get;
+module.exports.async_all = async_all;
