@@ -37,7 +37,7 @@
                         class="middle-line"
                 ></line>
             </svg>
-            <div class="progress-bar" ref="progressBar"></div>
+            <div class="progress-bar" :style="'width: '+width+'%'" ref="progressBar"></div>
         </div>
     </div>
 </template>
@@ -47,40 +47,42 @@
         name: "downloadButton",
         data:()=>{
             return{
+                width:0,
+                start:null
             }
         },
         props:{
             inputTime: Number
         },
+
         methods:{
             downloadButtonClick() {
-                // this.$emit('buttonClicked','true');
-                this.$refs.button.classList.remove("downloaded");
+            // this.$emit('buttonClicked','true');
+                this.anination();
+                // this.grow();
+
+            },
+            anination(){
+                if(this.$refs.button.classList.contains("downloaded")){
+                    this.$refs.button.classList.remove("downloaded");
+                }
                 this.$refs.button.classList.add("downloading");
                 setTimeout(()=>{
                     this.$refs.button.classList.replace("downloading","downloaded");
                 },this.inputTime);
-
-                let width = this.$refs.button.clientWidth;
-                let start=null;
-                function grow(timestamp) {
-                    if(!start) {
-                        start=timestamp;
+            },
+            grow(){
+                let progress=null;
+                do{
+                    var timestamp=new Date().getTime();
+                    if(!this.start) {
+                        this.start=timestamp;
                     }
-                    let progress=(timestamp-start);
-
-                    console.log(timestamp-start);
-
-
-                    this.$refs.progressBar.style.width=`${Math.min(
-                        width * (progress / this.inputTime), width)}px`;
-                    if ( progress < this.inputTime) {
-                        window.requestAnimationFrame(grow);
-                        console.log(progress);
-                    }
-                }
-                window.requestAnimationFrame(grow);
-                }
+                    progress=(timestamp-this.start);
+                    this.width= (progress / this.inputTime) *100;
+                    console.log(this.width);
+                }while (progress < this.inputTime);
+            }
             }
         }
 </script>
