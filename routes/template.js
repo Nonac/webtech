@@ -6,10 +6,13 @@ const {validTemplateIds} = require('../util/dbInsertTemplates');
 
 // root/api/template
 router.get('/template.css', async(req, res) =>{
-  let templateId = req.query.id != undefined ? req.query.id : 1; // 1 by default
-  // returns {css: data};
-  //const css = await db.getTemplate(templateId);
+  let templateId = req.query.id != undefined ? req.query.id : 0; // 0 by default
+
+  if(!validTemplateIds.includes(templateId)){
+    return res.status(404).send('Template not found');
+  }
   const cssFilePath = path.resolve(__dirname + `/../assets/protected/templates/${templateId}.css`);
+  console.log(`template sent: ${cssFilePath}`);
   res.sendFile(cssFilePath);
 })
 

@@ -32,7 +32,9 @@ const routes = [{
     {
       path: '/cvMaker',
       components: {default:cvMaker, top:Menu},
-      // props:{default:true, top:false},
+      props:{
+        default: (route) => ({templateId: route.query.templateId}),
+        top:false},
     },
     {
       path: '/about',

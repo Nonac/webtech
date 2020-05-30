@@ -43,7 +43,7 @@ export default {
   methods: {
     chooseRandomTemplate(){
       let chosenTemplate = this.templates[Math.floor(Math.random() * this.templates.length)];
-      this.$router.replace(`/cvMaker/?templateId=${chosenTemplate.id}`);
+      this.$router.push({path:'cvMaker', query:{templateId: chosenTemplate.id}});
     }
   },
   computed: {

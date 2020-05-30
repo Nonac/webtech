@@ -26,9 +26,7 @@ export default {
   props: ['id', 'thumbnailUrl', 'description'],
   methods: {
     gotoCvMaker(){
-      console.log(this);
-      console.log(this.$router);
-      this.$router.replace(`/cvMaker/?templateId=${this.id}`);
+      this.$router.push({path:'cvMaker', query:{templateId: this.id}});
     }
   },
   created() {

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-let validTemplateIds;
+let validTemplateIds = [];
 
 async function async_fsReadFile(filename){
   return new Promise((resolve, reject) => {
@@ -16,11 +16,11 @@ async function async_fsReadFile(filename){
 
 const init = async () => {
   // check valid templates (i.e. with [tId].css and [tId].txt)
-  validTemplateIds = await ( async () => {
+  await ( async () => {
     let cssIds = [];
     let txtIds = [];
     const templateDirPath = path.resolve(__dirname + '/../assets/protected/templates');
-    return await new Promise((resolve) => {
+    await new Promise((resolve) => {
       fs.readdir(templateDirPath, (err, files) => {
         if(err) throw err;
         files.forEach((file) =>{
@@ -36,7 +36,7 @@ const init = async () => {
               throw new Error(`unrecognized template file: ${file}`);
           }
         })
-        resolve(cssIds.filter(el => txtIds.includes(el)));
+        resolve(validTemplateIds.push(...cssIds.filter(el => txtIds.includes(el))));
       })
     })
   })()
