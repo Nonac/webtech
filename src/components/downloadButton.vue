@@ -4,7 +4,7 @@
            style="BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid;">
             Download as PDF</p>
         <!--    <button class="side-btn btn btn-secondary btn-block" @click="generatePdf" download>Download as Pdf</button>-->
-        <div class="download-button downloading" @click="generatePdf">
+        <div class="download-button downloading" @click='downloadButtonClick'>
             <svg class="arrow" width="40" height="40" viewBox="0 0 40 40">
                 <circle
                         cx="50%"
@@ -49,6 +49,12 @@
         data:()=>{
             return{
 
+            }
+        },
+        props:[],
+        methods:{
+            downloadButtonClick() {
+                this.$emit('buttonClicked','true')
             }
         }
     }

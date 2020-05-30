@@ -1,6 +1,6 @@
 <template>
 <div class="cv-back">
-  <download-button></download-button>
+  <download-button @buttonClicked="buttonPass"></download-button>
   <!-- cv contents -->
   <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">
@@ -132,6 +132,11 @@ export default {
           link.click();
         })
         .catch(err => console.log(err));
+    },
+    buttonPass(msg) {
+      if(msg==='true'){
+          this.generatePdf()
+      }
     }
   },
   computed: {
