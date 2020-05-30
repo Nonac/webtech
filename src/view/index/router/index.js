@@ -8,7 +8,7 @@ import login from "@/components/login";
 import register from "@/components/register";
 import Home from "@/components/home";
 import selectTemplate from "@/components/selectTemplate";
-import personalForm from "@/components/personalForm";
+import cvMaker from "@/components/cvMaker";
 import about from "@/components/aboutus";
 
 import Vue from 'vue'
@@ -26,29 +26,30 @@ const routes = [{
       components: {default:Home, top:Menu},
     },
     {
-      path: 'selectTemplate',
+      path: '/selectTemplate',
       components: {default:selectTemplate, top:Menu},
     },
     {
-      path: 'form',
-      components: {default:personalForm, top:Menu},
+      path: '/cvMaker',
+      components: {default:cvMaker, top:Menu},
+      // props:{default:true, top:false},
     },
     {
-      path: 'about',
+      path: '/about',
       components: {default:about, top:Menu},
     },
     {
-      path: 'login',
+      path: '/login',
       components: {default:login, top:Menu},
     },
 
     {
-      path: 'register',
+      path: '/register',
       components: {default:register, top:Menu}
     },
 
     {
-      path: 'home',
+      path: '/home',
       components: {default:Home, top:Menu}
     }
   ]
@@ -59,6 +60,8 @@ const routes = [{
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   routes
 });
+
+export default router;

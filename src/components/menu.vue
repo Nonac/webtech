@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="formClick">
+                    <a class="nav-link" href="#">
                         <i class="fa fa-home"></i>
                         Form
                         <span class="sr-only">(current)</span>
@@ -105,9 +105,6 @@
             homeClick(){
                 this.$router.replace('/home')
           },
-            formClick(){
-                this.$router.replace('/form')
-            },
             aboutClick(){
                 this.$router.replace('/about')
             },

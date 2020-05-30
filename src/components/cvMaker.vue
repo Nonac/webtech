@@ -99,13 +99,10 @@ import downloadButton from "@/components/downloadButton";
 
 export default {
   name: 'cv',
-  props: {
-
-  },
+  // props:['templateId'],
   data: () => {
     return {
-      templateId: 0, // by default.
-
+      templateId:0,
       // This parameter should call the thread status of the system about the download feedback
       downloadExpectedTime: 5000
     }
@@ -147,7 +144,7 @@ export default {
     }
   },
   created() {
-
+    console.log(`cvMaker for template ${this.templateId}`);
   }
 }
 </script>

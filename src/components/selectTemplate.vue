@@ -7,40 +7,44 @@
         "Quick start with the template you like most."
       </p>
       <p>
-        <a class="btn btn-primary my-2">Choose one for me</a>
+        <button @click="chooseRandomTemplate" class="btn btn-primary my-2">
+          Choose one for me</button>
       </p>
     </div>
   </section>
 
 
   <section class="album py-5 bg-light">
-    <div class="container" ref="tbvContainer">
+    <div class="container">
 
+      <div class="row" ref='tbvRow'>
+
+
+      </div>
     </div>
   </section>
 
 </div>
-
-
 </template>
 
 
 <script>
-
 import templateBriefView from "./templateBriefView.vue";
 import Vue from 'vue';
 
 export default {
   data: () => {
     return {
-      templates:[]
+      templates: []
     }
 
   },
-  components: {
-  },
+  components: {},
   methods: {
-
+    chooseRandomTemplate(){
+      let chosenTemplate = this.templates[Math.floor(Math.random() * this.templates.length)];
+      this.$router.replace(`/cvMaker/?templateId=${chosenTemplate.id}`);
+    }
   },
   computed: {
     templatePath() {
@@ -51,23 +55,26 @@ export default {
   },
   created() {
     (async () => {
-      try{
+      try {
         // fetch templates from the server
         let res = await this.$http.get(this.serverRootUrl + '/api/template/templateBriefs');
         this.templates = res.body;
         // create templateBriefViews according to the number of templates
         let tbvClass = Vue.extend(templateBriefView);
-        for(let template of this.templates){
+        for (let template of this.templates) {
           let newTbv = new tbvClass({
-            propsData:{
-              id:template.id,
-              thumbnailUrl:template.thumbnailUrl,
-              description:template.description}
+            router: this.$router,
+            propsData: {
+              id: template.id,
+              thumbnailUrl: template.thumbnailUrl,
+              description: template.description
+            }
           });
           newTbv.$mount();
-          this.$refs.tbvContainer.appendChild(newTbv.$el);
+
+          this.$refs['tbvRow'].appendChild(newTbv.$el);
         }
-      }catch(err){
+      } catch (err) {
         console.log(err);
       }
 
@@ -77,5 +84,5 @@ export default {
 }
 </script>
 
-<style scoped src='../view/index/assets/selectTemplate.css'>
+<style scoped>
 </style>
