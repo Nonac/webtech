@@ -1,6 +1,6 @@
 <template>
 <div class="cv-back">
-  <download-button @buttonClicked="buttonPass"></download-button>
+  <download-button @buttonClicked="buttonPass" v-bind:inputTime=this.downloadExpectedTime></download-button>
   <!-- cv contents -->
   <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">
@@ -104,6 +104,9 @@ export default {
   data: () => {
     return {
       templateId: 0, // by default.
+
+      // This parameter should call the thread status of the system about the download feedback
+      downloadExpectedTime: 5000
     }
 
   },

@@ -77,7 +77,7 @@
 
 .download-button .progress-bar {
   position: absolute;
-  width: 50%;
+  /*width: 50%;*/
   /*top: 50px;*/
   height: 2px;
   bottom: 0;

@@ -3,8 +3,7 @@
         <p class="down-loadtext"
            style="BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid;">
             Download as PDF</p>
-        <!--    <button class="side-btn btn btn-secondary btn-block" @click="generatePdf" download>Download as Pdf</button>-->
-        <div class="download-button downloading" @click='downloadButtonClick'>
+        <div class="download-button" @click='downloadButtonClick' ref="button">
             <svg class="arrow" width="40" height="40" viewBox="0 0 40 40">
                 <circle
                         cx="50%"
@@ -38,7 +37,7 @@
                         class="middle-line"
                 ></line>
             </svg>
-            <div class="progress-bar"></div>
+            <div class="progress-bar" ref="progressBar"></div>
         </div>
     </div>
 </template>
@@ -48,16 +47,42 @@
         name: "downloadButton",
         data:()=>{
             return{
-
             }
         },
-        props:[],
+        props:{
+            inputTime: Number
+        },
         methods:{
             downloadButtonClick() {
-                this.$emit('buttonClicked','true')
+                // this.$emit('buttonClicked','true');
+                this.$refs.button.classList.remove("downloaded");
+                this.$refs.button.classList.add("downloading");
+                setTimeout(()=>{
+                    this.$refs.button.classList.replace("downloading","downloaded");
+                },this.inputTime);
+
+                let width = this.$refs.button.clientWidth;
+                let start=null;
+                function grow(timestamp) {
+                    if(!start) {
+                        start=timestamp;
+                    }
+                    let progress=(timestamp-start);
+
+                    console.log(timestamp-start);
+
+
+                    this.$refs.progressBar.style.width=`${Math.min(
+                        width * (progress / this.inputTime), width)}px`;
+                    if ( progress < this.inputTime) {
+                        window.requestAnimationFrame(grow);
+                        console.log(progress);
+                    }
+                }
+                window.requestAnimationFrame(grow);
+                }
             }
         }
-    }
 </script>
 
 <style scoped src='../view/index/assets/cvMaker.css'>
