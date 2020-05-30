@@ -1,12 +1,6 @@
 <template>
 <div class="cv-back">
-
-
-
-  <div class="sidenav">
-    <button class="side-btn btn btn-secondary btn-block" @click="generatePdf" download>Download as Pdf</button>
-  </div>
-
+  <download-button></download-button>
   <!-- cv contents -->
   <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">
@@ -94,16 +88,13 @@
 
     </div>
   </div>
-
-
-
 </div>
 </template>
 
 
 <script>
 // import printJS from 'print-js';
-
+import downloadButton from "@/components/downloadButton";
 
 export default {
   name: 'cv',
@@ -116,7 +107,9 @@ export default {
     }
 
   },
-  components: {},
+  components: {
+    downloadButton
+  },
   methods: {
     contentChange(key, e) {
       this.userdata[key] = e.target.innerText
