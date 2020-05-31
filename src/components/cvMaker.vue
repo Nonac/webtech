@@ -96,6 +96,7 @@
 
 <script>
 import downloadButton from "@/components/downloadButton";
+import {bus} from '@/view/index/main';
 
 export default {
   name: 'cv',
@@ -143,7 +144,7 @@ export default {
     }
   },
   created() {
-    // console.log(`cvMaker for template ${this.templateId}`);
+    bus.$on('downloadAsPdfClick', this.generatePdf);
   }
 }
 </script>

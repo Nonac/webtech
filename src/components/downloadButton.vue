@@ -43,6 +43,9 @@
 </template>
 
 <script>
+
+    import {bus} from '@/view/index/main';
+
     export default {
         name: "downloadButton",
         data:()=>{
@@ -65,7 +68,7 @@
         },
         methods:{
             downloadButtonClick() {
-            // this.$emit('buttonClicked','true');
+            bus.$emit('downloadAsPdfClick', null);
                 this.start=null;
                 this.progress=null;
                 this.anination();
