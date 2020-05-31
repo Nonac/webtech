@@ -1,6 +1,6 @@
 .A4paper {
   width: 21cm;
-  min-height: 29.7cm;
+  height: 29.7cm;
   padding: 2cm;
   margin: 1cm auto;
   border: 1px #D3D3D3 solid;
@@ -65,13 +65,6 @@
   margin: 10px;
 }
 
-/* .A4paper {
-  height: 297mm;
-  width: 210mm;
-  margin: 10px auto;
-  padding: 10mm;
-  background-color: #ffffff;
-} */
 
 .A4paper, ::after, ::before {
   box-sizing: initial;

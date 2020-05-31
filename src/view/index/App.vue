@@ -2,7 +2,7 @@
   <div>
     <!-- <Menu></Menu> -->
     <router-view name="top"></router-view>
-    <log></log>
+    <!-- <log></log> -->
     <div id="app">
       <router-view></router-view>
     </div>
