@@ -1,5 +1,5 @@
 <template>
-    <div class="sidenav">
+    <div>
         <p class="down-loadtext"
            style="BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid;">
             Download as PDF</p>

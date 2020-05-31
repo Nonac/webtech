@@ -1,14 +1,15 @@
 <template>
 <div class="cv-back">
-  <download-button @buttonClicked="buttonPass" :inputTime='this.downloadExpectedTime' />
-
+  <div class="sidenav">
+  <download-button :inputTime='this.downloadExpectedTime' />
+  <button class="btn btn-info" @click="addSubPage">Add Page</button>
+</div>
 
   <!-- cv contents -->
   <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">
-    <div class="cv-contents">
-      <cvPage pageId=0 pageType="main"/>
-      <cvPage pageId=1 pageType="sub"/>
+    <div class="cv-contents" ref="cv-contents">
+      <cvPage pageId=0 pageType="main" />
 
     </div>
   </div>
@@ -19,6 +20,8 @@
 <script>
 import downloadButton from "@/components/downloadButton";
 import cvPage from "@/components/cvMaker/cvMakerPage";
+import Vue from 'vue';
+
 import {
   bus
 } from '@/view/index/main';
@@ -26,8 +29,9 @@ import {
 export default {
   name: 'cv',
   props: ['templateId'],
-  data: () => {
+  data() {
     return {
+      maxPageId: 0,
       // This parameter should call the thread status of the system about the download feedback
       downloadExpectedTime: 5000,
     }
@@ -48,19 +52,25 @@ export default {
           responseType: 'arraybuffer'
         })
         .then(res => {
-          var blob = new Blob([res.data]);
-          var link = document.createElement('a');
+          let blob = new Blob([res.data]);
+          let link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
           link.download = "cv.pdf";
           link.click();
         })
         .catch(err => console.log(err));
     },
-    buttonPass(msg) {
-      if (msg === 'true') {
-        this.generatePdf()
-      }
-    }
+    addSubPage(){
+      const cvPageClass = Vue.extend(cvPage);
+      let newPage = new cvPageClass({
+        propsData:{
+          pageId: ++this.maxPageId,
+          pageType: 'sub',
+        }
+      });
+      newPage.$mount();
+      this.$refs['cv-contents'].appendChild(newPage.$el);
+    },
   },
   computed: {
     templatePath() {
