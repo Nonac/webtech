@@ -1,40 +1,3 @@
-.container{
-    position: absolute;
-    top:150px;
-    left: 20%;
-    width: 70%;
-    height: 61.05%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 20px 30px rgba(0,0, 0, .7);
-}
-
-.right{
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10px 5px;
-    text-align: center;
-
-    width: 50%;
-}
-.left{
-    width: 50%;
-    border-radius: 10px;
-    background-color: #343A40;
-    padding: 100px 100px;
-    color: #fff;
-    text-align: left;
-}
-
-.invaild{
-    color:red;
-}
-
 .background {
     background: url('../img/blackground.jpg') no-repeat center;
     background-size: cover;
@@ -57,3 +20,34 @@
     -ms-filter: blur(15px);
     filter: blur(15px);
 }
+
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -150px 0 0 -150px;
+    width:300px;
+    height:300px;
+}
+.login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+
+input {
+    width: 100%;
+    margin-bottom: 10px;
+    background: rgba(0,0,0,0.3);
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 4px;
+    box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+    -webkit-transition: box-shadow .5s ease;
+    -moz-transition: box-shadow .5s ease;
+    -o-transition: box-shadow .5s ease;
+    -ms-transition: box-shadow .5s ease;
+    transition: box-shadow .5s ease;
+}
+input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }

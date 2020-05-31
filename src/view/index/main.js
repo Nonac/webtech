@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueTimers from 'vue-timers'
+Vue.use(VueTimers)
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import 'bootstrap/dist/js/bootstrap.min'
 import router from "@/view/index/router";

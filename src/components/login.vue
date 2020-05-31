@@ -1,44 +1,13 @@
 <template>
     <div><br><br><br><br><br>
         <div class="background background-blur"></div>
-    <div class="container">
-
-            <div class="row">
-                <div class="col-6 left">
-                    <h4> Welcome back!</h4>
-                    <p>please enter your login details</p>
-                    <form>
-                        <div class="form-group">
-                            <label for="userName">User name</label>
-                            <input type="text" v-model="userName" class="form-control" placeholder="Enter Username">
-
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" v-model="password" class="form-control" placeholder="password">
-                        </div>
-                        <input type="button" @click="submitLoginRequest()" class="btn btn-primary" value="Submit">
-                    </form>
-                </div>
-                <div class="col-6 right" v-if="showDisplay">
-                    <h4>Display!</h4>
-                    <table class="table table-striped table-dark">
-                        <thead>
-                        <tr>
-                            <th scope="col">UserName</th>
-                            <th scope="col">Password</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{showMyUsername}}</td>
-                            <td>{{showMyPassword}}</td>
-
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="login">
+            <h1>Sign In</h1>
+            <form method="post">
+                <input type="text" name="u" placeholder="Username" required="required"  v-model="userName" />
+                <input type="password" name="p" placeholder="Password" required="required" v-model="password" />
+                <button type="submit" class="btn btn-primary btn-block btn-large" @click="submitLoginRequest()">Let me in.</button>
+            </form>
         </div>
     </div>
 </template>
@@ -52,10 +21,7 @@
             return{
                 userName: "",
                 password: "",
-                showMyUsername: null,
-                showMyPassword: null,
                 showDisplay: false,
-                key:'abcdefgabcdefg12'
             }
 
         },

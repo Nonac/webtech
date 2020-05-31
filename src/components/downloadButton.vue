@@ -37,7 +37,7 @@
                         class="middle-line"
                 ></line>
             </svg>
-            <div class="progress-bar" :style="{width: progressBarWidth}" ref="progressBar"></div>
+            <div class="progress-bar" :style="{width: progressBarWidth+'%'}" ref="progressBar"></div>
         </div>
     </div>
 </template>
@@ -49,11 +49,14 @@
             return{
                 width:0,
                 start:null,
-                remaining:null
+                progress:null,
             }
         },
         props:{
             inputTime: Number
+        },
+        timers: {
+            grow: { time:100 , repeat: true}
         },
         computed:{
             progressBarWidth:function () {
@@ -63,9 +66,10 @@
         methods:{
             downloadButtonClick() {
             // this.$emit('buttonClicked','true');
+                this.start=null;
+                this.progress=null;
                 this.anination();
-                // this.grow();
-
+                this.$timer.start('grow');
             },
             anination(){
                 if(this.$refs.button.classList.contains("downloaded")){
@@ -77,16 +81,17 @@
                 },this.inputTime);
             },
             grow(){
-                let progress=null;
-                do{
+                if((this.progress < this.inputTime)||(!this.progress)){
                     var timestamp=new Date().getTime();
                     if(!this.start) {
                         this.start=timestamp;
+                        this.width=0;
                     }
-                    progress=(timestamp-this.start);
-                    this.width= (progress / this.inputTime) *100;
-                    console.log(this.width);
-                }while (progress < this.inputTime);
+                    this.progress=(timestamp-this.start);
+                    this.width= (this.progress / this.inputTime) *100;
+                }else {
+                    this.$timer.stop('grow');
+                }
             }
             }
         }
