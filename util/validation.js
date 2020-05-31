@@ -12,6 +12,11 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required()
 })
 
+const avatarUploadSchema = Joi.object({
+  data: Joi.required(),
+  format: Joi.string().required()
+})
+
 
 /*
   validation functions
@@ -19,10 +24,7 @@ const loginSchema = Joi.object({
   returns {error, value}. if validation is successful, error is undefined
 */
 
-// register validation
-const valididateRegistration = data => registrationSchema.validate(data);
-// login validation
-const validateLogin = data => loginSchema.validate(data);
 
-module.exports.validateRegistation = valididateRegistration;
-module.exports.validateLogin = validateLogin;
+module.exports.validateRegistation = data => registrationSchema.validate(data);
+module.exports.validateLogin = data => loginSchema.validate(data);
+module.exports.validateAvatarUpload = data => avatarUploadSchema.validate(data);

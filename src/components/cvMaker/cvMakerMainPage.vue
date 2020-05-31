@@ -8,7 +8,7 @@
   </div>
   <img  @mouseover="isMouseOverAvatar = true"
         v-show="!isMouseOverAvatar"
-        src="/img/templates/example_avatar.png"
+        :src="avatarUrl"
         alt="Photo of Borisa"
         class="avatar" />
 
@@ -95,10 +95,12 @@
 
 <script>
 import imageUploader from "@/components/cvMaker/imageUploader";
+import {bus} from '@/view/index/main';
 
 export default {
   data(){
     return {
+      avatarUrl: '/img/templates/example_avatar.png',
       isMouseOverAvatar: false,
     }
   },
@@ -106,6 +108,10 @@ export default {
     imageUploader,
   },
   methods:{
+  },
+  created(){
+    bus.$on('cvAvatarUploaded', (avatarUrl) => this.avatarUrl = avatarUrl);
   }
 }
+
 </script>

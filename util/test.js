@@ -2,6 +2,8 @@ const db = require('./dbManager');
 //const DBError = require('../util/DBError');
 const assert = require('assert');
 
+const fs = require('./async_fs');
+
 // const assert = (expr, msg) => {
 //   try{
 //     Assert(expr, msg);
@@ -54,4 +56,7 @@ testInit();
 (async() =>
 {
   // require('./htmlToPdf.js');
+
+  const htmlTmpDir = path.resolve(__dirname + `./../tmp/html`);
+  fs.old.mkdir(htmlTmpDir, { recursive: true }, err => console.log(err));
 })();
