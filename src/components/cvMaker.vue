@@ -7,7 +7,8 @@
   <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">
     <div class="cv-contents">
-      <mainPage :pageId=0 />
+      <cvPage pageId=0 pageType="main"/>
+      <cvPage pageId=1 pageType="sub"/>
 
     </div>
   </div>
@@ -17,7 +18,7 @@
 
 <script>
 import downloadButton from "@/components/downloadButton";
-import mainPage from "@/components/cvMaker/cvMakerMainPage";
+import cvPage from "@/components/cvMaker/cvMakerPage";
 import {
   bus
 } from '@/view/index/main';
@@ -34,7 +35,7 @@ export default {
   },
   components: {
     downloadButton,
-    mainPage,
+    cvPage,
   },
   methods: {
     generatePdf() {

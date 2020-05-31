@@ -1,5 +1,5 @@
 <template>
-  <div class="A4paper" :ref="thisPageRef" @keyup="checkHeightOverflow">
+  <div>
 
     <img src="/img/templates/example_avatar.png" alt="Photo of Borisa" id="avatar" />
 
@@ -84,26 +84,3 @@
   </div>
 
 </template>
-
-
-<script>
-export default {
-  props:['pageId'],
-  computed:{
-    thisPageRef(){
-      return `cvPage${this.pageId}`
-    },
-  },
-  methods:{
-    // do something if content has overflown the height of this page
-    checkHeightOverflow(){
-      const elem = this.$refs[this.thisPageRef];
-      if(elem.scrollHeight > elem.clientHeight){
-        alert('!!');
-      }
-    }
-  },
-
-}
-
-</script>
