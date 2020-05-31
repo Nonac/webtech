@@ -2,7 +2,7 @@
 <div class="cv-back">
   <download-button @buttonClicked="buttonPass" v-bind:inputTime=this.downloadExpectedTime></download-button>
 
-  <a @click="generatePdf"> Download </a>
+<!--  <a @click="generatePdf"> Download </a>-->
   <!-- cv contents -->
   <div class="cv" ref="cv">
     <link rel="stylesheet" :href="templatePath">

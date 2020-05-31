@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 
 // const db = require('./util/dbManager');
-const path = require('path');
+// const path = require('path');
 
 // Middlewares
 app.use(express.json());

@@ -37,7 +37,7 @@
                         class="middle-line"
                 ></line>
             </svg>
-            <div class="progress-bar" :style="'width: '+width+'%'" ref="progressBar"></div>
+            <div class="progress-bar" :style="{width: progressBarWidth}" ref="progressBar"></div>
         </div>
     </div>
 </template>
@@ -48,13 +48,18 @@
         data:()=>{
             return{
                 width:0,
-                start:null
+                start:null,
+                remaining:null
             }
         },
         props:{
             inputTime: Number
         },
-
+        computed:{
+            progressBarWidth:function () {
+                return this.width;
+            }
+        },
         methods:{
             downloadButtonClick() {
             // this.$emit('buttonClicked','true');

@@ -1,5 +1,5 @@
 .background {
-    background: url('./blackground.jpg') no-repeat center;
+    background: url('../img/blackground.jpg') no-repeat center;
     background-size: cover;
     height:600px;
     position:absolute;
@@ -19,4 +19,88 @@
     -o-filter: blur(15px);
     -ms-filter: blur(15px);
     filter: blur(15px);
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    position: relative;
+    left: 200px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+}
+
+.flip-card-back {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #343A40;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 50%;
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+.button:hover, a:hover {
+    opacity: 0.7;
+}
+
+.split {
+    height: 100%;
+    width: 50%;
+    z-index: 1;
+    padding-top: 20px;
+    top: 0;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+
 }

@@ -9,7 +9,7 @@ import register from "@/components/register";
 import Home from "@/components/home";
 import selectTemplate from "@/components/selectTemplate";
 import cvMaker from "@/components/cvMaker";
-import about from "@/components/aboutus";
+import about from "@/components/aboutUs";
 
 import Vue from 'vue'
 
