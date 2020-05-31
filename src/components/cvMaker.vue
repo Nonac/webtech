@@ -3,6 +3,7 @@
   <div class="sidenav">
   <download-button :inputTime='this.downloadExpectedTime' />
   <button class="btn btn-info" @click="addSubPage">Add Page</button>
+  <button class="btn btn-info" @click="deleteLastSubPage">Remove Last Page</button>
 </div>
 
   <!-- cv contents -->
@@ -61,6 +62,8 @@ export default {
         .catch(err => console.log(err));
     },
     addSubPage(){
+      if(this.maxPageId >= 5) return alert('A concise CV is a good CV.');
+
       const cvPageClass = Vue.extend(cvPage);
       let newPage = new cvPageClass({
         propsData:{
@@ -71,6 +74,19 @@ export default {
       newPage.$mount();
       this.$refs['cv-contents'].appendChild(newPage.$el);
     },
+    deleteLastSubPage(){
+      // does not delete the main page
+      if(this.maxPageId === 0) return;
+      // removes the last sub page
+      let pages = this.$refs['cv-contents'].childNodes;
+      let realPageCount = pages.length -1;
+      if(realPageCount !== this.maxPageId){
+        this.maxPageId = realPageCount;
+      }
+      let lastPage = pages[this.maxPageId--];
+      lastPage.parentNode.removeChild(lastPage);
+      lastPage.__vue__.$destroy();
+    }
   },
   computed: {
     templatePath() {
