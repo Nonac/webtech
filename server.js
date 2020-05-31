@@ -4,7 +4,7 @@ require('./util/test');
 const express = require('express');
 const app = express();
 
-const db = require('./util/dbManager');
+// const db = require('./util/dbManager');
 const path = require('path');
 
 // Middlewares
