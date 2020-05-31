@@ -3,6 +3,7 @@ const db = require('./dbManager');
 const assert = require('assert');
 
 const fs = require('./async_fs');
+const path = require('path');
 
 // const assert = (expr, msg) => {
 //   try{

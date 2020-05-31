@@ -10,8 +10,6 @@ async function toPdf(html, userId = 1) {
   const browser = await puppeteer.launch({headless:true});
   const page = await browser.newPage();
 
-  const htmlTmpDir = path.resolve(__dirname + `./../tmp/html`);
-  fs.old.mkdir(htmlTmpDir, { recursive: true }, err => console.log(err));
   let htmlTmpPath = path.resolve(__dirname + `./../tmp/html/${userId}.html`);
   let rv = await fs.writeFile(htmlTmpPath, html);
   if(rv != null) throw rv;
