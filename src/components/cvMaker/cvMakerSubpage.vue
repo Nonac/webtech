@@ -43,15 +43,6 @@
 
       <dd class="clear"></dd>
 
-      <dt>Hobbies</dt>
-      <dd contenteditable>World Domination, Deep Sea Diving, Murder Most Foul</dd>
-
-      <dd class="clear"></dd>
-
-      <dt>References</dt>
-      <dd contenteditable>Available on request</dd>
-
-      <dd class="clear"></dd>
     </dl>
 
     <div class="clear"></div>
