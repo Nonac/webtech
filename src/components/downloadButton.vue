@@ -68,7 +68,7 @@
         },
         methods:{
             downloadButtonClick() {
-            bus.$emit('downloadAsPdfClick', null);
+                bus.$emit('downloadAsPdfClick', null);
                 this.start=null;
                 this.progress=null;
                 this.anination();
