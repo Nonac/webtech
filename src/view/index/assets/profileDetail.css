@@ -1,0 +1,58 @@
+.detail-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.detail {
+    background-color: #fff;
+    box-shadow: 2px 2px 20px 1px;
+    overflow-x:auto;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    width: 700px;
+    height: 700px;
+    z-index: 9999;
+    position: relative;
+}
+.detail-header {
+    border-bottom: 1px solid #eee;
+    color: #313131;
+    justify-content: space-between;
+    padding: 15px;
+    display: flex;
+}
+.detail-footer {
+    border-top: 1px solid #eee;
+    justify-content: flex-end;
+    padding: 15px;
+    margin-top: auto;
+    display: flex
+}
+.detail-body {
+    position: relative;
+    padding: 20px 10px;
+}
+.btn-close, .btn-confirm {
+    border-radius: 8px;
+    margin-left:16px;
+    width:70px;
+    height: 36px;
+    border:none;
+    cursor: pointer;
+}
+.btn-close {
+    color: #313131;
+    background-color:transparent;
+}
+.btn-confirm {
+    color: #fff;
+    background-color: #343A40;
+}

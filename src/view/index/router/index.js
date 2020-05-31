@@ -1,9 +1,6 @@
 import VueRouter from 'vue-router';
-
 import App from "@/view/index/App"
-
 import Menu from "@/components/menu";
-
 import login from "@/components/login";
 import register from "@/components/register";
 import Home from "@/components/home";
