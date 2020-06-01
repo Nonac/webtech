@@ -2,7 +2,8 @@
 <div>
   <div class="container">
     <!--UPLOAD-->
-    <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
+    <form enctype="multipart/form-data" novalidate>
+    <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
       <div class="dropbox" ref="dropbox" :style="{'background-image': (exampleImageUrl ? `url(${exampleImageUrl})`: '')}">
         <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event)" accept="image/*" class="input-file">
         <p v-if="isInitial">
@@ -10,6 +11,13 @@
         </p>
         <p v-if="isSaving">
           Uploading...
+        </p>
+        <p v-if="isSuccess">
+          Click to change the image.
+        </p>
+
+        <p v-if="isFailed">
+          Failed to upload. Maybe try again?
         </p>
       </div>
     </form>
@@ -68,6 +76,8 @@ export default {
       this.uploadedFile = null;
       this.uploadError = null;
     },
+
+
     async save(form) {
       console.log('saving')
       // upload data to the server
@@ -75,15 +85,18 @@ export default {
 
       try {
         let res = await upload(this, form);
+        console.log(res);
         this.uploadedFile = res.url;
         this.currentStatus = STATUS_SUCCESS;
-        bus.$emit('cvAvatarUploaded', res.url);
+        bus.$emit('cvAvatarUploaded', `${res.url}&t=${new Date().getTime()}`);
       } catch (err) {
         this.uploadError = err.response;
         this.currentStatus = STATUS_FAILED;
         console.log(err);
       }
     },
+
+
     filesChange(event) {
       // handle file changes
       const fileList = event.target.files;
@@ -102,9 +115,13 @@ export default {
       this.save(form);
     }
   },
+
+
   mounted() {
     this.reset();
   },
+
+
 }
 </script>
 

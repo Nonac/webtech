@@ -26,6 +26,7 @@
     "sass": "^1.26.7",
     "sass-loader": "^8.0.2",
     "sqlite3": "^4.2.0",
+    "underscore": "^1.10.2",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.0",
     "vue-resource": "^1.5.1",

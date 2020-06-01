@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const path = require('path');
 const fs = require('../util/async_fs');
-var formidable = require('formidable');
+const formidable = require('formidable');
+const _ = require('underscore');
 
 
 const { validateAvatarUpload } = require('../util/validation');
@@ -13,20 +14,31 @@ function getAvatarUserUrl(userId){
 
 const imgTmpDir = path.resolve(__dirname + `/../tmp/img/avatar`);
 
+// returns the fullname (with ext) of the most recent file in the dir
+const getMostRecentFileName = async (dir) => {
+  let files = await fs.readdir(dir);
+  return new Promise((resolve) => {
+    resolve(_.max(files, (f) => {
+      let fullPath = path.join(dir, f);
+      return fs.old.statSync(fullPath).ctime;
+    }));
+  })
+}
+
 
 router.get('/avatar', async(req, res) => {
   let userId = req.query.uId;
 
   try{
     let userAvatarDir = path.resolve(`${imgTmpDir}/${userId}`);
-    let files = await fs.readdir(userAvatarDir);
+    // let files = await fs.readdir(userAvatarDir);
     // console.log(files);
 
-    // todo: check files.length === 1
-    let imgPath = path.resolve(`${userAvatarDir}/${files[0]}`);
+    let mostRecentAvatar = await getMostRecentFileName(userAvatarDir);
+    let imgPath = path.resolve(`${userAvatarDir}/${mostRecentAvatar}`);
     // console.log(imgPath);
     res.status(200).sendFile(imgPath);
-    console.log(`\navatar uId = ${userId} sent.`)
+    console.log(`\navatar uId = ${userId} ${mostRecentAvatar} sent.`)
   }catch(err){
     console.log(err);
   }
