@@ -59,5 +59,5 @@ testInit();
   // require('./htmlToPdf.js');
 
   const htmlTmpDir = path.resolve(__dirname + `./../tmp/html`);
-  fs.old.mkdir(htmlTmpDir, { recursive: true }, err => console.log(err));
+  fs.old.mkdir(htmlTmpDir, { recursive: true }, err => err ? console.log(err) : null);
 })();

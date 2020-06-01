@@ -9,7 +9,7 @@
   <img  @mouseover="isMouseOverAvatar = true"
         v-show="!isMouseOverAvatar"
         :src="avatarUrl"
-        alt="Photo of Borisa"
+        alt="Your avatar"
         class="avatar" />
 
   <div id="contact-info" class="vcard">

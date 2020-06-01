@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const path = require('path');
 const fs = require('../util/async_fs');
+var formidable = require('formidable');
 
 
 const { validateAvatarUpload } = require('../util/validation');
@@ -19,13 +20,13 @@ router.get('/avatar', async(req, res) => {
   try{
     let userAvatarDir = path.resolve(`${imgTmpDir}/${userId}`);
     let files = await fs.readdir(userAvatarDir);
-    console.log(files);
+    // console.log(files);
 
     // todo: check files.length === 1
     let imgPath = path.resolve(`${userAvatarDir}/${files[0]}`);
-    console.log(imgPath);
+    // console.log(imgPath);
     res.status(200).sendFile(imgPath);
-
+    console.log(`\navatar uId = ${userId} sent.`)
   }catch(err){
     console.log(err);
   }
@@ -35,32 +36,38 @@ router.get('/avatar', async(req, res) => {
 // root/api/cvMaker
 router.post('/avatar', async(req, res) =>{
   console.log('\nreceiving avatar...');
-  // validate
-  const {
-    error,
-    value: image
-  } = await validateAvatarUpload(req.body);
-  if (error){
-    console.log(error.details[0].message);
-    return res.status(400).send('Upload failed');
-  }
 
   // todo check uId via jwt
   let userId = 1;
   const imgDir = path.resolve(`${imgTmpDir}/${userId}`);
-  fs.old.mkdir(imgDir, { recursive: true }, err => console.log(err));
-  const imgPath = path.resolve(`${imgDir}/avatar.${image.format}`);
-  // todo: only allow a sinlge file in the dir or store it in db
-  try{
-    if(await(fs.writeFile(imgPath, req.body.data)) === null){
-        console.log(`avatar saved. ${getAvatarUserUrl(userId)}`)
-        res.status(201).send({url:getAvatarUserUrl(userId)});
-    }
+  fs.old.mkdir(imgDir, { recursive: true }, err => err ? console.log(err) : null);
 
-  }catch(err){
-    console.log(err);
-    return res.status(500).send('Upload failed.');
-  }
+  // make format
+  let form = new formidable.IncomingForm();
+  form.uploadDir = imgDir;
+  form.keepExtensions = true;
+
+  form.parse(req, async (err, fields, files) => {
+    if(err) return console.log(err);
+    if(files.avatar === undefined) return res.status(400);
+    console.log(`\tsize: ${JSON.stringify(files.avatar.size)}`);
+    console.log(`\tname: ${JSON.stringify(files.avatar.name)}`);
+    console.log(`\tpath: ${JSON.stringify(files.avatar.path)}`);
+    console.log(`\ttype: ${JSON.stringify(files.avatar.type)}`);
+
+    // todo: only allow a sinlge file in the dir or store it in db
+    const newPath = path.resolve(`${imgDir}/avatar${path.extname(files.avatar.name)}`);
+    fs.old.rename(files.avatar.path, newPath, (err) => {
+      if(err){
+        console.log(err);
+        return res.status(500).send('Upload failed');
+      }
+      console.log(`avatar saved at ${newPath}`);
+      res.status(201).send({url:getAvatarUserUrl(userId)});
+    });
+
+  })
+
 
 })
 

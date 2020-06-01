@@ -20,6 +20,16 @@
 <script>
 import {bus} from '@/view/index/main';
 
+
+const upload = async (vue, form) => {
+  let res = await vue.$http.post('/api/cvMaker/avatar', form);
+  if(res.status === 201){
+    return res.body;
+  }else{
+    alert('Upload failed.');
+  }
+};
+
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
   STATUS_SUCCESS = 2,
@@ -58,31 +68,13 @@ export default {
       this.uploadedFile = null;
       this.uploadError = null;
     },
-    async save(file) {
+    async save(form) {
       console.log('saving')
       // upload data to the server
       this.currentStatus = STATUS_SAVING;
 
-      const upload = async (file) => {
-        const [, format] = file.name.split('.');
-        let reqBody = {
-          data: await file.arrayBuffer(),
-          format: format,
-        }
-
-        console.log(reqBody);
-        let res = await this.$http.post('/api/cvMaker/avatar', reqBody);
-
-        if(res.status === 201){
-          return res.body;
-        }else{
-          alert('Upload failed.');
-        }
-
-      };
-
       try {
-        let res = await upload(file);
+        let res = await upload(this, form);
         this.uploadedFile = res.url;
         this.currentStatus = STATUS_SUCCESS;
         bus.$emit('cvAvatarUploaded', res.url);
@@ -91,19 +83,23 @@ export default {
         this.currentStatus = STATUS_FAILED;
         console.log(err);
       }
-
     },
     filesChange(event) {
       // handle file changes
       const fileList = event.target.files;
+      const fieldName = event.target.name;
+
 
       if (fileList.length != 1) {
         alert('Please select only one file.');
         return this.reset();
       }
 
+      const form = new FormData();
+      form.append(fieldName, fileList[0], fileList[0].name);
+
       // save it
-      this.save(fileList[0]);
+      this.save(form);
     }
   },
   mounted() {
