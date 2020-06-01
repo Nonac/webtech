@@ -76,4 +76,10 @@ export default {
   border-style: dashed;
 }
 
+.A4paper >>> .to-be-deleted{
+  border: #f600ff;
+  border-style: double;
+  background: lightcoral;
+}
+
 </style>

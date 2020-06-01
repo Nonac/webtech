@@ -13,10 +13,10 @@
 
     <p>
       <div class="clonable">
-        Cell: <span contenteditable class="tel">555-666-7777</span><br />
+        <span contenteditable>Cell:</span> <span contenteditable class="tel">555-666-7777</span><br />
       </div>
       <div class="clonable">
-        Email: <a contenteditable class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
+        <span contenteditable>Email:</span> <a contenteditable class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
       </div>
     </p>
   </section>
@@ -40,7 +40,7 @@
     <dl>
       <dd class="clear"></dd>
       <div class="clonable">
-        <dt>Education</dt>
+        <dt contenteditable>Education</dt>
         <dd contenteditable>
           <h2>Withering Madness University - Planet Vhoorl</h2>
           <p><strong>Major:</strong> Public Relations<br />
@@ -53,7 +53,7 @@
       <div class="clonable">
 
 
-        <dt>Skills</dt>
+        <dt contenteditable>Skills</dt>
         <dd contenteditable>
           <h2>Office skills</h2>
           <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
@@ -68,7 +68,7 @@
 
 
       <div class="clonable">
-        <dt>Experience</dt>
+        <dt contenteditable>Experience</dt>
         <dd contenteditable>
           <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
           <ul>
@@ -91,20 +91,11 @@
       <div class="clonable">
 
 
-        <dt>Hobbies</dt>
+        <dt contenteditable>Hobbies</dt>
         <dd contenteditable>World Domination, Deep Sea Diving, Murder Most Foul</dd>
 
         <dd class="clear"></dd>
       </div>
-
-      <div class="clonable">
-
-
-        <dt>References</dt>
-        <dd contenteditable>Available on request</dd>
-        <dd class="clear"></dd>
-      </div>
-
 
     </dl>
 

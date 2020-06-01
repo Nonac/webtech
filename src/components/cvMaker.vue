@@ -82,6 +82,8 @@ export default {
       elemNew: null,  // pre-inserted new elem
       isCursorAtUpperPart: null,
       igoreMousemove: false,
+      // temp var for deletion
+      elemToDelete: null,
 
     }
 
@@ -146,12 +148,22 @@ export default {
     handleMouseClick(){
       if(this.mode === MODE_EDIT) return;
 
-      if(this.elemNew){
-        this.elemNew.classList.remove('preview');
-        this.elemNew = null;
-        this.elemCurr = null;
-        this.isCursorAtUpperPart = null;
+      if(this.mode === MODE_INSERT){
+        if(this.elemNew){
+          this.elemNew.classList.remove('preview');
+          this.elemNew = null;
+          this.elemCurr = null;
+          this.isCursorAtUpperPart = null;
+        }
+      }else if(this.mode === MODE_DELETE){
+        if(this.elemToDelete){
+          let parentNode = this.elemToDelete.parentNode;
+          if(parentNode){
+            parentNode.removeChild(this.elemToDelete);
+          }
+        }
       }
+
       this.mode = MODE_EDIT;
     },
     handleInsertion(ev){
@@ -199,11 +211,28 @@ export default {
       window.setTimeout(() => this.igoreMousemove = false, 100);
 
     },
+    handleDeletion(ev){
+      let cursorX = ev.clientX;
+      let cursorY = ev.clientY;
+
+      let elemAtCursor = document.elementFromPoint(cursorX, cursorY);
+      // get the enclosing clonable block
+      let clonable = getClonable(elemAtCursor);
+      if(clonable === null) return;
+      if(clonable === this.elemToDelete) return;
+
+      if(this.elemToDelete){
+        this.elemToDelete.classList.remove('to-be-deleted');
+      }
+      clonable.classList.add('to-be-deleted');
+      this.elemToDelete = clonable;
+    },
     handleMousemove(ev){
       if(this.igoreMousemove) return;
       if(this.mode === MODE_EDIT) return;
 
       if(this.mode === MODE_INSERT) return this.handleInsertion(ev);
+      if(this.mode === MODE_DELETE) return this.handleDeletion(ev);
     }
   },
   computed: {
