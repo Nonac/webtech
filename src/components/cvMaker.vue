@@ -80,6 +80,8 @@ export default {
       // temp variables for insertion mode
       elemCurr: null,  // elem the cursor pointing at when the event happened
       elemNew: null,  // pre-inserted new elem
+      isCursorAtUpperPart: null,
+      igoreMousemove: false,
 
     }
 
@@ -144,6 +146,12 @@ export default {
     handleMouseClick(){
       if(this.mode === MODE_EDIT) return;
 
+      if(this.elemNew){
+        this.elemNew.classList.remove('preview');
+        this.elemNew = null;
+        this.elemCurr = null;
+        this.isCursorAtUpperPart = null;
+      }
       this.mode = MODE_EDIT;
     },
     handleInsertion(ev){
@@ -154,29 +162,45 @@ export default {
       // get the enclosing clonable block
       let clonable = getClonable(elemAtCursor);
       if(clonable === null) return;
+
       // if its still the same block as the last operation
-      if(clonable === this.elemCurr || clonable === this.elemNew) return;
+      if(clonable === this.elemCurr || clonable === this.elemNew) {
+        let rect = this.elemCurr.getBoundingClientRect();
+        let isCursorAtUpperPart = cursorY < (rect.top + rect.bottom) / 2;
+        if(this.isCursorAtUpperPart === isCursorAtUpperPart) return;
+        this.isCursorAtUpperPart = isCursorAtUpperPart;
+      }
 
       // if it's a new position
       this.elemCurr = clonable;
-      // remove the pre-inserted elem when the cursor moves to somewhere else
-      if(this.elemNew)  this.elemNew.parentNode.removeChild(this.elemNew);
-
       // check cursor relative position to the clonable block (upper/bottom part)
-      let clonableRect = clonable.getBoundingClientRect();
-      let isCursorAtUpperPart = cursorY < (clonableRect.top + clonableRect.bottom) / 2;
+      let rect = clonable.getBoundingClientRect();
+      let isCursorAtUpperPart = cursorY < (rect.top + rect.bottom) / 2;
+
+      // remove the pre-inserted elem when the cursor moves to somewhere else
+      if(this.elemNew){
+        let parentNode = this.elemNew.parentNode;
+        if(parentNode){
+          parentNode.removeChild(this.elemNew);
+        }
+      }
 
       // create insert a new block the same as the current one for preview
       let newElem = clonable.cloneNode(true); // clones the node and all its descendants
+      newElem.classList.add('preview');
       if(isCursorAtUpperPart){
         clonable.insertAdjacentElement('beforebegin', newElem);
       }else{
         clonable.insertAdjacentElement('afterend', newElem);
       }
       this.elemNew = newElem;
+      // ignore mousemove event for some time
+      this.igoreMousemove = true;
+      window.setTimeout(() => this.igoreMousemove = false, 100);
 
     },
     handleMousemove(ev){
+      if(this.igoreMousemove) return;
       if(this.mode === MODE_EDIT) return;
 
       if(this.mode === MODE_INSERT) return this.handleInsertion(ev);

@@ -84,13 +84,13 @@ export default {
 
 
     async save(form) {
-      console.log('saving')
+      // console.log('saving')
       // upload data to the server
       this.currentStatus = STATUS_SAVING;
 
       try {
         let res = await upload(this, form);
-        console.log(res);
+        // console.log(res);
         this.uploadedFile = res.url;
         this.currentStatus = STATUS_SUCCESS;
         this.imageUrl = res.url;

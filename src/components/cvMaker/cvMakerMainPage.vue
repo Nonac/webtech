@@ -38,9 +38,8 @@
 
   <section class="miscellaneous">
     <dl>
+      <dd class="clear"></dd>
       <div class="clonable">
-        <dd class="clear"></dd>
-
         <dt>Education</dt>
         <dd contenteditable>
           <h2>Withering Madness University - Planet Vhoorl</h2>
@@ -48,10 +47,11 @@
             <strong>Minor:</strong> Scale Tending</p>
         </dd>
 
+        <dd class="clear"></dd>
       </div>
 
       <div class="clonable">
-        <dd class="clear"></dd>
+
 
         <dt>Skills</dt>
         <dd contenteditable>
@@ -61,10 +61,10 @@
           <h2>Computer skills</h2>
           <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
         </dd>
-
+        <dd class="clear"></dd>
 
       </div>
-      <dd class="clear"></dd>
+
 
 
       <div class="clonable">
@@ -84,28 +84,28 @@
             <li>Janitorial work, Laundry</li>
           </ul>
         </dd>
-
+        <dd class="clear"></dd>
       </div>
 
 
       <div class="clonable">
-        <dd class="clear"></dd>
+
 
         <dt>Hobbies</dt>
         <dd contenteditable>World Domination, Deep Sea Diving, Murder Most Foul</dd>
 
-
+        <dd class="clear"></dd>
       </div>
 
       <div class="clonable">
-        <dd class="clear"></dd>
+
 
         <dt>References</dt>
         <dd contenteditable>Available on request</dd>
-
+        <dd class="clear"></dd>
       </div>
 
-      <dd class="clear"></dd>
+
     </dl>
 
   </section>

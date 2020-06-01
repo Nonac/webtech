@@ -71,4 +71,9 @@ export default {
   box-sizing: initial;
 }
 
+.A4paper >>> .preview {
+  border: #ffc107;
+  border-style: dashed;
+}
+
 </style>
