@@ -81,7 +81,7 @@ export default {
       elemCurr: null,  // elem the cursor pointing at when the event happened
       elemNew: null,  // pre-inserted new elem
       isCursorAtUpperPart: null,
-      igoreMousemove: false,
+      // igoreMousemove: false,
       // temp var for deletion
       elemToDelete: null,
 
@@ -206,9 +206,9 @@ export default {
         clonable.insertAdjacentElement('afterend', newElem);
       }
       this.elemNew = newElem;
-      // ignore mousemove event for some time
-      this.igoreMousemove = true;
-      window.setTimeout(() => this.igoreMousemove = false, 100);
+      // // ignore mousemove event for some time
+      // this.igoreMousemove = true;
+      // window.setTimeout(() => this.igoreMousemove = false, 100);
 
     },
     handleDeletion(ev){
@@ -228,7 +228,7 @@ export default {
       this.elemToDelete = clonable;
     },
     handleMousemove(ev){
-      if(this.igoreMousemove) return;
+      // if(this.igoreMousemove) return;
       if(this.mode === MODE_EDIT) return;
 
       if(this.mode === MODE_INSERT) return this.handleInsertion(ev);
