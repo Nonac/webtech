@@ -1,96 +1,114 @@
 <template>
 <div>
 
-  <div    @mouseleave="isMouseOverAvatar = false"
-          v-show="isMouseOverAvatar"
-          class="avatar">
-  <imageUploader />
+  <div @mouseleave="isMouseOverAvatar = false" v-show="isMouseOverAvatar" class="avatar">
+    <imageUploader />
   </div>
 
-  <img  @mouseover="isMouseOverAvatar = true"
-        :src="avatarUrl"
-        alt="Your avatar"
-        class="avatar"
-        ref="avatarImg"
-        @load="updateDropbox"
-        />
+  <img @mouseover="isMouseOverAvatar = true" :src="avatarUrl" alt="Your avatar" class="avatar" ref="avatarImg" @load="updateDropbox" />
 
-  <div id="contact-info" class="vcard">
 
-    <!-- Microformats! -->
-
+  <section class="contact-info vcard">
     <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>
 
     <p>
-      Cell: <span contenteditable class="tel">555-666-7777</span><br />
-      Email: <a contenteditable class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
+      <div class="clonable">
+        Cell: <span contenteditable class="tel">555-666-7777</span><br />
+      </div>
+      <div class="clonable">
+        Email: <a contenteditable class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>
+      </div>
     </p>
-  </div>
+  </section>
 
-  <div id="objective">
-    <p contenteditable>
-      I am an outgoing and energetic (ask anybody) young professional, seeking a
-      career that fits my professional skills, personality, and murderous tendencies.
-      My squid-like head is a masterful problem solver and inspires fear in who gaze upon it.
-      I can bring world domination to your organization.
-    </p>
-  </div>
+
+
+  <section class="objective">
+    <div class="clonable">
+      <p contenteditable>
+        I am an outgoing and energetic (ask anybody) young professional, seeking a
+        career that fits my professional skills, personality, and murderous tendencies.
+        My squid-like head is a masterful problem solver and inspires fear in who gaze upon it.
+        I can bring world domination to your organization.
+      </p>
+    </div>
+  </section>
 
   <div class="clear"></div>
 
-  <dl>
-    <dd class="clear"></dd>
+  <section class="miscellaneous">
+    <dl>
+      <div class="clonable">
+        <dd class="clear"></dd>
 
-    <dt>Education</dt>
-    <dd contenteditable>
-      <h2>Withering Madness University - Planet Vhoorl</h2>
-      <p><strong>Major:</strong> Public Relations<br />
-        <strong>Minor:</strong> Scale Tending</p>
-    </dd>
+        <dt>Education</dt>
+        <dd contenteditable>
+          <h2>Withering Madness University - Planet Vhoorl</h2>
+          <p><strong>Major:</strong> Public Relations<br />
+            <strong>Minor:</strong> Scale Tending</p>
+        </dd>
 
-    <dd class="clear"></dd>
+      </div>
 
-    <dt>Skills</dt>
-    <dd contenteditable>
-      <h2>Office skills</h2>
-      <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
+      <div class="clonable">
+        <dd class="clear"></dd>
 
-      <h2>Computer skills</h2>
-      <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
-    </dd>
+        <dt>Skills</dt>
+        <dd contenteditable>
+          <h2>Office skills</h2>
+          <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
 
-    <dd class="clear"></dd>
+          <h2>Computer skills</h2>
+          <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
+        </dd>
 
-    <dt>Experience</dt>
-    <dd contenteditable>
-      <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
-      <ul>
-        <li>Inspired and won highest peasant death competition among servants</li>
-        <li>Helped coordinate managers to grow cult following</li>
-        <li>Provided untimely deaths to all who opposed</li>
-      </ul>
 
-      <h2>The Watering Hole <span>Bartender/Server - Milwaukee, WI - 2009</span></h2>
-      <ul>
-        <li>Worked on grass-roots promotional campaigns</li>
-        <li>Reduced theft and property damage percentages</li>
-        <li>Janitorial work, Laundry</li>
-      </ul>
-    </dd>
+      </div>
+      <dd class="clear"></dd>
 
-    <dd class="clear"></dd>
 
-    <dt>Hobbies</dt>
-    <dd contenteditable>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+      <div class="clonable">
+        <dt>Experience</dt>
+        <dd contenteditable>
+          <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
+          <ul>
+            <li>Inspired and won highest peasant death competition among servants</li>
+            <li>Helped coordinate managers to grow cult following</li>
+            <li>Provided untimely deaths to all who opposed</li>
+          </ul>
 
-    <dd class="clear"></dd>
+          <h2>The Watering Hole <span>Bartender/Server - Milwaukee, WI - 2009</span></h2>
+          <ul>
+            <li>Worked on grass-roots promotional campaigns</li>
+            <li>Reduced theft and property damage percentages</li>
+            <li>Janitorial work, Laundry</li>
+          </ul>
+        </dd>
 
-    <dt>References</dt>
-    <dd contenteditable>Available on request</dd>
+      </div>
 
-    <dd class="clear"></dd>
-  </dl>
 
+      <div class="clonable">
+        <dd class="clear"></dd>
+
+        <dt>Hobbies</dt>
+        <dd contenteditable>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+
+
+      </div>
+
+      <div class="clonable">
+        <dd class="clear"></dd>
+
+        <dt>References</dt>
+        <dd contenteditable>Available on request</dd>
+
+      </div>
+
+      <dd class="clear"></dd>
+    </dl>
+
+  </section>
   <div class="clear"></div>
 
 </div>
@@ -98,10 +116,12 @@
 
 <script>
 import imageUploader from "@/components/cvMaker/imageUploader";
-import {bus} from '@/view/index/main';
+import {
+  bus
+} from '@/view/index/main';
 
 export default {
-  data(){
+  data() {
     return {
       avatarUrl: '/img/templates/example_avatar.png',
       isMouseOverAvatar: false,
@@ -110,22 +130,26 @@ export default {
   components: {
     imageUploader,
   },
-  methods:{
-    changeAvatar(avatarUrl){
+  methods: {
+    changeAvatar(avatarUrl) {
       this.avatarUrl = avatarUrl;
     },
-    updateDropbox(ev){
-      console.log(JSON.stringify({width: ev.path[0].clientWidth, height: ev.path[0].clientHeight}));
-      bus.$emit('updateAvatarFrameSize',
-        {width: ev.path[0].clientWidth, height: ev.path[0].clientHeight});
+    updateDropbox(ev) {
+      console.log(JSON.stringify({
+        width: ev.path[0].clientWidth,
+        height: ev.path[0].clientHeight
+      }));
+      bus.$emit('updateAvatarFrameSize', {
+        width: ev.path[0].clientWidth,
+        height: ev.path[0].clientHeight
+      });
     },
   },
-  created(){
+  created() {
     bus.$on('cvAvatarUploaded', this.changeAvatar);
   },
-  mounted(){
+  mounted() {
     this.changeAvatar(this.avatarUrl);
   }
 }
-
 </script>

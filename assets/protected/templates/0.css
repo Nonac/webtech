@@ -63,12 +63,12 @@
   margin: 0 0 32px 17px;
 }
 
-.cv-contents #objective {
+.cv-contents .objective {
   width: 500px;
   float: left;
 }
 
-.cv-contents #objective p {
+.cv-contents .objective p {
   font-family: Georgia, Serif;
   font-style: italic;
   color: #666;

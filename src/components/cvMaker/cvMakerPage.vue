@@ -12,6 +12,7 @@
 import mainPage from "@/components/cvMaker/cvMakerMainPage";
 import subPage from "@/components/cvMaker/cvMakerSubPage";
 
+
 export default {
   props:['pageId', 'pageType'],
   computed:{
