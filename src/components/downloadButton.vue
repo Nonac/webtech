@@ -1,9 +1,7 @@
 <template>
     <div>
-        <p class="down-loadtext"
-           style="BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid;">
-            Download as PDF</p>
-        <div class="download-button" @click='downloadButtonClick' ref="button">
+        <div class="download-button" @click='downloadButtonClick' ref="button" style="z-index: 9999"
+        data-toggle="tooltip" data-placement="right" title="Download as PDF">
             <svg class="arrow" width="40" height="40" viewBox="0 0 40 40">
                 <circle
                         cx="50%"

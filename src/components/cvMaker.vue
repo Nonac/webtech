@@ -1,9 +1,13 @@
 <template>
 <div class="cv-back">
   <div class="sidenav">
-  <download-button :inputTime='this.downloadExpectedTime' />
-  <button class="btn btn-info" @click="addSubPage">Add Page</button>
-  <button class="btn btn-info" @click="deleteLastSubPage">Remove Last Page</button>
+    <download-button :inputTime='this.downloadExpectedTime' />
+    <div @click="addSubPage">
+      <add-button/>
+    </div>
+    <div @click="deleteLastSubPage">
+      <remove-button/>
+    </div>
 </div>
 
   <!-- cv contents -->
@@ -20,6 +24,8 @@
 
 <script>
 import downloadButton from "@/components/downloadButton";
+import addButton from "@/components/addButton";
+import removeButton from "@/components/removeButton";
 import cvPage from "@/components/cvMaker/cvMakerPage";
 import Vue from 'vue';
 
@@ -40,6 +46,8 @@ export default {
   },
   components: {
     downloadButton,
+    addButton,
+    removeButton,
     cvPage,
   },
   methods: {
