@@ -4,7 +4,8 @@
     <!--UPLOAD-->
     <form enctype="multipart/form-data" novalidate>
     <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
-      <div class="dropbox" ref="dropbox" :style="{'background-image': (exampleImageUrl ? `url(${exampleImageUrl})`: '')}">
+      <div class="dropbox" ref="dropbox">
+
         <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event)" accept="image/*" class="input-file">
         <p v-if="isInitial">
           Click to upload your avatar
@@ -46,13 +47,14 @@ const STATUS_INITIAL = 0,
 
 export default {
   name: 'app',
-  props: ['exampleImageUrl'],
+  props: ['backgroundImageUrl'],
   data() {
     return {
       uploadedFile: null,
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: 'avatar'
+      uploadFieldName: 'avatar',
+      frameHeight: '311.548px',
     }
   },
   computed: {
@@ -67,6 +69,9 @@ export default {
     },
     isFailed() {
       return this.currentStatus === STATUS_FAILED;
+    },
+    imageUrl(){
+      return this.backgroundImageUrl;
     }
   },
   methods: {
@@ -88,6 +93,8 @@ export default {
         console.log(res);
         this.uploadedFile = res.url;
         this.currentStatus = STATUS_SUCCESS;
+        this.imageUrl = res.url;
+        this.updateDropboxSizeAndBackground();
         bus.$emit('cvAvatarUploaded', `${res.url}&t=${new Date().getTime()}`);
       } catch (err) {
         this.uploadError = err.response;
@@ -113,10 +120,22 @@ export default {
 
       // save it
       this.save(form);
-    }
+    },
+
+    updateDropboxSizeAndBackground(){
+      let dropbox = this.$refs['dropbox'];
+      dropbox.style.backgroundImage = `url(${this.imageUrl})`;
+      dropbox.style.height = this.frameHeight;
+
+    },
   },
-
-
+  created(){
+    // update the size of the frame to be the same with the displaying image
+    bus.$on('updateAvatarFrameSize', (imgSize) => {
+      this.frameHeight = `${imgSize.height}px`;
+      this.updateDropboxSizeAndBackground();
+    });
+  },
   mounted() {
     this.reset();
   },
@@ -133,8 +152,8 @@ export default {
     background: lightcyan;
     color: dimgray;
     padding: 10px;
-    height: 311.548px;
-    position: relative;
+    position: absolute;
+    z-index:2;
     cursor: pointer;
 }
 

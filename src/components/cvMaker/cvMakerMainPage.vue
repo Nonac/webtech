@@ -6,11 +6,14 @@
           class="avatar">
   <imageUploader />
   </div>
+
   <img  @mouseover="isMouseOverAvatar = true"
-        v-show="!isMouseOverAvatar"
         :src="avatarUrl"
         alt="Your avatar"
-        class="avatar" />
+        class="avatar"
+        ref="avatarImg"
+        @load="updateDropbox"
+        />
 
   <div id="contact-info" class="vcard">
 
@@ -108,9 +111,20 @@ export default {
     imageUploader,
   },
   methods:{
+    changeAvatar(avatarUrl){
+      this.avatarUrl = avatarUrl;
+    },
+    updateDropbox(ev){
+      console.log(JSON.stringify({width: ev.path[0].clientWidth, height: ev.path[0].clientHeight}));
+      bus.$emit('updateAvatarFrameSize',
+        {width: ev.path[0].clientWidth, height: ev.path[0].clientHeight});
+    },
   },
   created(){
-    bus.$on('cvAvatarUploaded', (avatarUrl) => this.avatarUrl = avatarUrl);
+    bus.$on('cvAvatarUploaded', this.changeAvatar);
+  },
+  mounted(){
+    this.changeAvatar(this.avatarUrl);
   }
 }
 
