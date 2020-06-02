@@ -82,7 +82,7 @@ router.post('/avatar', async(req, res) =>{
   })
 })
 
-router.post('/', async(req, res) =>{
+router.post('/save', async(req, res) =>{
   // TODO jwt
   let userId = 1;
   let templateId = req.body.templateId;
@@ -91,13 +91,15 @@ router.post('/', async(req, res) =>{
   const htmlHeaders = req.body.htmlHeaders;
   const cvContents = req.body.cvContents;
 
-  const sql = `UPDATE UserCv SET htmlHeaders = ?, cvContents = ? WHERE userId = ?;`
-  let rv = db.async_run(sql, [htmlHeaders, cvContents, userId]);
-
-  const html = `<html><head>${htmlHeaders}</head><body>${cvContents}</body></html>`;
-
-  const newPdf = await pdf.toPdf(html);
-  res.status(201).send(newPdf);
+  const sql = `INSERT OR REPLACE INTO UserCv (userId, htmlHeaders, cvContents)
+                VALUES (?, ?, ?);`
+  let rv = await db.async_run(sql, [userId, htmlHeaders, cvContents]);
+  if(rv !== null){
+    console.log(rv);
+    return res.status(500).end();
+  }
+  console.log(`user ${userId} saved progress.`);
+  return res.status(201).end();
 })
 
 

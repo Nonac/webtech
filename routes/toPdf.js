@@ -4,12 +4,16 @@ const path = require('path');
 const pdf = require('../util/htmlToPdf');
 
 // root/api/toPdf
-router.post('/', async(req, res) =>{
-  let templateId = req.body.templateId;
-  if(templateId == undefined) templateId = 0;
-
-  const htmlHeaders = req.body.htmlHeaders;
-  const cvContents = req.body.cvContents;
+router.get('/', async(req, res) =>{
+  // TODO uid
+  let userId = 1;
+  const sql = 'SELECT htmlHeaders, cvContents FROM UserCv WHERE userId = ?;'
+  let userData = await db.async_get(sql, userId);
+  if(userData === null){
+    return res.status(404).send('no saved data');
+  }
+  let htmlHeaders = userData.htmlHeaders;
+  let cvContents = userData.cvContents;
 
   const html = `<html><head>${htmlHeaders}</head><body>${cvContents}</body></html>`;
 
