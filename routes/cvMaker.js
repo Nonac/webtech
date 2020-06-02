@@ -63,12 +63,12 @@ router.post('/avatar', async(req, res) =>{
   form.parse(req, async (err, fields, files) => {
     if(err) return console.log(err);
     if(files.avatar === undefined) return res.status(400);
-    console.log(`\tsize: ${JSON.stringify(files.avatar.size)}`);
-    console.log(`\tname: ${JSON.stringify(files.avatar.name)}`);
-    console.log(`\tpath: ${JSON.stringify(files.avatar.path)}`);
-    console.log(`\ttype: ${JSON.stringify(files.avatar.type)}`);
+    // console.log(`\tsize: ${JSON.stringify(files.avatar.size)}`);
+    // console.log(`\tname: ${JSON.stringify(files.avatar.name)}`);
+    // console.log(`\tpath: ${JSON.stringify(files.avatar.path)}`);
+    // console.log(`\ttype: ${JSON.stringify(files.avatar.type)}`);
 
-    // todo: only allow a sinlge file in the dir or store it in db
+    // store the most recent image on disk
     const newPath = path.resolve(`${imgDir}/avatar${path.extname(files.avatar.name)}`);
     fs.old.rename(files.avatar.path, newPath, (err) => {
       if(err){
@@ -90,10 +90,14 @@ router.post('/save', async(req, res) =>{
 
   const htmlHeaders = req.body.htmlHeaders;
   const cvContents = req.body.cvContents;
+  const avatarUrl = req.body.avatarUrl;
 
-  const sql = `INSERT OR REPLACE INTO UserCv (userId, htmlHeaders, cvContents, templateId)
-                VALUES (?, ?, ?, ?);`
-  let rv = await db.async_run(sql, [userId, htmlHeaders, cvContents, templateId]);
+  const sql = `INSERT OR REPLACE INTO UserCv
+                (userId, htmlHeaders, cvContents, templateId, avatarUrl)
+                VALUES (?, ?, ?, ?, ?);`
+  let rv = await db.async_run(sql,
+    [userId, htmlHeaders, cvContents, templateId, avatarUrl]);
+
   if(rv !== null){
     console.log(rv);
     return res.status(500).end();
@@ -112,7 +116,7 @@ router.get('/load', async(req, res) => {
   // TODO uid
   // TODO *create image only when needed, delete afterwards
   let userId = 1;
-  const sql = 'SELECT htmlHeaders, cvContents, templateId FROM UserCv WHERE userId = ?;'
+  const sql = 'SELECT htmlHeaders, cvContents, templateId, avatarUrl FROM UserCv WHERE userId = ?;'
   let userData = await db.async_get(sql, userId);
   if(userData === null){
     return res.status(404).send('no saved data');
@@ -122,7 +126,8 @@ router.get('/load', async(req, res) => {
     {
       htmlHeaders:userData.htmlHeaders,
       cvContents:userData.cvContents,
-      templateId:userData.templateId
+      templateId:userData.templateId,
+      avatarUrl: userData.avatarUrl,
     }
     );
   console.log(`user ${userId} loaded cv`);

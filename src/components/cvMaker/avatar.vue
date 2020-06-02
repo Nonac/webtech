@@ -4,7 +4,7 @@
       <imageUploader />
     </div>
 
-    <img @mouseover="isMouseOverAvatar = true" :src="avatarUrl" alt="Your avatar" class="avatar" ref="avatarImg" @load="updateDropbox" />
+    <img id="avatar-img" @mouseover="isMouseOverAvatar = true" :src="avatarUrl" alt="Your avatar" class="avatar" ref="avatarImg" @load="updateDropbox" />
 
   </div>
 

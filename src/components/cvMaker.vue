@@ -87,6 +87,13 @@ function getClonable(elem){
   return null;
 }
 
+async function getElemByRef(ref, vue){
+  return new Promise((resolve) => {
+    let elems = vue.$refs[ref];
+    if(elems) resolve(elems);
+  })
+}
+
 import {
   bus
 } from '@/view/index/main';
@@ -132,17 +139,14 @@ export default {
     },
     // returns null on succees
     async saveProgress(){
-      let cvContents = await (async() => {
-        return new Promise((resolve) => {
-          let cvContents = this.$refs['cv-contents'];
-          if(cvContents) resolve(cvContents);
-        })
-      })();
+      let cvContents = await getElemByRef('cv-contents', this);
+      let avatarImg = document.querySelectorAll('#avatar-img')[0];
 
       let reqBody = {
         htmlHeaders: document.head.innerHTML,
         cvContents: cvContents.innerHTML,
-        templateId: this.templateId
+        templateId: this.templateId,
+        avatarUrl: avatarImg.src,
       }
       try{
         let res = await this.$http.post('/api/cvMaker/save', reqBody);
@@ -164,6 +168,11 @@ export default {
         if(res.status === 200){
           let htmlHeaders = res.body.htmlHeaders;
           let cvContents = res.body.cvContents;
+          let avatarUrl = res.body.avatarUrl;
+
+          // change avatar
+          let avatarImg = document.querySelectorAll('#avatar-img')[0];
+          avatarImg.src = avatarUrl;
 
           let domParser = new DOMParser();
           let doc = domParser.parseFromString(htmlHeaders, 'text/html');

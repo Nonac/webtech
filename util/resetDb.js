@@ -41,7 +41,7 @@ module.exports = (async function(){
     const dbSchemas = require('./dbSchemas');
     for(let sql of dbSchemas){
       await db.async_run(sql);
-      console.log(sql);
+      console.log(`${sql}\n`);
     }
     return null;
   }
