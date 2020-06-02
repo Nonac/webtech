@@ -40,11 +40,9 @@
 </div>
 
   <!-- cv contents -->
-  <div class="cv" ref="cv">
+  <div class="cv" ref="cv" @mousemove="handleMousemove" @click="handleMouseClick">
     <link rel="stylesheet" :href="templatePath">
-    <div class="cv-contents" ref="cv-contents"
-      @mousemove="handleMousemove" @click="handleMouseClick">
-
+    <div class="cv-contents" ref="cv-contents">
       <cvPage pageId=0 pageType="main" />
 
     </div>
@@ -137,7 +135,7 @@ export default {
     async saveProgress(){
       let reqBody = {
         htmlHeaders: document.head.innerHTML,
-        cvContents: this.$refs.cv.innerHTML,
+        cvContents: this.$refs['cv-contents'].innerHTML,
         templateId: this.templateId
       }
       try{
@@ -165,11 +163,62 @@ export default {
           let doc = domParser.parseFromString(htmlHeaders, 'text/html');
 
           document.head.replaceWith(doc.head);
-          doc = domParser.parseFromString(cvContents, 'text/html');
-          console.log(this.$refs.cv);
-          this.$refs.cv.replaceWith(doc.body.firstChild);
-                    console.log(this.$refs.cv);
-          this.$refs.cv.insertAdjacentElement('beforebegin', doc.head.firstChild);
+
+
+          // replace children nodes
+          // keeps elems that have event listeners
+          let old_div_A4paper = this.$refs['cv-contents'].firstElementChild;
+          let new_div_A4paper = domParser.parseFromString(cvContents, 'text/html').body.firstChild;
+
+
+          while(new_div_A4paper){
+            if(!old_div_A4paper){ // page not enough
+              this.addSubPage();
+              old_div_A4paper = this.$refs['cv-contents'].lastElementChild;
+            }
+
+
+            let new_div_cvPage = new_div_A4paper.firstElementChild;
+            let new_elem = new_div_cvPage.firstElementChild;
+
+            let old_div_cvPage = old_div_A4paper.firstElementChild;
+            let old_elem = old_div_cvPage.firstElementChild;
+            // handle 'dont-replace' elems
+            // which should be the first children of elem with 'cv-page' attr
+            while(new_elem){
+              if(old_elem){ // old elem enough
+                const is_old_replacable = !old_elem.hasAttribute('dont-replace');
+                const is_new_replacable = !new_elem.hasAttribute('dont-replace');
+                if(is_old_replacable && is_new_replacable){
+                  let temp = old_elem.nextSibling;
+                  old_elem.insertAdjacentHTML('beforebegin', new_elem.outerHTML);
+                  new_elem = new_elem.nextSibling;
+                  old_div_cvPage.removeChild(old_elem);
+                  old_elem = temp;
+                }else if(!is_old_replacable && !is_new_replacable){
+                  old_elem = old_elem.nextSibling;
+                  new_elem = new_elem.nextSibling;
+                }else if(!is_new_replacable){
+                  let temp = old_elem.nextSibling;
+                  old_div_cvPage.removeChild(old_elem);
+                  old_elem = temp;
+                }else{
+                  old_elem.insertAdjacentHTML('beforebegin', new_elem.outerHTML);
+                  new_elem = new_elem.nextSibling;
+                }
+              }else{  // old elem exhausted
+                old_div_cvPage.appendChild(new_elem);
+                new_elem = new_elem.nextSibling;
+              }
+            }
+            new_div_A4paper = new_div_A4paper.nextSibling;
+            old_div_A4paper = old_div_A4paper.nextSibling;
+          } // new page exhausted
+          while(old_div_A4paper){ // remove excessive page
+            let temp = old_div_A4paper.nextSibling;
+            this.$refs['cv-contents'].removeChild(old_div_A4paper);
+            old_div_A4paper = temp;
+          }
 
         }else{
           alert('Load failed.');

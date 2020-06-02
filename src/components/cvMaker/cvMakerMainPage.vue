@@ -1,12 +1,7 @@
 <template>
-<div>
+<div cv-page>
 
-  <div @mouseleave="isMouseOverAvatar = false" v-show="isMouseOverAvatar" class="avatar">
-    <imageUploader />
-  </div>
-
-  <img @mouseover="isMouseOverAvatar = true" :src="avatarUrl" alt="Your avatar" class="avatar" ref="avatarImg" @load="updateDropbox" />
-
+  <avatar />
 
  <section class="contact-info vcard">
    <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>
@@ -18,7 +13,7 @@
      </div>
      <div class="clonable">
        <span contenteditable>Email:</span>
-       <a contenteditable class="email" :href="`mailto:${userData.email}`">{{userData.email}}</a>
+       <a contenteditable class="email" >greatoldone@lovecraft.com</a>
      </div>
    </div>
  </section>
@@ -108,44 +103,12 @@
 </template>
 
 <script>
-import imageUploader from "@/components/cvMaker/imageUploader";
-import {
-  bus
-} from '@/view/index/main';
+import avatar from "./avatar.vue";
 
 export default {
-  data() {
-    return {
-      avatarUrl: '/img/templates/example_avatar.png',
-      isMouseOverAvatar: false,
-      userData:{
-        email: 'greatoldone@lovecraft.com',
-      }
-    }
-  },
-  components: {
-    imageUploader,
-  },
-  methods: {
-    changeAvatar(avatarUrl) {
-      this.avatarUrl = avatarUrl;
-    },
-    updateDropbox(ev) {
-      console.log(JSON.stringify({
-        width: ev.path[0].clientWidth,
-        height: ev.path[0].clientHeight
-      }));
-      bus.$emit('updateAvatarFrameSize', {
-        width: ev.path[0].clientWidth,
-        height: ev.path[0].clientHeight
-      });
-    },
-  },
-  created() {
-    bus.$on('cvAvatarUploaded', this.changeAvatar);
-  },
-  mounted() {
-    this.changeAvatar(this.avatarUrl);
+  components:{
+    avatar,
   }
+
 }
 </script>
