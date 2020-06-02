@@ -1,19 +1,22 @@
 <template>
 <div class="cv-back">
-  <div class="sidenav">
+  <div class="sidenav" style="height: 500px;width: 500px">
     <download-button :inputTime='this.downloadExpectedTime' />
-    <div @click="addSubPage">
-      <add-button/>
+    <div>
+      <div @click="addSubPage" style="display: inline-block;">
+        <add-button/>
+      </div>
+      <div @click="deleteLastSubPage" style="display: inline-block;">
+        <remove-button/>
+      </div>
     </div>
-    <div @click="deleteLastSubPage">
-      <remove-button/>
-    </div>
-
-    <div @click="insertElement">
-      <add-button/>
-    </div>
-    <div @click="deleteElement">
-      <remove-button/>
+    <div>
+      <div @click="insertElement" style="display: inline-block;">
+        <add-element-button/>
+      </div>
+      <div @click="deleteElement" style="display: inline-block;">
+        <remove-elemtn-button/>
+      </div>
     </div>
 </div>
 
@@ -32,9 +35,11 @@
 
 
 <script>
-import downloadButton from "@/components/downloadButton";
-import addButton from "@/components/addButton";
-import removeButton from "@/components/removeButton";
+import downloadButton from "@/components/button/downloadButton";
+import addButton from "@/components/button/addPageButton";
+import removeButton from "@/components/button/removePageButton";
+import addElementButton from "@/components/button/addElementButton";
+import removeElemtnButton from "@/components/button/removeElemtnButton";
 import cvPage from "@/components/cvMaker/cvMakerPage";
 import Vue from 'vue';
 
@@ -92,6 +97,8 @@ export default {
     downloadButton,
     addButton,
     removeButton,
+    addElementButton,
+    removeElemtnButton,
     cvPage,
   },
   methods: {

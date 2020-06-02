@@ -98,5 +98,5 @@
         }
 </script>
 
-<style scoped src='../view/index/assets/cvMaker.css'>
+<style scoped src='@/view/index/assets/cvMaker.css'>
 </style>
