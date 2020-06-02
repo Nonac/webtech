@@ -29,10 +29,12 @@ const routes = [{
     },
     {
       path: '/cvMaker',
+      name: 'cvMaker',
       components: {default:cvMaker, top:Menu},
-      props:{
-        default: (route) => ({templateId: route.query.templateId}),
-        top:false},
+      props: (route) => ({
+        fetchSavedData: route.query.fetchSavedData,
+        templateId: route.query.templateId
+      }),
     },
     {
       path: '/about',

@@ -100,10 +100,15 @@ import {
 
 export default {
   name: 'cv',
-  props: ['templateId', 'fetchSavedData'],
+  props: {
+    // templateId: Number,
+    // fetchSavedData: Boolean,
+  },
   data() {
     return {
       mode: MODE_EDIT,
+      templateId: 0,
+      fetchSavedData: false,
 
       maxPageId: 0,
       // This parameter should call the thread status of the system about the download feedback
@@ -385,7 +390,7 @@ export default {
     },
     fetchTemplate(){
       const templateElemId = 'cv-template'
-      if(!this.templateId) this.templateId = 0;
+      if(!this.templateId) return;
       // removing existing template
       let existingTemplates = document.querySelectorAll(`#${templateElemId}`);
       for(let templateNode of existingTemplates){
@@ -406,6 +411,10 @@ export default {
   },
   created() {
     // fetch saved data
+    const query = this.$router.currentRoute.query;
+    this.templateId = query.templateId;
+    this.fetchSavedData = query.fetchSavedData;
+
     if(this.fetchSavedData){
       this.loadSavedData();
     }else{
@@ -413,6 +422,8 @@ export default {
     }
 
     bus.$on('downloadAsPdfClick', this.generatePdf);
+  },
+  mounted(){
   }
 }
 </script>
