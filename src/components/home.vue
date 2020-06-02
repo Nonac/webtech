@@ -24,10 +24,10 @@ export default {
         startClick(){
             var c_start=document.cookie.indexOf("jwt");
             if(c_start === -1){
-                this.$router.replace('/login')
+                this.$router.replace('/login');
             }
             else{
-                this.$router.replace('/selectTemplate')
+                this.$router.replace('/userProfile');
             }
         }
     }

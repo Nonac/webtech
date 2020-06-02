@@ -126,6 +126,12 @@
             this.isLoggedIn = true;
             this.username = this.$cookies.get('username');
           });
+
+          // check login status
+          if(this.$cookies.isKey("jwt") && this.$cookies.isKey("username")){
+            this.isLoggedIn = true;
+            this.username = this.$cookies.get('username');
+          }
         }
     }
 </script>

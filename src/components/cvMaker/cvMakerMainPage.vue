@@ -1,25 +1,22 @@
 <template>
-<div>
+<div cv-page>
 
-  <div @mouseleave="isMouseOverAvatar = false" v-show="isMouseOverAvatar" class="avatar">
-    <imageUploader />
-  </div>
+  <avatar />
 
-  <img @mouseover="isMouseOverAvatar = true" :src="avatarUrl" alt="Your avatar" class="avatar" ref="avatarImg" @load="updateDropbox" />
+ <section class="contact-info vcard">
+   <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>
 
-
-<!--  <section class="contact-info vcard">-->
-<!--    <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>-->
-
-<!--    <p>-->
-<!--      <div class="clonable">-->
-<!--        <span contenteditable>Cell:</span> <span contenteditable class="tel">555-666-7777</span><br />-->
-<!--      </div>-->
-<!--      <div class="clonable">-->
-<!--        <span contenteditable>Email:</span> <a contenteditable class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>-->
-<!--      </div>-->
-<!--    </p>-->
-<!--  </section>-->
+   <div>
+     <div class="clonable">
+       <span contenteditable>Cell:</span>
+       <span contenteditable class="tel">555-666-7777</span><br>
+     </div>
+     <div class="clonable">
+       <span contenteditable>Email:</span>
+       <a contenteditable class="email" >greatoldone@lovecraft.com</a>
+     </div>
+   </div>
+ </section>
 
 
 
@@ -106,41 +103,12 @@
 </template>
 
 <script>
-import imageUploader from "@/components/cvMaker/imageUploader";
-import {
-  bus
-} from '@/view/index/main';
+import avatar from "./avatar.vue";
 
 export default {
-  data() {
-    return {
-      avatarUrl: '/img/templates/example_avatar.png',
-      isMouseOverAvatar: false,
-    }
-  },
-  components: {
-    imageUploader,
-  },
-  methods: {
-    changeAvatar(avatarUrl) {
-      this.avatarUrl = avatarUrl;
-    },
-    updateDropbox(ev) {
-      console.log(JSON.stringify({
-        width: ev.path[0].clientWidth,
-        height: ev.path[0].clientHeight
-      }));
-      bus.$emit('updateAvatarFrameSize', {
-        width: ev.path[0].clientWidth,
-        height: ev.path[0].clientHeight
-      });
-    },
-  },
-  created() {
-    bus.$on('cvAvatarUploaded', this.changeAvatar);
-  },
-  mounted() {
-    this.changeAvatar(this.avatarUrl);
+  components:{
+    avatar,
   }
+
 }
 </script>

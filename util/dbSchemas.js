@@ -7,10 +7,17 @@ const User =
   );`;
 
 const Template =
-` Create TABLE IF NOT EXISTS Template (
+` CREATE TABLE IF NOT EXISTS Template (
     id INTEGER PRIMARY KEY,
-    css TEXT NOT NULL,
     description TEXT NOT NULL
 );`
 
-module.exports = [User, Template];
+const UserCv =
+` CREATE TABLE IF NOT EXISTS UserCv (
+    userId INTEGER PRIMARY KEY,
+    htmlHeaders TEXT NOT NULL,
+    cvContents TEXT NOT NULL,
+    FOREIGN KEY (userId) REFERENCES User(id)
+);`
+
+module.exports = [User, Template, UserCv];

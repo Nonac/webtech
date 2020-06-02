@@ -34,14 +34,15 @@
         <incline-font-button/>
       </div>
     </div>
+
+    <button @click="saveProgress">Save Progress</button>
+    <button @click="loadSavedData">Load Progress</button>
 </div>
 
   <!-- cv contents -->
-  <div class="cv" ref="cv">
+  <div class="cv" ref="cv" @mousemove="handleMousemove" @click="handleMouseClick">
     <link rel="stylesheet" :href="templatePath">
-    <div class="cv-contents" ref="cv-contents"
-      @mousemove="handleMousemove" @click="handleMouseClick">
-
+    <div class="cv-contents" ref="cv-contents">
       <cvPage pageId=0 pageType="main" />
 
     </div>
@@ -93,7 +94,7 @@ import {
 
 export default {
   name: 'cv',
-  props: ['templateId'],
+  props: ['templateId', 'fetchSavedData'],
   data() {
     return {
       mode: MODE_EDIT,
@@ -126,23 +127,125 @@ export default {
     cvPage,
   },
   methods: {
-    generatePdf() {
+    // TODO animation
+    animateProgressSaved(){
+
+    },
+    // returns null on succees
+    async saveProgress(){
       let reqBody = {
         htmlHeaders: document.head.innerHTML,
-        cvContents: this.$refs.cv.innerHTML,
+        cvContents: this.$refs['cv-contents'].innerHTML,
         templateId: this.templateId
       }
-      this.$http.post(this.serverRootUrl + '/api/toPdf', reqBody, {
-          responseType: 'arraybuffer'
-        })
-        .then(res => {
-          let blob = new Blob([res.data]);
-          let link = document.createElement('a');
-          link.href = window.URL.createObjectURL(blob);
-          link.download = "cv.pdf";
-          link.click();
-        })
-        .catch(err => console.log(err));
+      try{
+        let res = await this.$http.post('/api/cvMaker/save', reqBody);
+        if(res.status === 201){
+          this.animateProgressSaved();
+          return null;
+        }else{
+          alert('save failed');
+        }
+      }catch(err){
+        console.log(err);
+        alert('save failed');
+        return err;
+      }
+    },
+    async loadSavedData(){
+      try{
+        let res = await this.$http.get('/api/cvMaker/load');
+        if(res.status === 200){
+          let htmlHeaders = res.body.htmlHeaders;
+          let cvContents = res.body.cvContents;
+
+          let domParser = new DOMParser();
+          let doc = domParser.parseFromString(htmlHeaders, 'text/html');
+
+          document.head.replaceWith(doc.head);
+
+
+          // replace children nodes
+          // keeps elems that have event listeners
+          let old_div_A4paper = this.$refs['cv-contents'].firstElementChild;
+          let new_div_A4paper = domParser.parseFromString(cvContents, 'text/html').body.firstChild;
+
+
+          while(new_div_A4paper){
+            if(!old_div_A4paper){ // page not enough
+              this.addSubPage();
+              old_div_A4paper = this.$refs['cv-contents'].lastElementChild;
+            }
+
+
+            let new_div_cvPage = new_div_A4paper.firstElementChild;
+            let new_elem = new_div_cvPage.firstElementChild;
+
+            let old_div_cvPage = old_div_A4paper.firstElementChild;
+            let old_elem = old_div_cvPage.firstElementChild;
+            // handle 'dont-replace' elems
+            // which should be the first children of elem with 'cv-page' attr
+            while(new_elem){
+              if(old_elem){ // old elem enough
+                const is_old_replacable = !old_elem.hasAttribute('dont-replace');
+                const is_new_replacable = !new_elem.hasAttribute('dont-replace');
+                if(is_old_replacable && is_new_replacable){
+                  let temp = old_elem.nextSibling;
+                  old_elem.insertAdjacentHTML('beforebegin', new_elem.outerHTML);
+                  new_elem = new_elem.nextSibling;
+                  old_div_cvPage.removeChild(old_elem);
+                  old_elem = temp;
+                }else if(!is_old_replacable && !is_new_replacable){
+                  old_elem = old_elem.nextSibling;
+                  new_elem = new_elem.nextSibling;
+                }else if(!is_new_replacable){
+                  let temp = old_elem.nextSibling;
+                  old_div_cvPage.removeChild(old_elem);
+                  old_elem = temp;
+                }else{
+                  old_elem.insertAdjacentHTML('beforebegin', new_elem.outerHTML);
+                  new_elem = new_elem.nextSibling;
+                }
+              }else{  // old elem exhausted
+                old_div_cvPage.appendChild(new_elem);
+                new_elem = new_elem.nextSibling;
+              }
+            }
+            new_div_A4paper = new_div_A4paper.nextSibling;
+            old_div_A4paper = old_div_A4paper.nextSibling;
+          } // new page exhausted
+          while(old_div_A4paper){ // remove excessive page
+            let temp = old_div_A4paper.nextSibling;
+            this.$refs['cv-contents'].removeChild(old_div_A4paper);
+            old_div_A4paper = temp;
+          }
+
+        }else{
+          alert('Load failed.');
+        }
+      }catch(err){
+        console.log(err);
+        alert('Load failed.');
+      }
+    },
+    async generatePdf() {
+      let rv = await this.saveProgress();
+      if(rv !== null) return; // save failed
+
+      try{
+        let res = await this.$http.get('/api/toPdf', {
+            responseType: 'arraybuffer'
+          });
+        let blob = new Blob([res.data]);
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "cv.pdf";
+        link.click();
+      }catch(err){
+        console.log(err);
+        alert('Failed');
+      }
+
     },
     addSubPage(){
       if(this.maxPageId >= 5) return alert('A concise CV is a good CV.');
@@ -274,6 +377,11 @@ export default {
     }
   },
   created() {
+    // fetch saved data
+    if(this.fetchSavedData){
+      this.loadSavedData();
+    }
+
     bus.$on('downloadAsPdfClick', this.generatePdf);
   }
 }

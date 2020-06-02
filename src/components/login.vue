@@ -6,7 +6,7 @@
             <form method="post">
                 <input type="text" name="u" placeholder="Username" required="required"  v-model="userName" />
                 <input type="password" name="p" placeholder="Password" required="required" v-model="password" />
-                <button type="submit" class="btn btn-primary btn-block btn-large" @click="submitLoginRequest()">Let me in.</button>
+                <button type="submit" class="btn btn-primary btn-block btn-large" @click.prevent="submitLoginRequest()">Let me in.</button>
             </form>
         </div>
     </div>
@@ -47,7 +47,7 @@
                     this.$cookies.set('username', username);
                     bus.$emit('loggedIn', null);
                   }else{
-                    alert('当我打出? 不是我有问题而是我觉得你有问题');
+                    alert('login failed');
                   }
                 }
               ).catch(function(err){

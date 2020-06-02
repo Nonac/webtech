@@ -9,7 +9,8 @@
                 <input type="text" name="e" placeholder="E-Mail" required="required"  v-model="email" />
                 <input type="password" name="p" placeholder="Password" required="required" v-model="password" />
                 <input type="password" name="r" placeholder="Re-Password" required="required" v-model="rePassword" />
-                <button type="submit" class="btn btn-primary btn-block btn-large" @click.prevent="submitRegRequest">Summit.</button>
+                <button type="submit" class="btn btn-primary btn-block btn-large"
+                  @click.prevent="checkAndSubmit">Summit.</button>
             </form>
         </div>
     </div>
@@ -31,7 +32,7 @@
             }
         },
         methods: {
-            submitRegRequest: function(){
+            submitRegRequest(){
                 let newUser = {
                   username: this.userName,
                   password: this.password,
@@ -39,9 +40,7 @@
                 }
                 this.$http.post(this.serverRootUrl + '/api/user/register', newUser)
                 .then(function(data){
-                    if(this.password!==this.rePassword){
-                        alert("Incorrect Re-Password.")
-                    }else if(data.status === 201){ // succeeded
+                  if(data.status === 201){ // succeeded
                         alert('Registration succeed.');
                         const authToken = data.headers.map['auth-token'];
                         const username = data.body.username;
@@ -50,12 +49,18 @@
                         // inform menu.vue that the user has logged in
                         bus.$emit('loggedIn', null);
                   }else{
-                    alert('当我打出? 不是我有问题而是我觉得你有问题');
+                    alert('register failed');
                   }
                 }).catch(function(err){
                   alert(err.body);
                 });
             },
+            checkAndSubmit(){
+              if(this.password !== this.rePassword){
+                return alert('re-password and password do not match.')
+              }
+              this.submitRegRequest();
+            }
         }
     }
 </script>

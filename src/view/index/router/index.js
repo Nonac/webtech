@@ -7,6 +7,7 @@ import Home from "@/components/home";
 import selectTemplate from "@/components/selectTemplate";
 import cvMaker from "@/components/cvMaker";
 import about from "@/components/aboutUs";
+import userProfile from "@/components/userProfile";
 
 import Vue from 'vue'
 
@@ -46,10 +47,13 @@ const routes = [{
       path: '/register',
       components: {default:register, top:Menu}
     },
-
     {
       path: '/home',
       components: {default:Home, top:Menu}
+    },
+    {
+      path: '/userProfile',
+      components: {default:userProfile, top:Menu}
     }
   ]
 }

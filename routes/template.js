@@ -12,7 +12,7 @@ router.get('/template.css', async(req, res) =>{
     return res.status(404).send('Template not found');
   }
   const cssFilePath = path.resolve(__dirname + `/../assets/protected/templates/${templateId}.css`);
-  console.log(`template sent: ${cssFilePath}`);
+  console.log(`template ${templateId} sent`);
   res.sendFile(cssFilePath);
 })
 

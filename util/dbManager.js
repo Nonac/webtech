@@ -5,20 +5,27 @@ const dbPath = './db/data.db';
 const bcrypt = require('bcryptjs');
 
 const DBError = require('../util/DBError');
-const dbSchemas = require('./dbSchemas');
 
 
-const db = new sqlite3.Database(dbPath, err =>
-      console.log(err ? err.message : "connected to db.")
-);
+const dbPromise = (async() => {
+    return new Promise((resolve) => {
+      let db = new sqlite3.Database(dbPath,
+        err => {
+          if(err) throw err;
+          console.log('db connected');
+          resolve(db);
+        });
+    })
+  })();
 
 
 // promise wrapper for db.run
 // returns null if and only if succeeds
 async function async_run(sql, params){
+  let db = await dbPromise;
   return new Promise((resolve, reject) => {
     db.run(sql, params, err =>
-      err ? reject(err.message) : resolve(null));
+      err ? reject(err) : resolve(null));
   })
 }
 
@@ -26,14 +33,16 @@ async function async_run(sql, params){
 // returns the first row of the result table. null if the table is empty
 // tablenames and attrnames are not allowed in params
 async function async_get(sql, params){
+  let db = await dbPromise;
   return new Promise((resolve, reject) => {
     db.get(sql, params, (err, row) =>
-      err ? reject(err.message) : resolve(row ? row : null));
+      err ? reject(err) : resolve(row ? row : null));
   })
 }
 
 // returns all rows if and only if succeeds
 async function async_all(sql, params) {
+  let db = await dbPromise;
   return new Promise((resolve, reject) => {
     db.all(sql, params, (err, rows) => {
       err? reject(err) : resolve(rows);
@@ -43,23 +52,7 @@ async function async_all(sql, params) {
 
 
 
-async function resetDb() {
-  const tableNames = ['User', 'Template'];
 
-  for(let tableName of tableNames){
-    let rv = await async_run(`DROP TABLE IF EXISTS ${tableName};`);
-    if(rv !== null) return rv;
-  }
-  return initTables();
-}
-
-async function initTables() {
-  for(let sql of dbSchemas){
-    await async_run(sql);
-  }
-  require('./dbInsertTemplates').init();
-  return null;
-}
 
 
 // takes in a JSON object
@@ -121,18 +114,35 @@ async function getTemplate(id) {
 
 }
 
-async function closeDb() {
-  return new Promise((resolve) => {
-    db.close((err) => resolve(console.log(err ? err.message : "db closed.")));
+async function closeDb(dbToClose = db) {
+  return new Promise((resolve, reject) => {
+    dbToClose.close(err => err ? reject(err) : resolve(null));
   })
 }
 
+// simple dbms for debugging
+async function dbms(){
+  let readlineSync = require('readline-sync');
+  while(true) {
+    let l = readlineSync.question("sql:");
+    if(l === 'e' || l === 'exit') {
+      process.exit();
+    }
 
-module.exports = db;
-module.exports.close = closeDb;
-module.exports.init = initTables;
+    try{
+      let rows = await async_all(l);
+      console.log(rows);
+    }catch(err){
+      console.log(err);
+    }
+
+
+  }
+}
+
+module.exports.dbPromise = dbPromise;
+module.exports.closeDb = closeDb;
 module.exports.getUsers = getUsers;
-module.exports.resetDb = resetDb;
 module.exports.checkExistence = checkExistence;
 module.exports.createNewUser = createNewUser;
 module.exports.getUser = getUser;
@@ -141,3 +151,5 @@ module.exports.getTemplate = getTemplate;
 module.exports.async_run = async_run;
 module.exports.async_get = async_get;
 module.exports.async_all = async_all;
+
+module.exports.dbms = dbms;

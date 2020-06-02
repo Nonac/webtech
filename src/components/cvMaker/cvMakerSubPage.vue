@@ -1,5 +1,5 @@
 <template>
-<div>
+<div cv-page>
 
   <section class="miscellaneous">
     <dl>
