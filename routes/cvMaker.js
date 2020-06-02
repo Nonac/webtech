@@ -79,8 +79,11 @@ router.post('/avatar', async(req, res) =>{
     });
 
   })
+})
 
 
+router.post('/deleteSaved', async(req, res) =>{
+  res.status(205).end();
 })
 
 
