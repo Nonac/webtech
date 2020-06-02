@@ -5,12 +5,11 @@ const dbPath = './db/data.db';
 const bcrypt = require('bcryptjs');
 
 const DBError = require('../util/DBError');
-const dbSchemas = require('./dbSchemas');
 
 
-const db = new sqlite3.Database(dbPath, err =>
-      console.log(err ? err.message : "connected to db.")
-);
+// returns null on success
+const db = new sqlite3.Database(dbPath,
+  err => {if(err) throw err});
 
 
 // promise wrapper for db.run
@@ -43,23 +42,7 @@ async function async_all(sql, params) {
 
 
 
-async function resetDb() {
-  const tableNames = ['User', 'Template'];
 
-  for(let tableName of tableNames){
-    let rv = await async_run(`DROP TABLE IF EXISTS ${tableName};`);
-    if(rv !== null) return rv;
-  }
-  return initTables();
-}
-
-async function initTables() {
-  for(let sql of dbSchemas){
-    await async_run(sql);
-  }
-  require('./dbInsertTemplates').init();
-  return null;
-}
 
 
 // takes in a JSON object
@@ -130,9 +113,7 @@ async function closeDb() {
 
 module.exports = db;
 module.exports.close = closeDb;
-module.exports.init = initTables;
 module.exports.getUsers = getUsers;
-module.exports.resetDb = resetDb;
 module.exports.checkExistence = checkExistence;
 module.exports.createNewUser = createNewUser;
 module.exports.getUser = getUser;

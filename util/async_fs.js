@@ -16,7 +16,15 @@ const readdir = async (dirPath) => {
   })
 }
 
+// returns null on succeed
+const mkdir = async (path, options = undefined) => {
+  return new Promise((resolve, reject) => {
+    fs.mkdir(path, options, (err) => err ? reject(err) : resolve(null));
+  })
+}
+
 
 module.exports.old = fs;
 module.exports.writeFile = writeFile;
 module.exports.readdir = readdir;
+module.exports.mkdir = mkdir;
