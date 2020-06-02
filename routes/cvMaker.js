@@ -46,6 +46,23 @@ router.get('/avatar', async(req, res) => {
 
 })
 
+router.get('/has_save', async(req, res) => {
+  // TODO uid
+  let userId = 1;
+
+  try{
+    if(await db.checkExistence('UserCv', 'userId', userId)){
+      res.status(200).end();
+    }else{
+      res.status(404).end();
+    }
+  }catch(err){
+    console.log(err);
+    res.status(500).end();
+  }
+
+})
+
 // root/api/cvMaker
 router.post('/avatar', async(req, res) =>{
   console.log('\nreceiving avatar...');

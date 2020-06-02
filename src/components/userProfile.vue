@@ -59,8 +59,21 @@ export default {
         this.$router.push({path:'/selectTemplate'}))
       .catch(err => console.log(err));
     },
-    continueExistingWork(){
-      this.$router.push({path:'cvMaker', query:{templateId: 2, fetchSavedData: true}});
+    async continueExistingWork(){
+      try{
+        let res = await this.$http.get('/api/cvMaker/has_save');
+        if(res.status === 200){
+          this.$router.push({path:'cvMaker', query:{templateId: -1, fetchSavedData: true}});
+        }
+      }catch(err){
+        if(err.status === 404){
+          return alert("You don't seem to have anything to load.");
+        }
+        alert('Load failed.');
+      }
+
+
+
     }
   },
   computed: {

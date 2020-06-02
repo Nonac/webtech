@@ -392,7 +392,7 @@ export default {
     },
     fetchTemplate(){
       const templateElemId = 'cv-template'
-      if(!this.templateId) return;
+      if(this.templateId === undefined) return;
       // removing existing template
       let existingTemplates = document.querySelectorAll(`#${templateElemId}`);
       for(let templateNode of existingTemplates){
@@ -401,6 +401,8 @@ export default {
       // add template
       const styleElemHTML = `<link id="${templateElemId}" rel="stylesheet" href="${this.templatePath}">`
       document.head.insertAdjacentHTML('beforeend', styleElemHTML);
+      // perhaps find a better way
+      // this.$forceUpdate();
       console.log('template applied.');
     }
   },
@@ -414,8 +416,8 @@ export default {
   created() {
     // fetch saved data
     const query = this.$router.currentRoute.query;
-    this.templateId = query.templateId;
-    this.fetchSavedData = query.fetchSavedData;
+    this.templateId = query.templateId ? query.templateId : 0;
+    this.fetchSavedData = query.fetchSavedData ? query.fetchSavedData : false;
 
     if(this.fetchSavedData){
       this.loadSavedData();
