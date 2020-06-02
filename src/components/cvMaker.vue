@@ -41,7 +41,6 @@
 
   <!-- cv contents -->
   <div class="cv" ref="cv" @mousemove="handleMousemove" @click="handleMouseClick">
-    <link rel="stylesheet" :href="templatePath">
     <div class="cv-contents" ref="cv-contents">
       <cvPage pageId=0 pageType="main" />
 
@@ -129,13 +128,20 @@ export default {
   methods: {
     // TODO animation
     animateProgressSaved(){
-
+      console.log('saved');
     },
     // returns null on succees
     async saveProgress(){
+      let cvContents = await (async() => {
+        return new Promise((resolve) => {
+          let cvContents = this.$refs['cv-contents'];
+          if(cvContents) resolve(cvContents);
+        })
+      })();
+
       let reqBody = {
         htmlHeaders: document.head.innerHTML,
-        cvContents: this.$refs['cv-contents'].innerHTML,
+        cvContents: cvContents.innerHTML,
         templateId: this.templateId
       }
       try{
@@ -367,6 +373,19 @@ export default {
 
       if(this.mode === MODE_INSERT) return this.handleInsertion(ev);
       if(this.mode === MODE_DELETE) return this.handleDeletion(ev);
+    },
+    fetchTemplate(){
+      const templateElemId = 'cv-template'
+      if(!this.templateId) this.templateId = 0;
+      // removing existing template
+      let existingTemplates = document.querySelectorAll(`#${templateElemId}`);
+      for(let templateNode of existingTemplates){
+        document.head.removeChild(templateNode);
+      }
+      // add template
+      const styleElemHTML = `<link id="${templateElemId}" rel="stylesheet" href="${this.templatePath}">`
+      document.head.insertAdjacentHTML('beforeend', styleElemHTML);
+      console.log('template applied.');
     }
   },
   computed: {
@@ -380,6 +399,8 @@ export default {
     // fetch saved data
     if(this.fetchSavedData){
       this.loadSavedData();
+    }else{
+      this.fetchTemplate();
     }
 
     bus.$on('downloadAsPdfClick', this.generatePdf);

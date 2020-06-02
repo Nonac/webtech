@@ -7,13 +7,14 @@ const pdf = require('../util/htmlToPdf');
 router.get('/', async(req, res) =>{
   // TODO uid
   let userId = 1;
-  const sql = 'SELECT htmlHeaders, cvContents FROM UserCv WHERE userId = ?;'
+  const sql = 'SELECT htmlHeaders, cvContents, templateId FROM UserCv WHERE userId = ?;'
   let userData = await db.async_get(sql, userId);
   if(userData === null){
     return res.status(404).send('no saved data');
   }
   let htmlHeaders = userData.htmlHeaders;
   let cvContents = userData.cvContents;
+  let templateId = userData.templateId;
 
   const html = `<html><head>${htmlHeaders}</head><body>${cvContents}</body></html>`;
 

@@ -17,7 +17,17 @@ const UserCv =
     userId INTEGER PRIMARY KEY,
     htmlHeaders TEXT NOT NULL,
     cvContents TEXT NOT NULL,
+    templateId INTEGER NOT NULL,
     FOREIGN KEY (userId) REFERENCES User(id)
 );`
 
-module.exports = [User, Template, UserCv];
+// isSavedWithCv: true if the image is the one on which the save operation happened
+const UserAvatar =
+` CREATE TABLE IF NOT EXISTS UserAvatar (
+    userId INTEGER PRIMARY KEY,
+    isSavedWithCv BOOLEAN NOT NULL,
+    avatar BLOB NOT NULL
+)
+`
+
+module.exports = [User, Template, UserCv, UserAvatar];

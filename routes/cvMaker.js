@@ -91,9 +91,9 @@ router.post('/save', async(req, res) =>{
   const htmlHeaders = req.body.htmlHeaders;
   const cvContents = req.body.cvContents;
 
-  const sql = `INSERT OR REPLACE INTO UserCv (userId, htmlHeaders, cvContents)
-                VALUES (?, ?, ?);`
-  let rv = await db.async_run(sql, [userId, htmlHeaders, cvContents]);
+  const sql = `INSERT OR REPLACE INTO UserCv (userId, htmlHeaders, cvContents, templateId)
+                VALUES (?, ?, ?, ?);`
+  let rv = await db.async_run(sql, [userId, htmlHeaders, cvContents, templateId]);
   if(rv !== null){
     console.log(rv);
     return res.status(500).end();
@@ -112,15 +112,19 @@ router.get('/load', async(req, res) => {
   // TODO uid
   // TODO *create image only when needed, delete afterwards
   let userId = 1;
-  const sql = 'SELECT htmlHeaders, cvContents FROM UserCv WHERE userId = ?;'
+  const sql = 'SELECT htmlHeaders, cvContents, templateId FROM UserCv WHERE userId = ?;'
   let userData = await db.async_get(sql, userId);
   if(userData === null){
     return res.status(404).send('no saved data');
   }
-  let htmlHeaders = userData.htmlHeaders;
-  let cvContents = userData.cvContents;
 
-  res.status(200).send({htmlHeaders:htmlHeaders, cvContents:cvContents});
+  res.status(200).send(
+    {
+      htmlHeaders:userData.htmlHeaders,
+      cvContents:userData.cvContents,
+      templateId:userData.templateId
+    }
+    );
   console.log(`user ${userId} loaded cv`);
 })
 
