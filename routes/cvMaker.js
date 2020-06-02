@@ -108,5 +108,22 @@ router.delete('/deleteSaved', async(req, res) =>{
 })
 
 
+router.get('/load', async(req, res) => {
+  // TODO uid
+  // TODO *create image only when needed, delete afterwards
+  let userId = 1;
+  const sql = 'SELECT htmlHeaders, cvContents FROM UserCv WHERE userId = ?;'
+  let userData = await db.async_get(sql, userId);
+  if(userData === null){
+    return res.status(404).send('no saved data');
+  }
+  let htmlHeaders = userData.htmlHeaders;
+  let cvContents = userData.cvContents;
+
+  res.status(200).send({htmlHeaders:htmlHeaders, cvContents:cvContents});
+  console.log(`user ${userId} loaded cv`);
+})
+
+
 
 module.exports = router;

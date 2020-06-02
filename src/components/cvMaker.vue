@@ -36,6 +36,7 @@
     </div>
 
     <button @click="saveProgress">Save Progress</button>
+    <button @click="loadSavedData">Load Progress</button>
 </div>
 
   <!-- cv contents -->
@@ -95,7 +96,7 @@ import {
 
 export default {
   name: 'cv',
-  props: ['templateId'],
+  props: ['templateId', 'fetchSavedData'],
   data() {
     return {
       mode: MODE_EDIT,
@@ -128,6 +129,7 @@ export default {
     cvPage,
   },
   methods: {
+    // TODO animation
     animateProgressSaved(){
 
     },
@@ -150,6 +152,31 @@ export default {
         console.log(err);
         alert('save failed');
         return err;
+      }
+    },
+    async loadSavedData(){
+      try{
+        let res = await this.$http.get('/api/cvMaker/load');
+        if(res.status === 200){
+          let htmlHeaders = res.body.htmlHeaders;
+          let cvContents = res.body.cvContents;
+
+          let domParser = new DOMParser();
+          let doc = domParser.parseFromString(htmlHeaders, 'text/html');
+
+          document.head.replaceWith(doc.head);
+          doc = domParser.parseFromString(cvContents, 'text/html');
+          console.log(this.$refs.cv);
+          this.$refs.cv.replaceWith(doc.body.firstChild);
+                    console.log(this.$refs.cv);
+          this.$refs.cv.insertAdjacentElement('beforebegin', doc.head.firstChild);
+
+        }else{
+          alert('Load failed.');
+        }
+      }catch(err){
+        console.log(err);
+        alert('Load failed.');
       }
     },
     async generatePdf() {
@@ -301,6 +328,11 @@ export default {
     }
   },
   created() {
+    // fetch saved data
+    if(this.fetchSavedData){
+      this.loadSavedData();
+    }
+
     bus.$on('downloadAsPdfClick', this.generatePdf);
   }
 }

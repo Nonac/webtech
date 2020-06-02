@@ -60,7 +60,7 @@ export default {
       .catch(err => console.log(err));
     },
     continueExistingWork(){
-      this.$router.push({path:'/cvMaker'});
+      this.$router.push({path:'/cvMaker', query:{fetchSavedData: true}});
     }
   },
   computed: {
