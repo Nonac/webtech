@@ -15,7 +15,23 @@
         <add-element-button/>
       </div>
       <div @click="deleteElement" style="display: inline-block;">
-        <remove-elemtn-button/>
+        <remove-element-button/>
+      </div>
+    </div>
+  <div>
+    <div  style="display: inline-block;">
+      <big-font-button/>
+    </div>
+    <div  style="display: inline-block;">
+      <small-font-button/>
+    </div>
+  </div>
+    <div>
+      <div  style="display: inline-block;">
+        <bold-font-button/>
+      </div>
+      <div  style="display: inline-block;">
+        <incline-font-button/>
       </div>
     </div>
 </div>
@@ -39,7 +55,11 @@ import downloadButton from "@/components/button/downloadButton";
 import addButton from "@/components/button/addPageButton";
 import removeButton from "@/components/button/removePageButton";
 import addElementButton from "@/components/button/addElementButton";
-import removeElemtnButton from "@/components/button/removeElemtnButton";
+import removeElementButton from "@/components/button/removeElementButton";
+import bigFontButton from "@/components/button/bigFontButton";
+import smallFontButton from "@/components/button/smallFontButton";
+import boldFontButton from "@/components/button/boldFontButton";
+import inclineFontButton from "@/components/button/inclineFontButton";
 import cvPage from "@/components/cvMaker/cvMakerPage";
 import Vue from 'vue';
 
@@ -98,7 +118,11 @@ export default {
     addButton,
     removeButton,
     addElementButton,
-    removeElemtnButton,
+    removeElementButton,
+    bigFontButton,
+    smallFontButton,
+    boldFontButton,
+    inclineFontButton,
     cvPage,
   },
   methods: {
