@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('../util/async_fs');
 const formidable = require('formidable');
 const _ = require('underscore');
+const db = require('../util/dbManager');
 
 
 const { validateAvatarUpload } = require('../util/validation');
@@ -81,8 +82,26 @@ router.post('/avatar', async(req, res) =>{
   })
 })
 
+router.post('/', async(req, res) =>{
+  // TODO jwt
+  let userId = 1;
+  let templateId = req.body.templateId;
+  if(templateId == undefined) templateId = 0;
 
-router.post('/deleteSaved', async(req, res) =>{
+  const htmlHeaders = req.body.htmlHeaders;
+  const cvContents = req.body.cvContents;
+
+  const sql = `UPDATE UserCv SET htmlHeaders = ?, cvContents = ? WHERE userId = ?;`
+  let rv = db.async_run(sql, [htmlHeaders, cvContents, userId]);
+
+  const html = `<html><head>${htmlHeaders}</head><body>${cvContents}</body></html>`;
+
+  const newPdf = await pdf.toPdf(html);
+  res.status(201).send(newPdf);
+})
+
+
+router.delete('/deleteSaved', async(req, res) =>{
   res.status(205).end();
 })
 

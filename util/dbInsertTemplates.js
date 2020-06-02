@@ -47,12 +47,11 @@ const init = async () => {
   // insert into db
   await (async () => {
     for(let id of validTemplateIds){
-      let css = await async_fsReadFile(`./assets/protected/templates/${id}.css`);
       let description = await async_fsReadFile(`./assets/protected/templates/${id}.txt`);
 
-      const sql = 'INSERT INTO Template (id, css, description) VALUES (?, ?, ?);';
+      const sql = 'INSERT INTO Template (id, description) VALUES (?, ?);';
       try{
-        if(await db.async_run(sql, [id, css, description])){
+        if(await db.async_run(sql, [id, description])){
           console.log(`template ${id} inserted`);
         }
       }catch(err){

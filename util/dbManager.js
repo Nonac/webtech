@@ -110,6 +110,25 @@ async function closeDb() {
   })
 }
 
+// simple dbms for debugging
+async function dbms(){
+  let readlineSync = require('readline-sync');
+  while(true) {
+    let l = readlineSync.question("sql:");
+    if(l === 'e' || l === 'exit') {
+      process.exit();
+    }
+
+    try{
+      let rows = await async_all(l);
+      console.log(rows);
+    }catch(err){
+      console.log(err);
+    }
+
+
+  }
+}
 
 module.exports = db;
 module.exports.close = closeDb;
@@ -122,3 +141,5 @@ module.exports.getTemplate = getTemplate;
 module.exports.async_run = async_run;
 module.exports.async_get = async_get;
 module.exports.async_all = async_all;
+
+module.exports.dbms = dbms;

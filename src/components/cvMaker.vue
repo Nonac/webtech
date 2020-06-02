@@ -34,6 +34,8 @@
         <incline-font-button/>
       </div>
     </div>
+
+    <button @click="saveProgress">Save Progress</button>
 </div>
 
   <!-- cv contents -->
@@ -126,23 +128,48 @@ export default {
     cvPage,
   },
   methods: {
-    generatePdf() {
+    animateProgressSaved(){
+
+    },
+    // returns null on succees
+    async saveProgress(){
       let reqBody = {
         htmlHeaders: document.head.innerHTML,
         cvContents: this.$refs.cv.innerHTML,
         templateId: this.templateId
       }
-      this.$http.post(this.serverRootUrl + '/api/toPdf', reqBody, {
-          responseType: 'arraybuffer'
-        })
-        .then(res => {
-          let blob = new Blob([res.data]);
-          let link = document.createElement('a');
-          link.href = window.URL.createObjectURL(blob);
-          link.download = "cv.pdf";
-          link.click();
-        })
-        .catch(err => console.log(err));
+      try{
+        let res = await this.$http.post('/api/cvMaker/save', reqBody);
+        if(res.status === 201){
+          this.animateProgressSaved();
+          return null;
+        }else{
+          alert('save failed');
+        }
+      }catch(err){
+        console.log(err);
+        alert('save failed');
+        return err;
+      }
+    },
+    async generatePdf() {
+      let rv = await this.saveProgress();
+      if(rv !== null) return; // save failed
+
+      try{
+        let res = await this.$http.get('/api/toPdf', {
+            responseType: 'arraybuffer'
+          });
+        let blob = new Blob([res.data]);
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "cv.pdf";
+        link.click();
+      }catch(err){
+        console.log(err);
+        alert('Failed');
+      }
+
     },
     addSubPage(){
       if(this.maxPageId >= 5) return alert('A concise CV is a good CV.');

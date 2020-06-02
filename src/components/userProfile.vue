@@ -54,7 +54,7 @@ export default {
   components: {},
   methods: {
     startNewWork(){
-      this.$http.post('/api/cvMaker/deleteSaved')
+      this.$http.delete('/api/cvMaker/deleteSaved')
       .then(
         this.$router.push({path:'/selectTemplate'}))
       .catch(err => console.log(err));
