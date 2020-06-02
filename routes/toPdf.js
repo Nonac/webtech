@@ -16,7 +16,8 @@ router.get('/', async(req, res) =>{
   let cvContents = userData.cvContents;
   let templateId = userData.templateId;
 
-  const html = `<html><head>${htmlHeaders}</head><body>${cvContents}</body></html>`;
+  const html =
+  `<html><head>${htmlHeaders}</head><body><div class="cv-contents">${cvContents}</div></body></html>`;
 
   const newPdf = await pdf.toPdf(html);
   res.status(201).send(newPdf);
@@ -29,7 +30,7 @@ router.get('/htmlTransit/', async(req, res) => {
   try{
       res.status(200).sendFile(htmlTmpPath);
   }catch(err){
-    res.status(403).send('?真jb6啊');
+    res.status(403).end();
   }
 
 })

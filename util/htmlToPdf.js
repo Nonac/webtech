@@ -15,7 +15,7 @@ async function toPdf(html, userId = 1) {
   if(rv != null) throw rv;
 
   let htmlTransitUrl = process.env.SERVER_ROOT_URL + '/api/toPdf/htmlTransit';
-  console.log('new Pdf request, transit:' + htmlTransitUrl);
+  console.log(`new Pdf request by user ${userId}`);
   await page.goto(htmlTransitUrl, {waitUntil:'networkidle0'});
   const newPdf = await page.pdf({ format: 'A4' });
   await browser.close();
