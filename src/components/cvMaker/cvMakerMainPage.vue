@@ -8,18 +8,20 @@
   <img @mouseover="isMouseOverAvatar = true" :src="avatarUrl" alt="Your avatar" class="avatar" ref="avatarImg" @load="updateDropbox" />
 
 
-<!--  <section class="contact-info vcard">-->
-<!--    <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>-->
+ <section class="contact-info vcard">
+   <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>
 
-<!--    <p>-->
-<!--      <div class="clonable">-->
-<!--        <span contenteditable>Cell:</span> <span contenteditable class="tel">555-666-7777</span><br />-->
-<!--      </div>-->
-<!--      <div class="clonable">-->
-<!--        <span contenteditable>Email:</span> <a contenteditable class="email" href="mailto:greatoldone@lovecraft.com">greatoldone@lovecraft.com</a>-->
-<!--      </div>-->
-<!--    </p>-->
-<!--  </section>-->
+   <div>
+     <div class="clonable">
+       <span contenteditable>Cell:</span>
+       <span contenteditable class="tel">555-666-7777</span><br>
+     </div>
+     <div class="clonable">
+       <span contenteditable>Email:</span>
+       <a contenteditable class="email" :href="`mailto:${userData.email}`">{{userData.email}}</a>
+     </div>
+   </div>
+ </section>
 
 
 
@@ -116,6 +118,9 @@ export default {
     return {
       avatarUrl: '/img/templates/example_avatar.png',
       isMouseOverAvatar: false,
+      userData:{
+        email: 'greatoldone@lovecraft.com',
+      }
     }
   },
   components: {

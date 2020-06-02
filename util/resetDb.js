@@ -38,7 +38,6 @@ module.exports = (async function(){
     for(let sql of dbSchemas){
       await db.async_run(sql);
     }
-    require('./dbInsertTemplates').init();
     return null;
   }
 

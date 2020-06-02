@@ -4,6 +4,8 @@
 (async function(){
 
   await require('./util/serverInit');
+  require('./util/dbInsertTemplates').init();
+  
   const express = require('express');
   const app = express();
 

@@ -17,7 +17,7 @@ const db = new sqlite3.Database(dbPath,
 async function async_run(sql, params){
   return new Promise((resolve, reject) => {
     db.run(sql, params, err =>
-      err ? reject(err.message) : resolve(null));
+      err ? reject(err) : resolve(null));
   })
 }
 
@@ -27,7 +27,7 @@ async function async_run(sql, params){
 async function async_get(sql, params){
   return new Promise((resolve, reject) => {
     db.get(sql, params, (err, row) =>
-      err ? reject(err.message) : resolve(row ? row : null));
+      err ? reject(err) : resolve(row ? row : null));
   })
 }
 

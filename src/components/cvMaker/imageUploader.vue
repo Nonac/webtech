@@ -47,7 +47,7 @@ const STATUS_INITIAL = 0,
 
 export default {
   name: 'app',
-  props: ['backgroundImageUrl'],
+  props: [],
   data() {
     return {
       uploadedFile: null,
@@ -70,9 +70,6 @@ export default {
     isFailed() {
       return this.currentStatus === STATUS_FAILED;
     },
-    imageUrl(){
-      return this.backgroundImageUrl;
-    }
   },
   methods: {
     reset() {
@@ -124,9 +121,8 @@ export default {
 
     updateDropboxSizeAndBackground(){
       let dropbox = this.$refs['dropbox'];
-      dropbox.style.backgroundImage = `url(${this.imageUrl})`;
+      console.log(dropbox);
       dropbox.style.height = this.frameHeight;
-
     },
   },
   created(){

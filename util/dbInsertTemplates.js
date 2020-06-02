@@ -51,8 +51,16 @@ const init = async () => {
       let description = await async_fsReadFile(`./assets/protected/templates/${id}.txt`);
 
       const sql = 'INSERT INTO Template (id, css, description) VALUES (?, ?, ?);';
-      let rv = await db.async_run(sql, [id, css, description]);
-      console.log(rv===null ? `template ${id} inserted` : err.message);
+      try{
+        if(await db.async_run(sql, [id, css, description])){
+          console.log(`template ${id} inserted`);
+        }
+      }catch(err){
+        if(err.code === 'SQLITE_CONSTRAINT') continue; // exists in db, ingore insertion
+
+        throw err;
+      }
+
     }
   })();
 
