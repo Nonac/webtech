@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="download-button" @click='downloadButtonClick' ref="button" style="z-index: 9999"
+        <div class="download-button" @click='downloadButtonClick' ref="button" style="z-index: 9999;width: 164px"
         data-toggle="tooltip" data-placement="right" title="Download as PDF">
             <svg class="arrow" width="40" height="40" viewBox="0 0 40 40">
                 <circle
