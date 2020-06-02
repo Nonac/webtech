@@ -2,7 +2,7 @@
 <template>
 <div>
   <div class="container">
-          <div class="card">
+          <div class="card" @click="continueExistingWork">
               <div class="face face1">
                   <div class="content">
                       <div class="icon">
@@ -13,12 +13,12 @@
               <div class="face face2">
                   <div class="content">
                       <h3>
-                          <a @click="continueExistingWork" target="_blank">Continue</a>
+                          Continue
                       </h3>
                   </div>
               </div>
           </div>
-          <div class="card">
+          <div class="card" @click="startNewWork">
               <div class="face face1">
                   <div class="content">
                       <div class="icon">
@@ -29,7 +29,7 @@
               <div class="face face2">
                   <div class="content">
                       <h3>
-                          <a @click="startNewWork" target="_blank">Start a new one</a>
+                          Start a new one
                       </h3>
                   </div>
               </div>
