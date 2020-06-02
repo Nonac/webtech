@@ -240,6 +240,8 @@ export default {
             old_div_A4paper = temp;
           }
 
+        }else if(res.status === 404){
+          alert("There's nothing to load.");
         }else{
           alert('Load failed.');
         }

@@ -58,12 +58,13 @@ async function async_all(sql, params) {
 // takes in a JSON object
 // returns err message if error occurred. null otherwise
 async function createNewUser(newUser) {
+  await dbPromise;
   // check existence
-  let is_existing = await db.checkExistence('User', 'username', newUser.username);
+  let is_existing = await checkExistence('User', 'username', newUser.username);
   if(is_existing){
     throw new DBError(400, `username ${newUser.username} already exists.`);
   }
-  is_existing = await db.checkExistence('User', 'email', newUser.email);
+  is_existing = await checkExistence('User', 'email', newUser.email);
   if(is_existing){
     throw new DBError(400, `${newUser.email} has already been registered.`);
   }
@@ -97,6 +98,7 @@ async function checkExistence(tableName, attrName, value) {
 
 async function getUsers(actionOnEachRow) {
   let sql = `SELECT * FROM User`;
+  let db = await dbPromise;
   await db.all(sql, (err, rows) => {
     if (err) throw err;
     rows.forEach((row) => actionOnEachRow(row));
