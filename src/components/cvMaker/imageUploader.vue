@@ -55,6 +55,9 @@ export default {
       currentStatus: null,
       uploadFieldName: 'avatar',
       frameHeight: '311.548px',
+
+      // supportive var
+      dropBoxUpdateTryCount: 0,
     }
   },
   computed: {
@@ -121,19 +124,27 @@ export default {
 
     updateDropboxSizeAndBackground(){
       let dropbox = this.$refs['dropbox'];
-      console.log(dropbox);
-      dropbox.style.height = this.frameHeight;
+      const maxTry = 10;
+      if(dropbox){
+        dropbox.style.height = this.frameHeight;
+        return this.dropBoxUpdateTryCount = 0;
+      }
+
+      if(this.dropBoxUpdateTryCount <= maxTry){
+        this.dropBoxUpdateTryCount++;
+        return window.setTimeout(this.updateDropboxSizeAndBackground, 500);
+      }
     },
   },
   created(){
+  },
+  mounted() {
+    this.reset();
     // update the size of the frame to be the same with the displaying image
     bus.$on('updateAvatarFrameSize', (imgSize) => {
       this.frameHeight = `${imgSize.height}px`;
       this.updateDropboxSizeAndBackground();
     });
-  },
-  mounted() {
-    this.reset();
   },
 
 

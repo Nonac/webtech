@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import imageUploader from "@/components/cvMaker/imageUploader";
 import {
   bus
 } from '@/view/index/main';
 
+import imageUploader from "@/components/cvMaker/imageUploader";
 export default{
   components:{
     imageUploader,
@@ -31,21 +31,16 @@ export default{
       this.avatarUrl = avatarUrl;
     },
     updateDropbox(ev) {
-      console.log(JSON.stringify({
-        width: ev.path[0].clientWidth,
-        height: ev.path[0].clientHeight
-      }));
       bus.$emit('updateAvatarFrameSize', {
         width: ev.path[0].clientWidth,
         height: ev.path[0].clientHeight
       });
     },
-    created() {
-      bus.$on('cvAvatarUploaded', this.changeAvatar);
-    },
-    mounted() {
-      this.changeAvatar(this.avatarUrl);
-    }
+
+  },
+  mounted() {
+    bus.$on('cvAvatarUploaded', this.changeAvatar);
+    this.changeAvatar(this.avatarUrl);
   }
 
 }
