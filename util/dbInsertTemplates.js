@@ -51,7 +51,7 @@ const init = async () => {
 
       const sql = 'INSERT INTO Template (id, description) VALUES (?, ?);';
       try{
-        if(await db.async_run(sql, [id, description])){
+        if(await db.async_run(sql, [id, description]) === null){
           console.log(`template ${id} inserted`);
         }
       }catch(err){

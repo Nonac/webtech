@@ -7,14 +7,22 @@ const bcrypt = require('bcryptjs');
 const DBError = require('../util/DBError');
 
 
-// returns null on success
-const db = new sqlite3.Database(dbPath,
-  err => {if(err) throw err});
+const dbPromise = (async() => {
+    return new Promise((resolve) => {
+      let db = new sqlite3.Database(dbPath,
+        err => {
+          if(err) throw err;
+          console.log('db connected');
+          resolve(db);
+        });
+    })
+  })();
 
 
 // promise wrapper for db.run
 // returns null if and only if succeeds
 async function async_run(sql, params){
+  let db = await dbPromise;
   return new Promise((resolve, reject) => {
     db.run(sql, params, err =>
       err ? reject(err) : resolve(null));
@@ -25,6 +33,7 @@ async function async_run(sql, params){
 // returns the first row of the result table. null if the table is empty
 // tablenames and attrnames are not allowed in params
 async function async_get(sql, params){
+  let db = await dbPromise;
   return new Promise((resolve, reject) => {
     db.get(sql, params, (err, row) =>
       err ? reject(err) : resolve(row ? row : null));
@@ -33,6 +42,7 @@ async function async_get(sql, params){
 
 // returns all rows if and only if succeeds
 async function async_all(sql, params) {
+  let db = await dbPromise;
   return new Promise((resolve, reject) => {
     db.all(sql, params, (err, rows) => {
       err? reject(err) : resolve(rows);
@@ -104,9 +114,9 @@ async function getTemplate(id) {
 
 }
 
-async function closeDb() {
-  return new Promise((resolve) => {
-    db.close((err) => resolve(console.log(err ? err.message : "db closed.")));
+async function closeDb(dbToClose = db) {
+  return new Promise((resolve, reject) => {
+    dbToClose.close(err => err ? reject(err) : resolve(null));
   })
 }
 
@@ -130,8 +140,8 @@ async function dbms(){
   }
 }
 
-module.exports = db;
-module.exports.close = closeDb;
+module.exports.dbPromise = dbPromise;
+module.exports.closeDb = closeDb;
 module.exports.getUsers = getUsers;
 module.exports.checkExistence = checkExistence;
 module.exports.createNewUser = createNewUser;

@@ -2,7 +2,7 @@
 /**
  * Script for auto setting up of the server on a new environment
  * usage:
- *    require('./serverInit');
+ *    await require('./serverInit');
  */
 
 
@@ -31,7 +31,7 @@ async function dbInit(){
 }
 
 
-(async () => {
+module.exports = (async () => {
   console.log('\nSetting up the server...');
   await dbInit();
 
