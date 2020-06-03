@@ -97,7 +97,6 @@
         name: "Menu",
         data:function () {
           return{
-            isLoggedIn: false,
             username: null
           }
         },

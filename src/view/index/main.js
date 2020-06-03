@@ -25,14 +25,15 @@ Vue.config.productionTip = false;
 // event bus
 export const bus = new Vue();
 
+// global var that is shared
+var g_data = {
+  isLoggedIn: false,
+  // server root url
+  serverRootUrl: 'http://localhost:3000'
+}
 // global mixin
 Vue.mixin({
-  data: function(){
-    return {
-      // server root url
-      serverRootUrl: 'http://localhost:3000'
-    }
-  }
+  data() {return g_data},
 })
 
 new Vue({
