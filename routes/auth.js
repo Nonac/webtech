@@ -52,7 +52,7 @@ router.post('/login', async (req, res) =>{
   try{
     const dbUser = await db.getUser(reqUser.username);
     if(dbUser === null){
-      res.status(400).send(`Username or password is wrong.`);
+      return res.status(400).send(`Username or password is wrong.`);
     }
 
     // check password
