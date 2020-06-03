@@ -147,9 +147,8 @@ export default {
     cvPage,
   },
   methods: {
-    // TODO animation
     animateProgressSaved(){
-      console.log('saved');
+      this.$confirm("", "Saved", "success");
     },
     // returns null on succees
     async saveProgress(){
