@@ -43,26 +43,51 @@
 
 <script>
 
+import {bus} from '@/view/index/main';
 
 export default {
   data: () => {
     return {
-
+      isLoggedIn: new Promise(()=>{}), // will be resolved by loginBusEventHandler
     }
 
   },
   components: {},
   methods: {
-    startNewWork(){
-      this.$http.delete('/api/cvMaker/deleteSaved')
-      .then(
-        this.$router.push({path:'/selectTemplate'}))
-      .catch(err => console.log(err));
+    loginBusEventHandler(isLoggedIn){
+      this.isLoggedIn = Promise.resolve(isLoggedIn);
+      bus.$off('loginStatus', this.loginBusEventHandler);
+    },
+    // returns trus if logged in, false otherwise
+    getLoginStatus(){
+      bus.$once('loginStatus', this.loginBusEventHandler);
+      this.isLoggedIn = new Promise(()=>{});
+      bus.$emit('getLoginStatus', null);
+    },
+    async startNewWork(){
+      // double check login status
+      await this.getLoginStatus();
+      let isLoggedIn = await this.isLoggedIn;
+
+      if(!isLoggedIn){
+        return this.$router.replace('/login');
+      }
+      // ok
+      this.$router.push({path:'/selectTemplate'});
     },
     async continueExistingWork(){
+      // double check login status
+      await this.getLoginStatus();
+      let isLoggedIn = await this.isLoggedIn;
+
+      if(!isLoggedIn){
+        return this.$router.replace('/login');
+      }
+      // ok
       try{
         let res = await this.$http.get('/api/cvMaker/has_save');
         if(res.status === 200){
+        
           this.$router.push({path:'cvMaker', query:{templateId: -1, fetchSavedData: true}});
         }
       }catch(err){

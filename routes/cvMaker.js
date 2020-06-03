@@ -4,9 +4,10 @@ const fs = require('../util/async_fs');
 const formidable = require('formidable');
 const _ = require('underscore');
 const db = require('../util/dbManager');
+const verifyJwt = require('./verifyJwt');
 
 
-const { validateAvatarUpload } = require('../util/validation');
+const { validateSaveCv } = require('../util/validation');
 
 
 function getAvatarUserUrl(userId){
@@ -27,8 +28,9 @@ const getMostRecentFileName = async (dir) => {
 }
 
 
-router.get('/avatar', async(req, res) => {
-  let userId = req.query.uId;
+router.get('/avatar',verifyJwt, async(req, res) => {
+  let userId = req.userId;
+  if(userId === undefined) return res.status(500).end();;
 
   try{
     let userAvatarDir = path.resolve(`${imgTmpDir}/${userId}`);
@@ -46,9 +48,9 @@ router.get('/avatar', async(req, res) => {
 
 })
 
-router.get('/has_save', async(req, res) => {
-  // TODO uid
-  let userId = 1;
+router.get('/has_save', verifyJwt, async(req, res) => {
+  let userId = req.userId;
+  if(userId === undefined) return res.status(500).end();
 
   try{
     if(await db.checkExistence('UserCv', 'userId', userId)){
@@ -64,13 +66,17 @@ router.get('/has_save', async(req, res) => {
 })
 
 // root/api/cvMaker
-router.post('/avatar', async(req, res) =>{
+router.post('/avatar', verifyJwt, async(req, res) =>{
+
   console.log('\nreceiving avatar...');
 
-  // todo check uId via jwt
-  let userId = 1;
+  let userId = req.userId;
+  if(userId === undefined) return res.status(500).end();
+
   const imgDir = path.resolve(`${imgTmpDir}/${userId}`);
-  fs.old.mkdir(imgDir, { recursive: true }, err => err ? console.log(err) : null);
+  if(await fs.mkdir(imgDir, { recursive: true }) !== null){
+    return res.status(500).end();
+  }
 
   // make format
   let form = new formidable.IncomingForm();
@@ -99,15 +105,23 @@ router.post('/avatar', async(req, res) =>{
   })
 })
 
-router.post('/save', async(req, res) =>{
-  // TODO jwt
-  let userId = 1;
-  let templateId = req.body.templateId;
-  if(templateId == undefined) templateId = 0;
+// TODO check different template support
+router.post('/save', verifyJwt, async(req, res) =>{
+  // added at verifyJwt
+  let userId = req.userId;
+  if(userId === undefined) return res.status(500).end();
 
-  const htmlHeaders = req.body.htmlHeaders;
-  const cvContents = req.body.cvContents;
-  const avatarUrl = req.body.avatarUrl;
+  // validate schema
+  const {
+    error,
+    value: cv
+  } = await validateSaveCv(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let templateId = cv.templateId;
+  const htmlHeaders = cv.htmlHeaders;
+  const cvContents = cv.cvContents;
+  const avatarUrl = cv.avatarUrl;
 
   const sql = `INSERT OR REPLACE INTO UserCv
                 (userId, htmlHeaders, cvContents, templateId, avatarUrl)
@@ -124,15 +138,18 @@ router.post('/save', async(req, res) =>{
 })
 
 
-router.delete('/deleteSaved', async(req, res) =>{
-  res.status(205).end();
-})
+// router.delete('/deleteSaved', async(req, res) =>{
+//
+//
+//   res.status(205).end();
+// })
 
 
-router.get('/load', async(req, res) => {
-  // TODO uid
-  // TODO *create image only when needed, delete afterwards
-  let userId = 1;
+router.get('/load', verifyJwt, async(req, res) => {
+  let userId = req.userId;
+  if(userId === undefined) return res.status(500).end();
+
+
   const sql = 'SELECT htmlHeaders, cvContents, templateId, avatarUrl FROM UserCv WHERE userId = ?;'
   let userData = await db.async_get(sql, userId);
   if(userData === null){

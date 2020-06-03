@@ -48,6 +48,7 @@
                         this.$cookies.set('username', username);
                         // inform menu.vue that the user has logged in
                         bus.$emit('loggedIn', null);
+                        this.$router.replace('/userProfile');
                   }else{
                     alert('register failed');
                   }

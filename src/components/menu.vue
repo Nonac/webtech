@@ -127,6 +127,11 @@
             this.username = this.$cookies.get('username');
           });
 
+          // send login status
+          bus.$on('getLoginStatus', () => {
+            bus.$emit('loginStatus', this.isLoggedIn);
+          })
+
           // check login status
           if(this.$cookies.isKey("jwt") && this.$cookies.isKey("username")){
             this.isLoggedIn = true;

@@ -1,5 +1,5 @@
 <template>
-  <div class="A4paper" :ref="thisPageRef" @keyup="checkHeightOverflow">
+  <div class="A4paper" :ref="thisPageRef" :id="thisPageId" @keyup="checkHeightOverflow">
   <mainPage v-if="pageType === 'main'" />
   <subPage v-if="pageType === 'sub'" />
 

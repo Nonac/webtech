@@ -8,11 +8,19 @@ const registrationSchema = Joi.object({
 })
 
 const loginSchema = Joi.object({
-  username: Joi.string().min(6).required(),
-  password: Joi.string().min(6).required()
+  username: Joi.string().required(),
+  password: Joi.string().required()
+})
+
+const saveCvSchema = Joi.object({
+  templateId: Joi.number().required(),
+  htmlHeaders: Joi.string().required(),
+  cvContents: Joi.string().required(),
+  avatarUrl: Joi.string().required()
 })
 
 
 
 module.exports.validateRegistation = data => registrationSchema.validate(data);
 module.exports.validateLogin = data => loginSchema.validate(data);
+module.exports.validateSaveCv = data => saveCvSchema.validate(data);
