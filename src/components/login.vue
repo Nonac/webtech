@@ -46,6 +46,7 @@
                     this.$cookies.set('jwt', authToken);
                     this.$cookies.set('username', username);
                     bus.$emit('loggedIn', null);
+                    this.$router.replace('/userProfile');
                   }else{
                     alert('login failed');
                   }
