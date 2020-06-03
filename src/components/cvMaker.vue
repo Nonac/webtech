@@ -158,7 +158,10 @@ export default {
         if(res.status === 201){
           this.animateProgressSaved();
           return null;
-        }else{
+        }else if(res.status === 401){
+          alert('Please log in first');
+        }
+        else{
           alert('save failed');
         }
       }catch(err){
@@ -242,6 +245,8 @@ export default {
 
         }else if(res.status === 404){
           alert("There's nothing to load.");
+        }else if(res.status === 401){
+          alert("Please log in first");
         }else{
           alert('Load failed.');
         }

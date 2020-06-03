@@ -13,11 +13,13 @@
   const express = require('express');
   const app = express();
 
+  const cookieParser = require('cookie-parser')
+
   // Middlewares
   app.use(express.json());
+  app.use(cookieParser());
   // Route middlewares
   app.use('/api/user', require('./routes/auth'));
-  app.use('/api/post', require('./routes/post'));
   app.use('/api/template', require('./routes/template'));
   app.use('/api/toPdf', require('./routes/toPdf'));
   app.use('/api/cvMaker', require('./routes/cvMaker'));

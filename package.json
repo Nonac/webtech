@@ -12,6 +12,7 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "echarts": "^4.8.0",

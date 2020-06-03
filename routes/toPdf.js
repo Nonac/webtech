@@ -2,11 +2,13 @@ const router = require('express').Router();
 const db = require('../util/dbManager');
 const path = require('path');
 const pdf = require('../util/htmlToPdf');
+const verifyJwt = require('./verifyJwt');
 
 // root/api/toPdf
-router.get('/', async(req, res) =>{
-  // TODO uid
-  let userId = 1;
+router.get('/', verifyJwt, async(req, res) =>{
+  let userId = req.userId;
+  if(userId === undefined) return res.status(500).end();
+
   const sql = 'SELECT htmlHeaders, cvContents, templateId FROM UserCv WHERE userId = ?;'
   let userData = await db.async_get(sql, userId);
   if(userData === null){
@@ -24,8 +26,10 @@ router.get('/', async(req, res) =>{
 })
 
 // returns the temp html
-router.get('/htmlTransit/', async(req, res) => {
-  let userId = 1;
+router.get('/htmlTransit/', verifyJwt, async(req, res) => {
+  let userId = req.userId;
+  if(userId === undefined) return res.status(500).end();
+  
   let htmlTmpPath = path.resolve(__dirname + `./../tmp/html/${userId}.html`);
   try{
       res.status(200).sendFile(htmlTmpPath);
