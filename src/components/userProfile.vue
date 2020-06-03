@@ -53,26 +53,21 @@ export default {
   },
   components: {},
   methods: {
-    // double check login status, if is not logged in redirect to login page
     startNewWork(){
-      if(!this.isLoggedIn){
-        return this.$router.replace('/login');
-      }
-      this.$router.push({path:'/selectTemplate'});
+      this.$http.delete('/api/cvMaker/deleteSaved')
+      .then(
+        this.$router.push({path:'/selectTemplate'}))
+      .catch(err => console.log(err));
     },
     async continueExistingWork(){
       try{
         let res = await this.$http.get('/api/cvMaker/has_save');
         if(res.status === 200){
-
           this.$router.push({path:'cvMaker', query:{templateId: -1, fetchSavedData: true}});
         }
       }catch(err){
         if(err.status === 404){
           return alert("You don't seem to have anything to load.");
-        }
-        if(!this.isLoggedIn){
-          return this.$router.replace('/login');
         }
         alert('Load failed.');
       }
