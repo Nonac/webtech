@@ -7,7 +7,7 @@ const db = require('../util/dbManager');
 const verifyJwt = require('./verifyJwt');
 
 
-const { validateAvatarUpload } = require('../util/validation');
+const { validateSaveCv } = require('../util/validation');
 
 
 function getAvatarUserUrl(userId){
@@ -67,6 +67,7 @@ router.get('/has_save', verifyJwt, async(req, res) => {
 
 // root/api/cvMaker
 router.post('/avatar', verifyJwt, async(req, res) =>{
+
   console.log('\nreceiving avatar...');
 
   let userId = req.userId;
@@ -103,15 +104,21 @@ router.post('/avatar', verifyJwt, async(req, res) =>{
 })
 
 router.post('/save', verifyJwt, async(req, res) =>{
+  // added at verifyJwt
   let userId = req.userId;
   if(userId === undefined) return res.status(500).end();
 
-  let templateId = req.body.templateId;
-  if(templateId == undefined) templateId = 0;
+  // validate schema
+  const {
+    error,
+    value: cv
+  } = await validateSaveCv(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-  const htmlHeaders = req.body.htmlHeaders;
-  const cvContents = req.body.cvContents;
-  const avatarUrl = req.body.avatarUrl;
+  let templateId = cv.templateId;
+  const htmlHeaders = cv.htmlHeaders;
+  const cvContents = cv.cvContents;
+  const avatarUrl = cv.avatarUrl;
 
   const sql = `INSERT OR REPLACE INTO UserCv
                 (userId, htmlHeaders, cvContents, templateId, avatarUrl)
