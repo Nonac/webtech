@@ -96,3 +96,13 @@
   margin: 0;
   height: 15px;
 }
+
+.cv-contents i{
+  font: inherit;
+  font-weight: bold;
+}
+
+.cv-contents b{
+  font: inherit;
+  font-weight: bold;
+}

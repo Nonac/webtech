@@ -27,25 +27,25 @@
       </div>
     </div>
   <div>
-    <div  style="display: inline-block;">
+    <div  @click="increaseFontSize" style="display: inline-block;">
       <big-font-button/>
     </div>
-    <div  style="display: inline-block;">
+    <div @click="decreaseFontSize" style="display: inline-block;">
       <small-font-button/>
     </div>
   </div>
     <div>
-      <div  style="display: inline-block;">
+      <div @click="boldifyText" style="display: inline-block;">
         <bold-font-button/>
       </div>
-      <div  style="display: inline-block;">
+      <div @click="italicizeText" style="display: inline-block;">
         <incline-font-button/>
       </div>
     </div>
 </div>
 
   <!-- cv contents -->
-  <div class="cv" ref="cv" @mousemove="handleMousemove" @click="handleMouseClick">
+  <div class="cv" ref="cv" @mousemove="handleMousemove" @click="handleMouseClick" @mouseup="handleMouseup">
     <div class="cv-contents" ref="cv-contents">
       <cvPage pageId=0 pageType="main" />
 
@@ -70,9 +70,13 @@ import inclineFontButton from "@/components/button/inclineFontButton";
 import cvPage from "@/components/cvMaker/cvMakerPage";
 import Vue from 'vue';
 
-const MODE_EDIT     = 1,
-      MODE_INSERT   = 2,
-      MODE_DELETE   = 3;
+const MODE_EDIT           = 1,
+      MODE_INSERT         = 2,
+      MODE_DELETE         = 3,
+      MODE_ITALICISE      = 4,
+      MODE_BOLDIFY        = 5,
+      MODE_INC_FONT_SIZE  = 6,
+      MODE_DEC_FONT_SIZE  = 7;
 
 // returns the innermost elem that has the class 'clonable'.
 // returns null if 'clonable' is not found before reaching the 'section' tag
@@ -335,6 +339,8 @@ export default {
             parentNode.removeChild(this.elemToDelete);
           }
         }
+      }else{
+        return;
       }
 
       this.mode = MODE_EDIT;
@@ -420,7 +426,62 @@ export default {
       document.head.insertAdjacentHTML('beforeend', styleElemHTML);
       // perhaps find a better way
       // this.$forceUpdate();
-      console.log('template applied.');
+      // console.log('template applied.');
+    },
+    italicizeText(){
+      if(this.mode !== MODE_ITALICISE){
+        this.mode = MODE_ITALICISE;
+      }else{
+        this.mode = MODE_EDIT;
+      }
+
+    },
+    boldifyText(){
+      if(this.mode !== MODE_BOLDIFY){
+        this.mode = MODE_BOLDIFY;
+      }else{
+        this.mode = MODE_EDIT;
+      }
+    },
+    increaseFontSize(){
+      if(this.mode !== MODE_INC_FONT_SIZE){
+        this.mode = MODE_INC_FONT_SIZE;
+      }else{
+        this.mode = MODE_EDIT;
+      }
+    },
+    decreaseFontSize(){
+      if(this.mode !== MODE_DEC_FONT_SIZE){
+        this.mode = MODE_DEC_FONT_SIZE;
+      }else{
+        this.mode = MODE_EDIT;
+      }
+    },
+    handleMouseup(){
+      // console.log('mouseup');
+      // console.log(this.mode);
+      let tag = null;
+      switch(this.mode){
+        case MODE_ITALICISE:
+          tag = 'i'; break;
+        case MODE_BOLDIFY:
+          tag = 'b'; break;
+        case MODE_INC_FONT_SIZE:
+        case MODE_DEC_FONT_SIZE:
+          tag = 'span'; break;
+
+        default: return;
+      }
+
+      const selection = window.getSelection();
+      // console.log(selection);
+      const selectedText = selection.toString();
+
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      let elem = document.createElement(tag);
+      elem.textContent = selectedText;
+      range.insertNode(elem);
     }
   },
   computed: {
@@ -443,8 +504,6 @@ export default {
     }
 
     bus.$on('downloadAsPdfClick', this.generatePdf);
-  },
-  mounted(){
   }
 }
 </script>
