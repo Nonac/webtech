@@ -74,7 +74,9 @@ router.post('/avatar', verifyJwt, async(req, res) =>{
   if(userId === undefined) return res.status(500).end();
 
   const imgDir = path.resolve(`${imgTmpDir}/${userId}`);
-  fs.old.mkdir(imgDir, { recursive: true }, err => err ? console.log(err) : null);
+  if(await fs.mkdir(imgDir, { recursive: true }) !== null){
+    return res.status(500).end();
+  }
 
   // make format
   let form = new formidable.IncomingForm();
@@ -103,6 +105,7 @@ router.post('/avatar', verifyJwt, async(req, res) =>{
   })
 })
 
+// TODO check different template support
 router.post('/save', verifyJwt, async(req, res) =>{
   // added at verifyJwt
   let userId = req.userId;
