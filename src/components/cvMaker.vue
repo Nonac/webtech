@@ -1,7 +1,15 @@
 <template>
 <div class="cv-back">
-  <div class="sidenav" style="height: 500px;width: 500px">
+  <div class="sidenav" style="height: 550px;width: 200px">
     <download-button :inputTime='this.downloadExpectedTime' />
+    <div>
+      <div @click="saveProgress"  style="display: inline-block;">
+        <save-button/>
+      </div>
+      <div @click="loadSavedData" style="display: inline-block;">
+        <load-button/>
+      </div>
+    </div>
     <div>
       <div @click="addSubPage" style="display: inline-block;">
         <add-button/>
@@ -34,9 +42,6 @@
         <incline-font-button/>
       </div>
     </div>
-
-    <button @click="saveProgress">Save Progress</button>
-    <button @click="loadSavedData">Load Progress</button>
 </div>
 
   <!-- cv contents -->
@@ -59,6 +64,8 @@ import removeElementButton from "@/components/button/removeElementButton";
 import bigFontButton from "@/components/button/bigFontButton";
 import smallFontButton from "@/components/button/smallFontButton";
 import boldFontButton from "@/components/button/boldFontButton";
+import saveButton from "@/components/button/saveButton";
+import loadButton from "@/components/button/loadButton";
 import inclineFontButton from "@/components/button/inclineFontButton";
 import cvPage from "@/components/cvMaker/cvMakerPage";
 import Vue from 'vue';
@@ -127,6 +134,8 @@ export default {
   },
   components: {
     downloadButton,
+    saveButton,
+    loadButton,
     addButton,
     removeButton,
     addElementButton,

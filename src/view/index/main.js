@@ -15,8 +15,7 @@ import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 Vue.$cookies.config('7d')
 
-import eCharts from 'vue-echarts'
-Vue.use(eCharts)
+
 
 
 Vue.config.productionTip = false;

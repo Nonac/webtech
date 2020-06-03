@@ -1,5 +1,5 @@
 <template>
-    <div id="radar" class="container"> </div>
+    <div id="radar2" class="container"> </div>
 </template>
 
 <script>
@@ -52,7 +52,7 @@
                     ]
                 }]
             }
-            const chartObj = echarts.init(document.getElementById('radar'))
+            const chartObj = echarts.init(document.getElementById('radar2'))
             chartObj.setOption(option)
         }
     }
