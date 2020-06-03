@@ -1,16 +1,30 @@
 <template>
         <div class="download-button" ref="button" style="z-index: 9999;width: 80px"
              data-toggle="tooltip" data-placement="right" title="Increase Font Size">
-            <svg class="arrow" width="40" height="40" viewBox="0 0 40 40">
-                <image id="A" x="1" y="1" width="34" height="38" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAmCAYAAACh1knUAAAB10lEQVRYhb1XbXXDMAy0xiCFUAqlEAqlUAodhFLYIHQQNggthBVCA0F7fnP7EuXO8Vd6//JhWb6Tz7IrhapedI5jccASqOoOJOHxWxrzrXBcT95vVZV9aw+/csKIx8erkugjSXjcVbXLjVsizd48f5nnLiJdm0TCSm0iV+fcYN7Zf9pCVfdACl+gZ/A+S55caWZsiMgNyONxWIuNLmZgoUjHuKyVyDFGv6qewPddavwcaWa7RUTGRfqTMKYOxNJnNQCMLtnyUxmxvjCQAv00z20tH6z0TP5DzLWxfGLpVHvQHiRZfoo0dtJBRJAsDyDLryva4B3WH6JUE7/5rk3kAIIuFp+fGIzbxsYsSWMnvYkI8gsLJF2ZPITiU8bYNpZPLD3ZssmJnDx+HMhuw6wVkZaBMiokiM98jdPTb/0N+sCKda0Oq2Nm+OpEaOxZIsEnonu+Ej2yfMQIyngjhXDOvZtYy5ZP9n+VPZMTOR6TWHr1xZpc2CfyW2nQORI7aVORbvnE0pt4CZFn0kaOGUH3kBZsOBG5hhvhGJM2cpwIoirlpE0FWtS0FFKoq0W4mlrcLSOIjSayPBCuplaeqeUD7/DIP7IXQFqL/xsB6dKflDVOBMmjqtr9AYz9sSqwgpyZAAAAAElFTkSuQmCC"/>
-                <image id="triangle_2" data-name="triangle 2" x="26" y="1" width="11" height="7" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAHCAYAAADebrddAAAAN0lEQVQYlWP8//8/AxpAFmBElmJCV4lHI4ZiDGtwKcalEC4OU4zXRJg8SDEhhXANhDyIAAwMDAAtTwwDWQTVDAAAAABJRU5ErkJggg=="/>
+            <svg class="arrow" width="40" height="40" viewBox="0 0 40 40" ref="increase">
+                    <title>bigFont2</title>
+                    <path id="word" ref="word" d="M27.8,38.36,23.34,26.82H9.91L5.46,38.36H1L14.4,4.43h4.45L32.3,38.36ZM11.31,23.19H22L16.61,9.39Z" transform="translate(-0.95 -2.13)" style="fill:#fff"/>
+                    <path id="triangle" ref="triangle" d="M30.71,2.18l-4.8,5.54A.17.17,0,0,0,26,8h9.59a.17.17,0,0,0,.13-.28L31,2.18A.18.18,0,0,0,30.71,2.18Z" transform="translate(-0.95 -2.13)" style="fill:#fff"/>
             </svg>
         </div>
 </template>
 
 <script>
     export default {
-        name: "bigFontButton"
+        name: "bigFontButton",
+        methods:{
+            active(){
+                this.$refs.word.style.fill='#A5DC86';
+                this.$refs.triangle.style.fill='#A5DC86';
+                this.$refs.button.style['background-image']='linear-gradient(160deg, #0F1113,#0F1113)';
+            },
+            recovery(){
+                this.$refs.word.style.fill='white';
+                this.$refs.triangle.style.fill='white';
+                this.$refs.button.style['background-image']='linear-gradient(160deg, #343A40,#343A40)';
+
+            }
+        }
     }
 </script>
 

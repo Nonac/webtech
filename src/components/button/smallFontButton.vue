@@ -2,15 +2,28 @@
     <div class="download-button" ref="button" style="z-index: 9999;width: 80px"
          data-toggle="tooltip" data-placement="right" title="Decrease Font Size">
         <svg class="arrow" width="40" height="40" viewBox="0 0 40 40">
-            <image id="A" x="1" y="13" width="25" height="26" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAaCAYAAABCfffNAAACE0lEQVRIia2WzUuVURDGf9yUzIVdLWoXElaSiAZRLYIIoaAMoQ/pY1Hr1oL/Qqv+CYNIIyMsQiSQFkqLWlQQqC0iIko0ApEofGJkLgyv9+O89/rAwJzzzjlz5pk5Z14kpco9SYtBhlPXpjrY75tHzEhqTllfIA3ngc6M5XHgRMrqFCfNwFVgB7AGrPj8buDSdjnpAc65/hWYCd8GgfbtcHIZ2On6EnAf+B0OMFBzhxpJ2yXpc0j2XZ9/FeamG62u22Gz75Laff5OmF+X1F9vdRWcqhImgVXXnwM/XG8BrlVjq5oT4/uU63+Bx+HbT+BhGF8E9tbjxMpzn+tvXSKmgH8+PgqczeukDbgRxs8CVSW8AeZct7t00+/SVlRI1lBI7Iqk3gp2o8FuTdKRPIm/FfTXwPsKdk89P4ZW4HpqJF2SVv10G5Iu1CjzsRDNR0mtWZumMn6N26Lry8CfGg/hQtAP+2M6WS2SNknzagzjkpqq5eSkP+GN4AzQHddn6RoOZfgJmEh0VvRi6fC7ZZR9KEfXAS/XEkZytGaTqbD2naSWcnRdCb3BmtPLnJTZhd1wvR84nY2kIGkunGQ2ZxQlJpbDHhPZSKzzHQunepQzCsMXYDqMrQAOEd6uodD91jMtNg8eBNs93p436Too6VsI80nqr04Zsaa2EPayFBQtEkuQlZ4l2+SF94968AsYD3t1A33/AaRUbQqrtus/AAAAAElFTkSuQmCC"/>
-            <image id="triangle_2" data-name="triangle 2" x="26" y="10" width="11" height="7" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAHCAYAAADebrddAAAANklEQVQYlWP8////fwYiARMDAwMjkWoZQYrBDEIKQQRMMT4NcHFkxXgVYlOM1zmETEYABgYGAOyZBBIO1QadAAAAAElFTkSuQmCC"/>
+            <title>smallFont2</title>
+            <path ref="word" d="M25.09,38.54l-3.86-10H9.63l-3.85,10H1.89L13.51,9.22h3.85L29,38.54ZM10.84,25.43H20L15.42,13.5Z" transform="translate(-1.89 -2)" style="fill:#fff"/>
+            <path ref="triangle" id="triangle" d="M31,7.82l4.8-5.54A.17.17,0,0,0,35.63,2H26a.17.17,0,0,0-.13.28l4.8,5.54A.18.18,0,0,0,31,7.82Z" transform="translate(-1.89 -2)" style="fill:#fff"/>
         </svg>
     </div>
 </template>
 
 <script>
     export default {
-        name: "smallFontButton"
+        name: "smallFontButton",
+        methods:{
+            active(){
+                this.$refs.word.style.fill='#A5DC86';
+                this.$refs.triangle.style.fill='#A5DC86';
+                this.$refs.button.style['background-image']='linear-gradient(160deg, #0F1113,#0F1113)';
+            },
+            recovery(){
+                this.$refs.word.style.fill='white';
+                this.$refs.triangle.style.fill='white';
+                this.$refs.button.style['background-image']='linear-gradient(160deg, #343A40,#343A40)';
+            }
+        }
     }
 </script>
 

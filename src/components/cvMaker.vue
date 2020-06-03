@@ -27,19 +27,19 @@
       </div>
     </div>
   <div>
-    <div  @click="increaseFontSize" style="display: inline-block;">
-      <big-font-button/>
+    <div  @click="increaseFontSize"   style="display: inline-block;">
+      <big-font-button ref="increase"/>
     </div>
     <div @click="decreaseFontSize" style="display: inline-block;">
-      <small-font-button/>
+      <small-font-button ref="decrease"/>
     </div>
   </div>
     <div>
       <div @click="boldifyText" style="display: inline-block;">
-        <bold-font-button/>
+        <bold-font-button ref="bold"/>
       </div>
       <div @click="italicizeText" style="display: inline-block;">
-        <incline-font-button/>
+        <incline-font-button ref="incline"/>
       </div>
     </div>
 </div>
@@ -434,30 +434,38 @@ export default {
     italicizeText(){
       if(this.mode !== MODE_ITALICISE){
         this.mode = MODE_ITALICISE;
+        this.$refs.incline.active();
       }else{
         this.mode = MODE_EDIT;
+        this.$refs.incline.recovery();
       }
 
     },
     boldifyText(){
       if(this.mode !== MODE_BOLDIFY){
         this.mode = MODE_BOLDIFY;
+        this.$refs.bold.active();
       }else{
         this.mode = MODE_EDIT;
+        this.$refs.bold.recovery();
       }
     },
     increaseFontSize(){
       if(this.mode !== MODE_INC_FONT_SIZE){
         this.mode = MODE_INC_FONT_SIZE;
+         this.$refs.increase.active();
       }else{
         this.mode = MODE_EDIT;
+        this.$refs.increase.recovery();
       }
     },
     decreaseFontSize(){
       if(this.mode !== MODE_DEC_FONT_SIZE){
         this.mode = MODE_DEC_FONT_SIZE;
+        this.$refs.decrease.active();
       }else{
         this.mode = MODE_EDIT;
+        this.$refs.decrease.recovery();
       }
     },
     handleMouseup(){

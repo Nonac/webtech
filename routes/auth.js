@@ -52,12 +52,14 @@ router.post('/login', async (req, res) =>{
   try{
     const dbUser = await db.getUser(reqUser.username);
     if(dbUser === null){
+      // return this.$alert(`Username or password is wrong.`,'Error','error')
       return res.status(400).send(`Username or password is wrong.`);
     }
 
-    // check password
+    // chec password
     const isPasswordValid = await bcrypt.compare(reqUser.password, dbUser.userhash);
     if(!isPasswordValid){
+      // return this.$alert(`Username or password is wrong.`,'Error','error')
       return res.status(400).send('Username or password is wrong.');
     }
 
