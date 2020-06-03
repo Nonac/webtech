@@ -467,8 +467,9 @@ export default {
         case MODE_BOLDIFY:
           tag = 'b'; break;
         case MODE_INC_FONT_SIZE:
+          tag = 'larger'; break;
         case MODE_DEC_FONT_SIZE:
-          tag = 'span'; break;
+          tag = 'smaller'; break;
 
         default: return;
       }
