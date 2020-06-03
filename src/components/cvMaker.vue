@@ -288,6 +288,8 @@ export default {
       });
       newPage.$mount();
       this.$refs['cv-contents'].appendChild(newPage.$el);
+
+      newPage.$el.scrollIntoView(true);
     },
     deleteLastSubPage(){
       // does not delete the main page
