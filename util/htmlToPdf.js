@@ -5,12 +5,17 @@ const fs = require('./async_fs');
 
 // returns null if and only if succeeds
 
-
+// returns the pdf if succeeds, throw error on failure
 async function toPdf(html, userId, jwt) {
   const browser = await puppeteer.launch({headless:true});
   const page = await browser.newPage();
 
-  let htmlTmpPath = path.resolve(__dirname + `./../tmp/html/${userId}.html`);
+  const htmlDir = path.resolve(__dirname + `./../tmp/html`);
+  if(await fs.mkdir(htmlDir, { recursive: true }) !== null){
+    throw new Error(`unable to create temp html dir for user ${userId}`);
+  }
+
+  let htmlTmpPath = path.resolve(`${htmlDir}/${userId}.html`);
   let rv = await fs.writeFile(htmlTmpPath, html);
   if(rv != null) throw rv;
 
