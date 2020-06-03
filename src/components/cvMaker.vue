@@ -158,13 +158,14 @@ export default {
         if(res.status === 201){
           this.animateProgressSaved();
           return null;
-        }else if(res.status === 401){
-          alert('Please log in first');
         }
         else{
           alert('save failed');
         }
       }catch(err){
+        if(err.status === 401){
+          return alert('Please log in first');
+        }
         console.log(err);
         alert('save failed');
         return err;
@@ -243,14 +244,15 @@ export default {
             old_div_A4paper = temp;
           }
 
-        }else if(res.status === 404){
-          alert("There's nothing to load.");
-        }else if(res.status === 401){
-          alert("Please log in first");
         }else{
           alert('Load failed.');
         }
       }catch(err){
+        if(err.status === 401){
+          return alert('Please log in first');
+        }else if(err.status === 404){
+          return alert("There's nothing to load.");
+        }
         console.log(err);
         alert('Load failed.');
       }
