@@ -13,10 +13,12 @@
   const express = require('express');
   const app = express();
 
+  const bodyParser = require('body-parser');
   const cookieParser = require('cookie-parser')
 
   // Middlewares
-  app.use(express.json());
+  app.use(bodyParser.json({limit:'10mb'}));
+  app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
   app.use(cookieParser());
   // Route middlewares
   app.use('/api/user', require('./routes/auth'));

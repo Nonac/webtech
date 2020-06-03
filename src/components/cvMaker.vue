@@ -165,6 +165,9 @@ export default {
         templateId: this.templateId,
         avatarUrl: avatarImg.src,
       }
+
+      console.log(reqBody);
+
       try{
         let res = await this.$http.post('/api/cvMaker/save', reqBody);
         if(res.status === 201){
