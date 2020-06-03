@@ -21,7 +21,7 @@ router.get('/', verifyJwt, async(req, res) =>{
   const html =
   `<html><head>${htmlHeaders}</head><body><div class="cv-contents">${cvContents}</div></body></html>`;
 
-  const newPdf = await pdf.toPdf(html);
+  const newPdf = await pdf.toPdf(html, userId, req.jwt);
   res.status(201).send(newPdf);
 })
 
@@ -29,7 +29,7 @@ router.get('/', verifyJwt, async(req, res) =>{
 router.get('/htmlTransit/', verifyJwt, async(req, res) => {
   let userId = req.userId;
   if(userId === undefined) return res.status(500).end();
-  
+
   let htmlTmpPath = path.resolve(__dirname + `./../tmp/html/${userId}.html`);
   try{
       res.status(200).sendFile(htmlTmpPath);
