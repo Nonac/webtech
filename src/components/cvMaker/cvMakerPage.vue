@@ -29,7 +29,7 @@ export default {
     checkHeightOverflow(){
       const elem = this.$refs[this.thisPageRef];
       if(elem.scrollHeight > elem.clientHeight){
-        alert(`Page ${this.pageId} is full. Please delete some contents`);
+        this.$alert(`Page ${this.pageId} is full. Please delete some contents`,'Error','error');
       }
     }
   },

@@ -41,7 +41,7 @@
                 this.$http.post(this.serverRootUrl + '/api/user/register', newUser)
                 .then(function(data){
                   if(data.status === 201){ // succeeded
-                        alert('Registration succeed.');
+                        this.$confirm('Registration succeed.','Success','success');
                         const authToken = data.headers.map['auth-token'];
                         const username = data.body.username;
                         this.$cookies.set('jwt', authToken);
@@ -50,15 +50,15 @@
                         bus.$emit('loggedIn', null);
                         this.$router.replace('/userProfile');
                   }else{
-                    alert('register failed');
+                    this.$alert('register failed','Error','error');
                   }
                 }).catch(function(err){
-                  alert(err.body);
+                  this.$alert(err.body,'Error','error');
                 });
             },
             checkAndSubmit(){
               if(this.password !== this.rePassword){
-                return alert('re-password and password do not match.')
+                return this.alert('re-password and password do not match.','Error','error')
               }
               this.submitRegRequest();
             }

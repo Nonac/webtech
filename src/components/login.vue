@@ -40,7 +40,7 @@
               .then(
                 (data) => {
                   if(data.status == 200){
-                    alert('Logged in.');
+                    this.$alert('Logged in.','Success','success');
                     const authToken = data.headers.map['auth-token'];
                     const username = data.body.username;
                     this.$cookies.set('jwt', authToken);
@@ -48,11 +48,11 @@
                     bus.$emit('loggedIn', null);
                     this.$router.replace('/userProfile');
                   }else{
-                    alert('login failed');
+                    this.$alert('login failed','Error','error');
                   }
                 }
               ).catch(function(err){
-                alert(err.body);
+                this.$alert(err.body,'Error','error');
               });
             }
         }

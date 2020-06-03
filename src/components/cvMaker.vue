@@ -169,14 +169,14 @@ export default {
           return null;
         }
         else{
-          alert('save failed');
+          this.$alert('save failed',"Error",'error');
         }
       }catch(err){
         if(err.status === 401){
-          return alert('Please log in first');
+          return this.$alert('Please log in first','Error','error');
         }
         console.log(err);
-        alert('save failed');
+        this.$alert('save failed','Error','error');
         return err;
       }
     },
@@ -254,16 +254,16 @@ export default {
           }
 
         }else{
-          alert('Load failed.');
+          this.$alert('Load failed.','Error','error');
         }
       }catch(err){
         if(err.status === 401){
-          return alert('Please log in first');
+          return this.$alert('Please log in first','Error','error');
         }else if(err.status === 404){
-          return alert("There's nothing to load.");
+          return this.$alert("There's nothing to load.",'Warning','warning');
         }
         console.log(err);
-        alert('Load failed.');
+        this.alert('Load failed.','Error','error');
       }
     },
     async generatePdf() {
@@ -281,12 +281,12 @@ export default {
         link.click();
       }catch(err){
         console.log(err);
-        alert('Failed');
+        this.$alert('Failed','Error','error');
       }
 
     },
     addSubPage(){
-      if(this.maxPageId >= 5) return alert('A concise CV is a good CV.');
+      if(this.maxPageId >= 5) return this.$alert('A concise CV is a good CV.','Warning','warning');
 
       const cvPageClass = Vue.extend(cvPage);
       let newPage = new cvPageClass({

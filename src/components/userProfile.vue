@@ -87,14 +87,14 @@ export default {
       try{
         let res = await this.$http.get('/api/cvMaker/has_save');
         if(res.status === 200){
-        
+
           this.$router.push({path:'cvMaker', query:{templateId: -1, fetchSavedData: true}});
         }
       }catch(err){
         if(err.status === 404){
-          return alert("You don't seem to have anything to load.");
+            return this.$alert("You don't seem to have anything to load.","Warning","warning")
         }
-        alert('Load failed.');
+        this.$alert('Load failed.',"Error","error");
       }
 
 

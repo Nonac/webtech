@@ -35,7 +35,7 @@ const upload = async (vue, form) => {
   if(res.status === 201){
     return res.body;
   }else{
-    alert('Upload failed.');
+    this.$alert('Upload failed.','Error','error');
   }
 };
 
@@ -111,7 +111,7 @@ export default {
 
 
       if (fileList.length != 1) {
-        alert('Please select only one file.');
+        this.$alert('Please select only one file.','Warning','warning');
         return this.reset();
       }
 
