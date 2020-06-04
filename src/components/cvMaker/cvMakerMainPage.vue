@@ -4,7 +4,7 @@
   <avatar />
 
  <section class="contact-info vcard">
-   <h1 contenteditable class="titleName">Borisa Jahnsumia</h1>
+   <h1 contenteditable class="titleName">Borisu Jonsonkun</h1>
 
    <div>
      <div class="clonable">
@@ -13,7 +13,7 @@
      </div>
      <div class="clonable">
        <span contenteditable>Email:</span>
-       <a contenteditable class="email" >greatoldone@lovecraft.com</a>
+       <a contenteditable class="email" >microsoft@gmail.com</a>
      </div>
    </div>
  </section>
@@ -23,10 +23,7 @@
   <section class="objective">
     <div class="clonable">
       <p contenteditable>
-        I am an outgoing and energetic (ask anybody) young professional, seeking a
-        career that fits my professional skills, personality, and murderous tendencies.
-        My squid-like head is a masterful problem solver and inspires fear in who gaze upon it.
-        I can bring world domination to your organization.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing commodo elit at imperdiet dui accumsan sit amet nulla. Eu augue ut lectus arcu bibendum at varius. Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi.
       </p>
     </div>
   </section>
@@ -39,9 +36,9 @@
       <div class="clonable">
         <dt contenteditable>Education</dt>
         <dd contenteditable>
-          <h2>Withering Madness University - Planet Vhoorl</h2>
+          <h2>Going Home University - London</h2>
           <p><strong>Major:</strong> Public Relations<br />
-            <strong>Minor:</strong> Scale Tending</p>
+            <strong>Minor:</strong> Software Engineering</p>
         </dd>
 
         <dd class="clear"></dd>
@@ -53,10 +50,10 @@
         <dt contenteditable>Skills</dt>
         <dd contenteditable>
           <h2>Office skills</h2>
-          <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
+          <p>Customer support, tea brewing</p>
 
           <h2>Computer skills</h2>
-          <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
+          <p>Turn on/off computers. Mouse/keyboard usage.</p>
         </dd>
         <dd class="clear"></dd>
 
@@ -67,7 +64,7 @@
       <div class="clonable">
         <dt contenteditable>Experience</dt>
         <dd contenteditable>
-          <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
+          <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1826-2133</span></h2>
           <ul>
             <li>Inspired and won highest peasant death competition among servants</li>
             <li>Helped coordinate managers to grow cult following</li>
@@ -89,7 +86,7 @@
 
 
         <dt contenteditable>Hobbies</dt>
-        <dd contenteditable>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+        <dd contenteditable>World of Warcraft, League of Legends, Blade and Soul</dd>
 
         <dd class="clear"></dd>
       </div>
