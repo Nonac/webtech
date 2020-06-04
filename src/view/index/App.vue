@@ -31,4 +31,5 @@ export default {
 }
 </script>
 
-<style src='./assets/global.css'>
+<style src='./assets/global.css' />
+<style src='./assets/auth.css' />

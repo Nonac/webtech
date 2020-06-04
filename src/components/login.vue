@@ -1,7 +1,7 @@
 <template>
     <div><br><br><br><br><br>
         <div class="background background-blur"></div>
-        <div class="login">
+        <div class="auth">
             <h1>Sign In</h1>
             <form method="post">
                 <input type="text" name="u" placeholder="Username" required="required"  v-model="userName" />
@@ -58,7 +58,3 @@
         }
     }
 </script>
-
-<style scoped src="../view/index/assets/login.css">
-
-</style>
