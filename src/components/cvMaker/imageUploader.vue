@@ -95,7 +95,7 @@ export default {
         this.currentStatus = STATUS_SUCCESS;
         this.imageUrl = res.url;
         this.updateDropboxSizeAndBackground();
-        bus.$emit('cvAvatarUploaded', `${res.url}&t=${new Date().getTime()}`);
+        bus.$emit('cvAvatarUploaded', res.url);
       } catch (err) {
         this.uploadError = err.response;
         this.currentStatus = STATUS_FAILED;

@@ -10,10 +10,6 @@ const verifyJwt = require('./verifyJwt');
 const { validateSaveCv } = require('../util/validation');
 
 
-function getAvatarUserUrl(userId){
-  return `/api/cvMaker/avatar?uId=${userId}`;
-}
-
 const imgTmpDir = path.resolve(__dirname + `/../tmp/img/avatar`);
 
 // returns the fullname (with ext) of the most recent file in the dir
@@ -30,20 +26,27 @@ const getMostRecentFileName = async (dir) => {
 
 router.get('/avatar',verifyJwt, async(req, res) => {
   let userId = req.userId;
-  if(userId === undefined) return res.status(500).end();;
+  let avatarName = req.query.name;
+  if(userId === undefined) return res.status(500).end();
+  if(!avatarName) return res.status(400).end();
 
   try{
     let userAvatarDir = path.resolve(`${imgTmpDir}/${userId}`);
-    // let files = await fs.readdir(userAvatarDir);
-    // console.log(files);
-
-    let mostRecentAvatar = await getMostRecentFileName(userAvatarDir);
-    let imgPath = path.resolve(`${userAvatarDir}/${mostRecentAvatar}`);
+    // let mostRecentAvatar = await getMostRecentFileName(userAvatarDir);
+    let imgPath = path.resolve(`${userAvatarDir}/${avatarName}`);
     // console.log(imgPath);
-    res.status(200).sendFile(imgPath);
-    console.log(`\navatar uId = ${userId} ${mostRecentAvatar} sent.`)
+    res.status(200).sendFile(imgPath,(err) => {
+      if(!err) return;
+      console.log(err);
+      if(err.status === 404){
+        return res.status(404).send('no such avatar');
+      }
+      return res.status(500).end();
+    });
+    // console.log(`\navatar uId = ${userId} ${imgPath} sent.`)
   }catch(err){
     console.log(err);
+    return res.status(500).end();
   }
 
 })
@@ -84,22 +87,27 @@ router.post('/avatar', verifyJwt, async(req, res) =>{
   form.keepExtensions = true;
 
   form.parse(req, async (err, fields, files) => {
-    if(err) return console.log(err);
+    if(err) {
+      console.log(err);
+      res.status(500).send('Upload failed');
+    }
     if(files.avatar === undefined) return res.status(400);
     // console.log(`\tsize: ${JSON.stringify(files.avatar.size)}`);
     // console.log(`\tname: ${JSON.stringify(files.avatar.name)}`);
     // console.log(`\tpath: ${JSON.stringify(files.avatar.path)}`);
     // console.log(`\ttype: ${JSON.stringify(files.avatar.type)}`);
 
-    // store the most recent image on disk
-    const newPath = path.resolve(`${imgDir}/avatar${path.extname(files.avatar.name)}`);
+    // rename image
+    const newName = `${new Date().getTime()}${path.extname(files.avatar.name)}`
+    const newPath = path.resolve(`${imgDir}/${newName}`);
+
     fs.old.rename(files.avatar.path, newPath, (err) => {
       if(err){
         console.log(err);
         return res.status(500).send('Upload failed');
       }
       console.log(`avatar saved at ${newPath}`);
-      res.status(201).send({url:getAvatarUserUrl(userId)});
+      res.status(201).send({url:`/api/cvMaker/avatar?name=${newName}`});
     });
 
   })
