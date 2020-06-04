@@ -1,25 +1,4 @@
-.background {
-    background: url('../img/blackground.jpg') no-repeat center;
-    background-size: cover;
-    height:600px;
-    position:absolute;
-    line-height: 600px;
-    text-align: center;
-    z-index: -1;
-}
 
-.background-blur {
-    float: left;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    -webkit-filter: blur(15px);
-    -moz-filter: blur(15px);
-    -o-filter: blur(15px);
-    -ms-filter: blur(15px);
-    filter: blur(15px);
-}
 
 .login {
     position: absolute;

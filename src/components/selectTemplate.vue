@@ -1,10 +1,11 @@
 <template>
 <div>
+  <div class="background background-blur"></div>
   <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Select your CV template</h1>
       <p class="lead text-muted">
-        "Quick start with the template you like most."
+        "Quick start with a template you like."
       </p>
       <p>
         <button @click="chooseRandomTemplate" class="btn btn-primary my-2">
@@ -14,7 +15,7 @@
   </section>
 
 
-  <section class="album py-5 bg-light">
+  <section class="album py-5">
     <div class="container">
 
       <div class="row" ref='tbvRow'>
@@ -23,7 +24,6 @@
       </div>
     </div>
   </section>
-
 </div>
 </template>
 
@@ -85,4 +85,9 @@ export default {
 </script>
 
 <style scoped>
+.jumbotron{
+  background-color: aliceblue;
+}
+
+
 </style>

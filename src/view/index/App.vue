@@ -30,3 +30,5 @@ export default {
   }
 }
 </script>
+
+<style src='./assets/global.css'>
