@@ -71,14 +71,6 @@
                         </p>
                     </div>
                 </div></li>
-                <li><div class="media">
-                    <div class="media-body">
-                        <h4>Dynamic pages</h4>
-                        <p>
-                            content
-                        </p>
-                    </div>
-                </div></li>
             </ul>
         </div>
     </section>
