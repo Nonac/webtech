@@ -18,6 +18,9 @@ Vue.$cookies.config('7d')
 import VueSimpleAlert from "vue-simple-alert";
 Vue.use(VueSimpleAlert);
 
+import lottie from 'vue-lottie';
+Vue.component('lottie', lottie)
+
 Vue.config.productionTip = false;
 
 

@@ -1,16 +1,14 @@
 <template>
     <div><br><br><br><br><br>
-        <div class="background background-blur"></div>
-            <div class="content-front">
-                <p class="hero-work">The BEST Online Resume Builder</p>
-                <h2 class="hero-title">Make Your Own Resume</h2>
-                <p class="hero-sub-title">Sign up! Submit information! Generate! Post!</p>
+        <div class="background background-blur" style="z-index: -999"></div>
+            <div class="content-front" style="z-index: -998">
+                <lottie :options="defaultOptions" :height="1080" :width="1920" v-on:animCreated="handleAnimation" style="z-index: -997"/>
                 <a @click="startClick">
-                    <hgroup class="svg-border-animation">
+                    <hgroup class="svg-border-animation" style="z-index: 10">
                         <svg viewBox="0 0 320 60">
                             <rect class="shape" height="60" width="320"></rect>
                         </svg>
-                        <div class="hover-text">Start</div>
+                        <div class="hover-text" >Start</div>
                     </hgroup>
                 </a>
             </div>
@@ -18,8 +16,16 @@
 </template>
 
 <script>
+    import * as animationData from "../view/index/assets/animation/homeAnimationData.json";
 export default {
     name: 'Home',
+    data(){
+        return {
+            defaultOptions: { animationData: animationData },
+            animationSpeed: 1,
+            anim: {}
+        }
+    },
     methods:{
         startClick(){
             var c_start=document.cookie.indexOf("jwt");
@@ -29,7 +35,11 @@ export default {
             else{
                 this.$router.replace('/userProfile');
             }
-        }
+        },
+        handleAnimation: function(anim) {
+            this.anim = anim;
+            console.log(anim); //这里可以看到 lottie 对象的全部属性
+        },
     }
 }
 </script>
