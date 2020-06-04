@@ -49,7 +49,7 @@ const init = async () => {
     for(let id of validTemplateIds){
       let description = await async_fsReadFile(`./assets/protected/templates/${id}.txt`);
 
-      const sql = 'INSERT INTO Template (id, description) VALUES (?, ?);';
+      const sql = 'INSERT OR REPLACE INTO Template (id, description) VALUES (?, ?);';
       try{
         if(await db.async_run(sql, [id, description]) === null){
           console.log(`template ${id} inserted`);

@@ -28,7 +28,7 @@ module.exports = (async function(){
   const db = require('./dbManager');
 
   async function resetDb() {
-    const tableNames = ['User', 'Template', 'User'];
+    const tableNames = ['User', 'Template', 'UserCv'];
 
     for(let tableName of tableNames){
       let rv = await db.async_run(`DROP TABLE IF EXISTS ${tableName};`);

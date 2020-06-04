@@ -1,1 +1,1 @@
-template 0
+A generic cv template. Suits most situations.
