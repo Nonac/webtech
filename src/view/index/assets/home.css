@@ -1,6 +1,6 @@
 .content-front {
     position:absolute;
-    top:-150px;
+    top:-12%;
     left: 10px;
     right: 10px;
     height:600px;
@@ -116,10 +116,10 @@
 }
 
 .svg-border-animation {
-    position: relative;
+    position: absolute;
     width: 320px;
     height: 60px;
-    top: -200px;
+    top: 137%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
