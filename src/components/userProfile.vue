@@ -9,10 +9,10 @@
 
                   <div class="content">
                       <div class="icon">
-                          <svg class="svg hovering" id="continue_1" data-name="continue 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+                          <svg class="svg" id="continue_1" data-name="continue 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
                               <title>continue</title>
                               <path class="circle" d="M20,2A18,18,0,1,1,2,20,18,18,0,0,1,20,2m0-2A20,20,0,1,0,40,20,20,20,0,0,0,20,0Z" style="fill:#fff"/>
-                              <path d="M8.07,21.62H29a1.5,1.5,0,0,0,0-3H8.07a1.5,1.5,0,0,0,0,3Z" style="fill:#fff"/>
+                              <path class="middle-line" d="M8.07,21.62H29a1.5,1.5,0,0,0,0-3H8.07a1.5,1.5,0,0,0,0,3Z" style="fill:#fff"/>
                               <path d="M23.43,12.79l7.31,7.32A1.5,1.5,0,0,0,32.87,18l-7.32-7.32a1.5,1.5,0,0,0-2.12,2.12Z" style="fill:#fff"/>
                               <path d="M31.28,18.82l-7.76,7.75a1.5,1.5,0,0,0,2.13,2.12l7.75-7.75a1.5,1.5,0,1,0-2.12-2.12Z" style="fill:#fff"/>
                           </svg>
