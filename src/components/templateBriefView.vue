@@ -11,9 +11,8 @@
             <button type="button" class="btn btn-sm btn-outline-secondary" @click="gotoCvMaker">
           Use
           </button>
-          <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
         </div>
-        <!-- <small class="text-muted">9 mins</small> -->
+
       </div>
     </div>
   </div>
@@ -43,5 +42,9 @@ img:hover {
 
 img.card-img-top {
   height: 487px;
+}
+
+.card-body{
+  border-top: black solid 1px;
 }
 </style>

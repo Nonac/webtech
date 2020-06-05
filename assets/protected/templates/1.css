@@ -104,23 +104,3 @@ section.contact-info .contact-details{
   display: block;
   float:right;
 }
-
-.cv-contents i{
-  font: inherit;
-  font-style: italic;
-}
-
-.cv-contents b{
-  font: inherit;
-  font-weight: bold;
-}
-
-.cv-contents larger{
-  font: inherit;
-  font-size: 125%;
-}
-
-.cv-contents smaller{
-  font: inherit;
-  font-weight: 80%;
-}

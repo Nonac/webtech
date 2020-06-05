@@ -38,6 +38,30 @@ export default {
 
 </script>
 
+<style>
+.cv-contents i{
+  font: inherit;
+  font-style: italic;
+}
+
+.cv-contents b{
+  font: inherit;
+  font-weight: bold;
+}
+
+.cv-contents larger{
+  font: inherit;
+  font-size: 125%;
+}
+
+.cv-contents smaller{
+  font: inherit;
+  font-weight: 80%;
+}
+
+</style>
+
+
 <style scoped>
 .A4paper {
   width: 21cm;

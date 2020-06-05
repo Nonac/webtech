@@ -431,41 +431,48 @@ export default {
       // this.$forceUpdate();
       // console.log('template applied.');
     },
+    recoverAllButtons(){
+      this.$refs.incline.recovery();
+      this.$refs.bold.recovery();
+      this.$refs.increase.recovery();
+      this.$refs.decrease.recovery();
+    }
+    ,
     italicizeText(){
+      this.recoverAllButtons();
       if(this.mode !== MODE_ITALICISE){
         this.mode = MODE_ITALICISE;
         this.$refs.incline.active();
       }else{
         this.mode = MODE_EDIT;
-        this.$refs.incline.recovery();
       }
 
     },
     boldifyText(){
+      this.recoverAllButtons();
       if(this.mode !== MODE_BOLDIFY){
         this.mode = MODE_BOLDIFY;
         this.$refs.bold.active();
       }else{
         this.mode = MODE_EDIT;
-        this.$refs.bold.recovery();
       }
     },
     increaseFontSize(){
+      this.recoverAllButtons();
       if(this.mode !== MODE_INC_FONT_SIZE){
         this.mode = MODE_INC_FONT_SIZE;
-         this.$refs.increase.active();
+        this.$refs.increase.active();
       }else{
         this.mode = MODE_EDIT;
-        this.$refs.increase.recovery();
       }
     },
     decreaseFontSize(){
+      this.recoverAllButtons();
       if(this.mode !== MODE_DEC_FONT_SIZE){
         this.mode = MODE_DEC_FONT_SIZE;
         this.$refs.decrease.active();
       }else{
         this.mode = MODE_EDIT;
-        this.$refs.decrease.recovery();
       }
     },
     handleMouseup(){
