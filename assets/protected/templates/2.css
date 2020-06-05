@@ -1,8 +1,20 @@
-.cv-contents * {
-  margin: 0;
-  padding: 0;
-  font: 16px Helvetica, Sans-Serif;
-  line-height: 24px;
-  background-color: #000;
-  /* background : url(images/noise.jpg); */
+.cv-contents section.miscellaneous{
+  display: none;
+}
+
+.cv-contents img{
+  height: 10.5cm;
+  width:auto;
+  margin:5px auto 100px;
+  display:block;
+}
+
+.cv-contents .dropbox{
+  width:21cm;
+}
+
+.cv-contents section.contact-info{
+  text-align:center;
+  padding:15px;
+  margin-bottom:50px;
 }
