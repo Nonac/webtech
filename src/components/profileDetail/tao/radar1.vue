@@ -52,6 +52,8 @@
                     ]
                 }]
             }
+            option.series[0].data[0].value.forEach((item, i, arr) => arr[i] = Math.random() * 4);
+
             const chartObj = echarts.init(document.getElementById('radar1'))
             chartObj.setOption(option)
         }

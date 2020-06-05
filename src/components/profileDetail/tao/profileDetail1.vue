@@ -7,7 +7,7 @@
                         <div class="col-lg-8">
                             <div class="section-title text-center">
                                 <h2 class="title">{{about}}</h2>
-                                <p>{{subTitle}}</p>
+                                <p>A <del>professional artist</del> newbie full-stack developer</p>
                             </div> <!-- section title -->
                         </div>
                     </div> <!-- row -->
@@ -66,13 +66,12 @@
         name: "profileDetail",
         data:()=>{
             return{
-                about:'About Me',
-                subTitle:'A front-end designer with unrealistic fantasies.',
-                introductoryRemark:'Hi，you can call me Nonac.',
-                introduceMyself:'He was in good spirits when others were struggling. He\'s cynical when others ' +
-                    'are sitting on their laurels.',
-                birth:'26 Nov 1991',
-                location:'Tianjin, China'
+              about:'About Me',
+              introductoryRemark:'Hi，you can call my colleague Nonac.',
+              introduceMyself:'Nona-chan was in good spirits when others were struggling. He\'s cynical when others ' +
+                  'are sitting on their laurels.',
+              birth:'undefined',
+              location:'Earth'
             }
         },
         methods: {
