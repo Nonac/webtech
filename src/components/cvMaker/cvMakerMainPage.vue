@@ -8,12 +8,14 @@
 
    <div>
      <div class="clonable">
+       <span class="contact-details">
        <span contenteditable>Cell:</span>
-       <span contenteditable class="tel">555-666-7777</span><br>
+       <span contenteditable class="tel">555-666-7777</span></span><br>
      </div>
      <div class="clonable">
+       <span class="contact-details">
        <span contenteditable>Email:</span>
-       <a contenteditable class="email" >microsoft@gmail.com</a>
+       <a contenteditable class="email" >microsoft@gmail.com</a></span>
      </div>
    </div>
  </section>

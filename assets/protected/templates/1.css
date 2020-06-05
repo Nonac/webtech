@@ -1,70 +1,126 @@
-/* lang='less' */
-.cv {
-    width: 100%;
-    /*height: 575px;*/
-    background-color: #f6f7f7;
-    .avatar {
-        height: 260px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        &>.img {
-            margin-bottom: 10px;
-        }
-        .name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .job {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 5px;
-        }
-        .location {
-            display: flex;
-            align-itmes: center;
-            .location-name {
-                font-size: 12px;
-                font-weight: bold;
-                margin-left: 10px;
-            }
-        }
-    }
-    .info {
-        width: 100%;
-        overflow: hidden;
-        border-top: 1px solid #dad8d7;
-        border-bottom: 1px solid #dad8d7;
-        &>ul {
-            height: 100%;
-            li:not(:last g'y't'g'-child) {
-                border-right: 1px solid #dad8d7;
-            }
-            li {
-                float: left;
-                width: 33.1%;
-                box-sizing: border-box;
-                height: 100%;
-                overflow: hidden;
-                text-align: center;
-                padding: 10px 0;
-                span {
-                    display: inline-block;
-                    margin: 0 auto;
-                }
-                .value {
-                    margin-bottom: 5px;
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-                .key {
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #555;
-                }
-            }
-        }
-    }
+.cv-contents .cv *{
+  border:0;
+  font:inherit;
+  font-size:100%;
+  margin:0;
+  padding:0;
+  vertical-align:baseline;
+  display:block;
+  background: #181818; font-family: 'Lato', helvetica, arial, sans-serif; font-size: 16px; color: #222;
+}
+
+.cv-contents .clear {clear: both;}
+
+.cv-contents p {
+	font-size: 1em;
+	line-height: 1.4em;
+	margin-bottom: 20px;
+	color: #444;
+}
+
+.cv-contents {
+	background: #f3f3f3;
+}
+
+.cv-contents img {
+	width: 12.5%;
+	float: left;
+	margin-right: 30px;
+}
+
+.contact-info {
+	padding: 25px 35px;
+	border-bottom: 2px solid #cf8a05;
+	background: #ededed;
+}
+
+h1.titleName {
+	font-size: 2.5em;
+	font-weight: 700;
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	margin-bottom: -6px;
+}
+
+
+.cv-contents h1 {
+	float: left;
+}
+
+.cv-contents dt {
+	float: left;
+	width: 25%;
+  font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+  font-style: italic;
+  font-size: 1.5em;
+  color: #cf8a05;
+}
+
+.cv-contents dd {
+	float: right;
+	width: 72.5%;
+}
+
+.cv-contents dd h2{
+  font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+  font-size: 1.5em;
+  margin-bottom: -2px;
+}
+
+.cv-contents h2 span{
+  font-size: 0.8em;
+	font-style: italic;
+	margin-bottom: 3px;
+  font-size: 16px;
+}
+
+.cv-contents .miscellaneous dt{
+  border-top: 1px solid transparent;
+  padding: 20px 0 0;
+}
+
+.cv-contents .miscellaneous dd.clear{
+
+  border-top: 1px solid #dedede;
+  padding: 20px 0 0;
+}
+
+.cv-contents .miscellaneous div.clonable{
+  border-bottom: 1px solid #dedede;
+}
+
+section.contact-info{
+  padding-bottom:45px;
+}
+
+section.contact-info .tel,.email {
+	list-style-type: none;
+	font-size: 0.9em;
+	margin-top: 2px;
+  margin-bottom: 3px;
+	color: #444;
+}
+
+section.contact-info .contact-details{
+  display: block;
+  float:right;
+}
+
+.cv-contents i{
+  font: inherit;
+  font-style: italic;
+}
+
+.cv-contents b{
+  font: inherit;
+  font-weight: bold;
+}
+
+.cv-contents larger{
+  font: inherit;
+  font-size: 125%;
+}
+
+.cv-contents smaller{
+  font: inherit;
+  font-weight: 80%;
 }
