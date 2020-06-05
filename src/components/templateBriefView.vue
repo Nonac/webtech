@@ -20,12 +20,17 @@
 </template>
 
 <script>
+import {
+  bus
+} from '@/view/index/main';
+
 export default {
   name: "templateBriefView",
   props: ['id', 'thumbnailUrl', 'description'],
   methods: {
     gotoCvMaker(){
       this.$router.push({path:'cvMaker', query:{templateId: this.id}});
+      bus.$emit('forceReload', null);
     }
   },
   created() {

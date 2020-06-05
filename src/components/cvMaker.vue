@@ -166,8 +166,6 @@ export default {
         avatarUrl: avatarImg.src,
       }
 
-      console.log(reqBody);
-
       try{
         let res = await this.$http.post('/api/cvMaker/save', reqBody);
         if(res.status === 201){
@@ -523,7 +521,8 @@ export default {
     }
 
     bus.$on('downloadAsPdfClick', this.generatePdf);
-  }
+    bus.$on('forceUpdate', this.$forceUpdate);
+  },
 }
 </script>
 
