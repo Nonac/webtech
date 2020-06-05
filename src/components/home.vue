@@ -2,7 +2,7 @@
     <div><br><br><br><br><br>
         <div class="background background-blur" style="z-index: -999"></div>
             <div class="content-front" style="z-index: -998">
-                <lottie :options="defaultOptions" :height="1080" :width=this.width style="z-index: -997"/>
+                <lottie :options="defaultOptions" :height="1080" :width=this.width v-on:animCreated="handleAnimation" style="z-index: -997"/>
                 <a @click="startClick">
                     <hgroup class="svg-border-animation" style="z-index: 10">
                         <svg viewBox="0 0 320 60">
@@ -21,9 +21,13 @@ export default {
     name: 'Home',
     data(){
         return {
-            defaultOptions: { animationData: animationData.default },
+            defaultOptions: {
+                animationData: animationData.default,
+
+            },
             animationSpeed: 1,
-            anim: {}
+            anim: {
+            }
         }
     },
     methods:{
@@ -36,6 +40,12 @@ export default {
                 this.$router.replace('/userProfile');
             }
         },
+        handleAnimation:function (anim) {
+            this.anim=anim;
+            this.anim.setSubframe(false);
+
+        }
+
     }
 }
 </script>
