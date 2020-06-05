@@ -46,6 +46,9 @@ export default {
 
         }
 
+    },
+    computed:{
+      width: () => window.width,
     }
 }
 </script>
