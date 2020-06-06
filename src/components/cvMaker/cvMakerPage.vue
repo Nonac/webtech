@@ -17,8 +17,9 @@ export default {
   props:['pageId', 'pageType'],
   computed:{
     thisPageRef(){
-      return `cvPage${this.pageId}`
+      return `cvPage${this.thisPageId}`;
     },
+    thisPageId: () => this && this.pageId ? this.pageId : -1,
   },
   components:{
     mainPage,
@@ -29,7 +30,7 @@ export default {
     checkHeightOverflow(){
       const elem = this.$refs[this.thisPageRef];
       if(elem.scrollHeight > elem.clientHeight){
-        this.$alert(`Page ${this.pageId} is full. Please delete some contents`,'Error','error');
+        this.$alert(`Page ${this.thisPageId} is full. Please delete some contents`,'Error','error');
       }
     }
   },
@@ -37,6 +38,30 @@ export default {
 }
 
 </script>
+
+<style>
+.cv-contents i{
+  font: inherit;
+  font-style: italic;
+}
+
+.cv-contents b{
+  font: inherit;
+  font-weight: bold;
+}
+
+.cv-contents larger{
+  font: inherit;
+  font-size: 125%;
+}
+
+.cv-contents smaller{
+  font: inherit;
+  font-weight: 80%;
+}
+
+</style>
+
 
 <style scoped>
 .A4paper {

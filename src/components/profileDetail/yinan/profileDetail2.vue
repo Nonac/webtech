@@ -1,6 +1,6 @@
 <template>
     <div class="detail-backdrop">
-        <div class="detail" :style="mainStyles">
+        <div class="detail">
             <section id="about" class="about-area pt-125 pb-130">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -89,4 +89,3 @@
 <style scoped src="@/view/index/assets/profileDetail.css">
 
 </style>
-

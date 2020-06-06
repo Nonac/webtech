@@ -1,33 +1,23 @@
 <template>
-  <div>
-    <!-- <Menu></Menu> -->
-    <router-view name="top"></router-view>
-    <!-- <log></log> -->
-    <div id="app">
+<div>
+  <keep-alive>
+      <router-view name="top"></router-view>
+  </keep-alive>
+
+  <div id="app">
+    <keep-alive>
       <router-view></router-view>
-    </div>
+    </keep-alive>
 
   </div>
+
+</div>
 </template>
 
 <script>
 
-// import Menu from "@/components/Menu";
-
-
 export default {
-  name: 'App',
-  components: {
-    // Menu
-  },
-  methods:{
-  },
-  data:function() {
-        return {
-
-        };
-
-  }
+  name: 'App'
 }
 </script>
 

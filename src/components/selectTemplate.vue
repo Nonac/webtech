@@ -31,6 +31,9 @@
 <script>
 import templateBriefView from "./templateBriefView.vue";
 import Vue from 'vue';
+import {
+  bus
+} from '@/view/index/main';
 
 export default {
   data: () => {
@@ -44,6 +47,7 @@ export default {
     chooseRandomTemplate(){
       let chosenTemplate = this.templates[Math.floor(Math.random() * this.templates.length)];
       this.$router.push({path:'cvMaker', query:{templateId: chosenTemplate.id}});
+      bus.$emit('forceReload', null);
     }
   },
   computed: {

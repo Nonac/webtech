@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router';
 import App from "@/view/index/App"
+import cvMakerApp from "@/view/index/cvMakerApp";
 import Menu from "@/components/menu";
 import login from "@/components/login";
 import register from "@/components/register";
@@ -28,15 +29,6 @@ const routes = [{
       components: {default:selectTemplate, top:Menu},
     },
     {
-      path: '/cvMaker',
-      name: 'cvMaker',
-      components: {default:cvMaker, top:Menu},
-      props: (route) => ({
-        fetchSavedData: route.query.fetchSavedData,
-        templateId: route.query.templateId
-      }),
-    },
-    {
       path: '/about',
       components: {default:about, top:Menu},
     },
@@ -58,6 +50,23 @@ const routes = [{
       components: {default:userProfile, top:Menu}
     }
   ]
+},
+
+{
+  path: '/cvMaker',
+  name: 'cvMaker',
+  component: cvMakerApp,
+  children:[
+    {
+      path:'',
+      components: {default:cvMaker, top:Menu},
+      props: (route) => ({
+        fetchSavedData: route.query.fetchSavedData,
+        templateId: route.query.templateId
+      }),
+    },
+  ]
+
 }
 
 ];

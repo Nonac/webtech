@@ -1,12 +1,8 @@
-.cv-contents .cv *{
-  border:0;
-  font:inherit;
-  font-size:100%;
-  margin:0;
-  padding:0;
-  vertical-align:baseline;
-  display:block;
-  background: #181818; font-family: 'Lato', helvetica, arial, sans-serif; font-size: 16px; color: #222;
+.cv-contents *{
+  margin: 0;
+  padding: 0;
+  font: 16px Helvetica, Sans-Serif;
+  line-height: 24px;
 }
 
 .cv-contents .clear {clear: both;}
@@ -73,19 +69,32 @@ h1.titleName {
   font-size: 16px;
 }
 
+.cv-contents .objective {
+  float: left;
+}
+
 .cv-contents .miscellaneous dt{
   border-top: 1px solid transparent;
   padding: 20px 0 0;
 }
 
-.cv-contents .miscellaneous dd.clear{
-
-  border-top: 1px solid #dedede;
+.cv-contents dd.clear {
+  float: none;
+  margin: 0;
+  height: 15px;
   padding: 20px 0 0;
 }
 
+
 .cv-contents .miscellaneous div.clonable{
-  border-bottom: 1px solid #dedede;
+  border-top: 1px solid #dedede;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.cv-contents .miscellaneous div.clonable.preview{
+  border: #ffc107;
+  border-style: dashed;
 }
 
 section.contact-info{
@@ -103,24 +112,4 @@ section.contact-info .tel,.email {
 section.contact-info .contact-details{
   display: block;
   float:right;
-}
-
-.cv-contents i{
-  font: inherit;
-  font-style: italic;
-}
-
-.cv-contents b{
-  font: inherit;
-  font-weight: bold;
-}
-
-.cv-contents larger{
-  font: inherit;
-  font-size: 125%;
-}
-
-.cv-contents smaller{
-  font: inherit;
-  font-weight: 80%;
 }
