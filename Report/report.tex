@@ -36,10 +36,10 @@
 
 % DATE:
 \date{\today}
-
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+
 	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% ABSTRACT
@@ -71,7 +71,9 @@
 	% BODY OF THE DOCUMENT
 	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
+\begin{spacing}{1.0}
+		\tableofcontents
+	\newpage	
 	% --------------------
 	\section{Introduction}
 	% --------------------
@@ -119,6 +121,32 @@
 \end{itemize}
 	\subsection{Client Side}
 	\subsubsection{HTML}
+	In terms of front-end architecture, we introduced the Vue architecture, using Vue-CLI as a pre-development generation tool. We chose Vue because we tend to develop a less web-heavy application. If we had used React, it would have been the right choice at some level, but the whole architecture would have been weighty. And that is a departure from the original intent.
+	
+	For front-end routing, we use vue-route to perform page hops. We compromised on this point because vue is better at performing single-page operations. If you preview our project, you will see that while it looks like we are doing multiple pages, the user is in fact only on one page. We are using routing to control the display of components, which plays to the strengths of vue.
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.3]{figures/routes.png}
+	\caption{routes}
+	\label{fig:8}
+\end{figure}
+	
+	We completed a total of 30 Vue components. Thanks to Vue's component-based development, our front-end applications are not the mess they were a decade ago. Moreover, this design is effortless to maintain later.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{figures/components.png}
+		\caption{components}
+		\label{fig:7}
+	\end{figure}
+
+We make full use of the strengths of Vue component communication in the mutual communication of components. Below is an example of a parent component calling a child component method. In the CVMaker page, when we press the bold button in the tools bar and complete the click, the button in an active state.
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.3]{figures/componentsRefs.png}
+	\caption{component communication}
+	\label{fig:9}
+\end{figure}
 	\subsubsection{CSS}
 	\subsubsection{JS}
 	\subsubsection{PNG}
@@ -188,6 +216,6 @@ Since this lottie tool is so new, we think we have made it pretty far ahead of t
 	
 	% --------------------
 	
-	
+\end{spacing}	
 	
 \end{document}
