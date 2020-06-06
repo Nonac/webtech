@@ -64,7 +64,8 @@
       key = fs.readFileSync('./util/https/localhost/server.key');
       cert = fs.readFileSync('./util/https/localhost/server.cert');
     }else{
-
+      key = fs.readFileSync('./util/https/cloud/private.key');
+      cert = fs.readFileSync('./util/https/cloud/certificate.crt');
     }
 
     https.createServer({
