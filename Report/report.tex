@@ -72,7 +72,7 @@
 	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{spacing}{1.0}
-		\tableofcontents
+	\tableofcontents
 	\newpage	
 	% --------------------
 	\section{Introduction}
@@ -148,6 +148,37 @@ We make full use of the strengths of Vue component communication in the mutual c
 	\label{fig:9}
 \end{figure}
 	\subsubsection{CSS}
+	We use a separate CSS file that is loaded inside the Vue component. Although the Vue template allows us to define styles internally using the <style> tag, we still load all the CSS placed separately under the folder $src/view/index/assets$ for easy management. For CSS, we have three instructions.
+	\begin{itemize}
+		\item Use of basic CSS and changing style dynamically by changing style parameters.\\
+		Each CSS file contains multiple class ids that are used on specific pages. We also set up a global background CSS, one with a furry glass effect to give the whole screen more colour.
+		
+		The following is an example of how to adjust the progress bar according to the download progress in the downloadButton. We dynamically adjust the width of the bar to match the expected download. Of course, to avoid single-threaded js blocking, we set a timer to control how often the progress bar refreshes.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/css.png}
+	\caption{change style}
+	\label{fig:10}
+\end{figure}
+
+\item SVG-based animation\\
+ We completed the svg-based animation in CSS, which is also explained in detail in the SVG section.
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[scale=.5]{figures/cssAnimation2.png}
+ 	\caption{css animation}
+ 	\label{fig:11}
+ \end{figure}
+\item Store CSS in the back-end database for dynamic retrieval\\
+The main feature of our website, making different templates for resumes is based on the replacement of different CSS. This is the main logic behind the primary function of our website. In CVMaker, we dynamically retrieve the CSS stored in the database according to the user's choice, to generate the user's Selected resume template. This feature set makes it easier to run this system, maintain it later, and increase the number of resume templates without spending vast resources.
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=.4]{figures/cssTemplate.png}
+	\caption{resume template}
+	\label{fig:12}
+\end{figure}
+		
+	\end{itemize}
 	\subsubsection{JS}
 	\subsubsection{PNG}
 	\subsubsection{SVG}
