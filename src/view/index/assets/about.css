@@ -158,3 +158,13 @@ a {
     padding-left: 14px;
     margin-top:12px;
 }
+
+.top999{
+    z-index: 999
+}
+
+.imgSize{
+    width:300px;
+    height:300px;
+}
+

@@ -1,8 +1,7 @@
 <template>
-    <div class="download-button" ref="button" style="z-index: 9999;width: 80px"
-         data-toggle="tooltip" data-placement="right" title="Incline">
+    <div class="button button-size" ref="button" data-toggle="tooltip" data-placement="right" title="Incline">
         <svg class="arrow" width="40" height="40" viewBox="0 0 40 40">
-            <path ref="word" d="M8.56,34,24.28,7.87H19.53l2.59-4.36H38.38l-2.7,4.36H30.93L14.92,34h4.55l-2.71,4.36H1.43L4,34Z" transform="translate(-1.43 -3.51)" style="fill:#fff"/>
+            <path ref="word" class="fillWhite" d="M8.56,34,24.28,7.87H19.53l2.59-4.36H38.38l-2.7,4.36H30.93L14.92,34h4.55l-2.71,4.36H1.43L4,34Z" transform="translate(-1.43 -3.51)" />
         </svg>
     </div>
 </template>

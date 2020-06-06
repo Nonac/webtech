@@ -1,13 +1,13 @@
 <template>
     <div><br><br><br><br><br>
-        <ProfileDetail1 v-show="showDetail1" v-on:closeme="closeme1" style="z-index: 9999"></ProfileDetail1>
-        <ProfileDetail2 v-show="showDetail2" v-on:closeme="closeme2" style="z-index: 9999"></ProfileDetail2>
+        <ProfileDetail1 v-show="showDetail1" v-on:closeme="closeme1" class="top999"></ProfileDetail1>
+        <ProfileDetail2 v-show="showDetail2" v-on:closeme="closeme2" class="top999"></ProfileDetail2>
         <div class="background background-blur"></div>
         <div class="split left">
             <div class="flip-card">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <img src="/img/templates/example_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                    <img src="/img/templates/example_avatar.png" alt="Avatar" class="imgSize">
                 </div>
                 <div class="flip-card-back">
                     <h1>Tao Xu</h1>
@@ -29,7 +29,7 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="../view/index/img/profile1.jpg" alt="Avatar" style="width:300px;height:300px;">
+                        <img src="../view/index/img/profile1.jpg" alt="Avatar" class="imgSize">
                     </div>
                     <div class="flip-card-back">
                         <h1>Yinan Yang</h1>

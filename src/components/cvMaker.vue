@@ -1,44 +1,44 @@
 <template>
 <div class="cv-back">
-  <div class="sidenav" style="height: 550px;width: 200px">
+  <div class="sidenav toolsBarSize">
     <download-button :inputTime='this.downloadExpectedTime' />
     <div>
-      <div @click="saveProgress"  style="display: inline-block;">
+      <div @click="saveProgress" class="sameLineDisplay">
         <save-button/>
       </div>
-      <div @click="loadSavedData" style="display: inline-block;">
+      <div @click="loadSavedData" class="sameLineDisplay">
         <load-button/>
       </div>
     </div>
     <div>
-      <div @click="addSubPage" style="display: inline-block;">
+      <div @click="addSubPage" class="sameLineDisplay">
         <add-button/>
       </div>
-      <div @click="deleteLastSubPage" style="display: inline-block;">
+      <div @click="deleteLastSubPage" class="sameLineDisplay">
         <remove-button/>
       </div>
     </div>
     <div>
-      <div @click="insertElement" style="display: inline-block;">
+      <div @click="insertElement" class="sameLineDisplay">
         <add-element-button/>
       </div>
-      <div @click="deleteElement" style="display: inline-block;">
+      <div @click="deleteElement" class="sameLineDisplay">
         <remove-element-button/>
       </div>
     </div>
   <div>
-    <div  @click="increaseFontSize"   style="display: inline-block;">
+    <div  @click="increaseFontSize"   class="sameLineDisplay">
       <big-font-button ref="increase"/>
     </div>
-    <div @click="decreaseFontSize" style="display: inline-block;">
+    <div @click="decreaseFontSize" class="sameLineDisplay">
       <small-font-button ref="decrease"/>
     </div>
   </div>
     <div>
-      <div @click="boldifyText" style="display: inline-block;">
+      <div @click="boldifyText" class="sameLineDisplay">
         <bold-font-button ref="bold"/>
       </div>
-      <div @click="italicizeText" style="display: inline-block;">
+      <div @click="italicizeText" class="sameLineDisplay">
         <incline-font-button ref="incline"/>
       </div>
     </div>
