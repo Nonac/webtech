@@ -40,16 +40,5 @@ export default {
 }
 </script>
 
-<style scoped>
-img:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}
-
-img.card-img-top {
-  height: 487px;
-}
-
-.card-body{
-  border-top: black solid 1px;
-}
+<style scoped src="../view/index/assets/templateBriefView.css">
 </style>

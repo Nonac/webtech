@@ -88,10 +88,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.jumbotron{
-  background-color: aliceblue;
-}
-
-
+<style scoped src="../view/index/assets/selectTemplate.css">
 </style>
