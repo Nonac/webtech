@@ -66,11 +66,11 @@
   width: 80px;
 }
 
-.download-button .checkmark {
+.button .checkmark {
   opacity: 0;
 }
 
-.download-button .progress-bar {
+.button .progress-bar {
   position: absolute;
   /*width: 0px;*/
   /*top: 50px;*/
@@ -82,27 +82,27 @@
 }
 
 
-.download-button.downloading .middle-line{
+.button.downloading .middle-line{
   stroke-dasharray: 4 3;
   animation: 0.8s linear dashLoop infinite;
 }
 
-.download-button.downloading circle{
+.button.downloading circle{
    animation: 1.5s linear blink infinite;
 }
 
-.download-button.downloaded .arrow-top{
+.button.downloaded .arrow-top{
   animation: 1s linear arrowTransform forwards;
 }
 
-.download-button.downloaded .checkmark{
+.button.downloaded .checkmark{
   opacity: 1;
   stroke-dasharray: 100 100;
   stroke-dashoffset: 100;
   animation: 1s linear checkmarkTransform forwards 0.5s;
 }
 
-.download-button.downloaded .middle-line{
+.button.downloaded .middle-line{
   transition: 0.3s linear;
   opacity: 0;
 }
