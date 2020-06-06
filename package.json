@@ -24,7 +24,7 @@
     "less-loader": "^6.1.0",
     "nodemon": "^2.0.4",
     "popper.js": "^1.16.1",
-    "puppeteer": "^3.2.0",
+    "puppeteer": "^2.1.1",
     "readline-sync": "^1.4.10",
     "sass": "^1.26.7",
     "sass-loader": "^8.0.2",
