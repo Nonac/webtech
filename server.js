@@ -50,7 +50,7 @@
 
 
   // listening
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 443;
   let key, cert;
   if(is_localhost){
     key = fs.readFileSync('./util/https/localhost/server.key');
@@ -69,7 +69,7 @@
 
   // http server
   const app_http = express();
-  const port_http = process.env.PORT_HTTP || 8075;
+  const port_http = process.env.PORT_HTTP || 80;
   // rediret http to https
   const httpsLocalServerRoot = `https://localhost:${port}`;
   app_http.use((req, res, next) => {
