@@ -7,6 +7,12 @@
     return require('./util/dbManager').dbms();
   }
 
+  // hosting at cloud
+  let is_localhost = false;
+  if(!process.argv.includes('-cloud')){
+    is_localhost = true;
+  }
+
   await require('./util/serverInit');
   await require('./util/dbInsertTemplates').init();
 
@@ -45,9 +51,17 @@
 
   // listening
   const port = process.env.PORT || 3000;
+  let key, cert;
+  if(is_localhost){
+    key = fs.readFileSync('./util/https/localhost/server.key');
+    cert = fs.readFileSync('./util/https/localhost/server.cert');
+  }else{
+
+  }
+
   https.createServer({
-    key: fs.readFileSync('./util/https/localhost/server.key'),
-    cert: fs.readFileSync('./util/https/localhost/server.cert'),
+    key: key,
+    cert: cert,
   }, app).listen(port, () => {
     console.log(`https server listening on port ${port}`);
   })
@@ -57,11 +71,15 @@
   const app_http = express();
   const port_http = process.env.PORT_HTTP || 8075;
   // rediret http to https
-  const httpsServerRoot = `https://localhost:${port}`;
+  const httpsLocalServerRoot = `https://localhost:${port}`;
   app_http.use((req, res, next) => {
     console.log(req.connection.remoteAddress);
     if(!req.secure) {
-      return res.redirect(httpsServerRoot);
+      if(is_localhost){
+        return res.redirect(httpsLocalServerRoot);
+      }
+
+      return res.redirect(`https://${req.headers.host}${req.url}`);
     }
     next();
   })

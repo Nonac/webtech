@@ -1,28 +1,28 @@
-const path = require('path')
+// const path = require('path')
 const sqlite3 = require('sqlite3').verbose();
 
-async function createDb(){
-  const dbPath = path.resolve('./db/data.db');
-
-  let rv = await (async() => {
-    return new Promise((resolve) => {
-      let db = new sqlite3.Database(dbPath,
-        err => {
-          if(err) throw err;
-          resolve(db);
-        });
-    })
-  })();
-
-  const dbm = require('./dbManager');
-  await dbm.closeDb(rv);
-  return null;
-}
+// async function createDb(){
+//   const dbPath = path.resolve('./db/data.db');
+//
+//   let rv = await (async() => {
+//     return new Promise((resolve) => {
+//       let db = new sqlite3.Database(dbPath,
+//         err => {
+//           if(err) throw err;
+//           resolve(db);
+//         });
+//     })
+//   })();
+//
+//   const dbm = require('./dbManager');
+//   await dbm.closeDb(rv);
+//   return null;
+// }
 
 
 module.exports = (async function(){
 
-  await createDb();
+  // await createDb();
 
 
   const db = require('./dbManager');
