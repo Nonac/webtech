@@ -27,15 +27,15 @@ Vue.config.productionTip = false;
 // event bus
 export const bus = new Vue();
 
-// global mixin
-Vue.mixin({
-  data: function(){
-    return {
-      // server root url
-      serverRootUrl: 'http://localhost:3000'
-    }
-  }
-})
+// // global mixin
+// Vue.mixin({
+//   data: function(){
+//     return {
+//       // server root url
+//       serverRootUrl: 'http://localhost:3000'
+//     }
+//   }
+// })
 
 new Vue({
   router,

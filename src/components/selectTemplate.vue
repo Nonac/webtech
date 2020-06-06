@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     templatePath() {
-      const url = this.serverRootUrl + '/api/template/template.css';
+      const url = '/api/template/template.css';
       const query = `?id=${this.templateId}`;
       return url + query;
     }
@@ -61,7 +61,7 @@ export default {
     (async () => {
       try {
         // fetch templates from the server
-        let res = await this.$http.get(this.serverRootUrl + '/api/template/templateBriefs');
+        let res = await this.$http.get('/api/template/templateBriefs');
         this.templates = res.body;
         // create templateBriefViews according to the number of templates
         let tbvClass = Vue.extend(templateBriefView);

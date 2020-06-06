@@ -59,6 +59,7 @@
   // rediret http to https
   const httpsServerRoot = `https://localhost:${port}`;
   app_http.use((req, res, next) => {
+    console.log(req.connection.remoteAddress);
     if(!req.secure) {
       return res.redirect(httpsServerRoot);
     }
