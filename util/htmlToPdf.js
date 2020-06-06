@@ -7,7 +7,10 @@ const fs = require('./async_fs');
 
 // returns the pdf if succeeds, throw error on failure
 async function toPdf(html, userId, jwt, serverRootUrl) {
-  const browser = await puppeteer.launch({headless:true, ignoreHTTPSErrors:true});
+  const browser = await puppeteer.launch({
+    headless:true,
+    ignoreHTTPSErrors:true,
+    args:['--no-sandbox']});
   const page = await browser.newPage();
 
   const htmlDir = path.resolve(__dirname + `./../tmp/html`);
