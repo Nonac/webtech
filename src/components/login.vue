@@ -36,7 +36,7 @@
                 username: this.userName,
                 password: this.password
               }
-              this.$http.post(this.serverRootUrl + '/api/user/login', user)
+              this.$http.post('/api/user/login', user)
               .then(
                 (data) => {
                   if(data.status == 200){

@@ -38,7 +38,7 @@
                   password: this.password,
                   email: this.email
                 }
-                this.$http.post(this.serverRootUrl + '/api/user/register', newUser)
+                this.$http.post('/api/user/register', newUser)
                 .then(function(data){
                   if(data.status === 201){ // succeeded
                         this.$confirm('Registration succeed.','Success','success');

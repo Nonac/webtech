@@ -503,7 +503,7 @@ export default {
   },
   computed: {
     templatePath() {
-      const url = this.serverRootUrl + '/api/template/template.css';
+      const url = '/api/template/template.css';
       const query = `?id=${this.templateId}`;
       return url + query;
     }
