@@ -1,105 +1,146 @@
-\documentclass[fleqn,10pt]{olplainarticle}
-% Use option lineno for line numbers 
 
-\title{COMSM0104: Web Technologies 2019\\Final Assignment Report}
-\author[1]{Tao Xu}
-\author[2]{Yinan Yang}
-\affil[1]{si19010@bristol.ac.uk}
-\affil[2]{ff19085@bristol.ac.uk}
+\documentclass[11pt]{article}
+\usepackage{UF_FRED_paper_style}
 
-\keywords{Vue, SQLite}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,      
+	urlcolor=blue,
+	citecolor=cyan,
+}
 
-\begin{abstract}
-	Our two-person team consists of Tao Xu (si19010) and Yinan Yang (ff19085). Due to environmental influences, we used a remote collaboration model via GitHub to co-develop this project.
-	
- We have created a website that generates resumes. Our website is based on Vue's front-end technical architecture, taking advantage of Vue's MVVM, the Model-View- ViewModel, we have done it to componentize the front-end development.
-\end{abstract}
+%% ===============================================
+%% Setting the line spacing (3 options: only pick one)
+% \doublespacing
+% \singlespacing
+\onehalfspacing
+%% ===============================================
 
+\setlength{\droptitle}{-5em} %% Don't touch
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SET THE TITLE
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TITLE:
+\title{COMSM0104: Web Technologies 2019 \\Final Assignment Report}
+
+% AUTHORS:
+\author{Tao Xu\\% Name author
+	\href{mailto:si19010@bristol.ac.uk}{\texttt{si19010@bristol.ac.uk}} %% Email author 1 
+	\and Yinan Yang\\% Name author
+	\href{mailto:ff19085@bristol.ac.uk}{\texttt{ff19085@bristol.ac.uk}} %% Email author 2
+	% \and Third Author\\% Name author
+	%     \href{mailto:thirdauthor@ufl.edu}{\texttt{thirdauthor@ufl.edu}}%% Email author 3
+	%\and Forth Author\\% Name author
+	%    \href{mailto:forthuthor@ufl.edu}{\texttt{forthuthor@ufl.edu}}%% Email author 4
+}
+
+% DATE:
+\date{\today}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% ABSTRACT
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	{\setstretch{.8}
+		\maketitle
+		% %%%%%%%%%%%%%%%%%%
+		\begin{abstract}
+			% CONTENT OF ABS HERE--------------------------------------
+			
+			Our two-person team consists of Tao Xu (si19010) and Yinan Yang (ff19085). Due to environmental influences, we used a remote collaboration model via GitHub to co-develop this project.
+			
+			We have created a website that generates resumes. Our website is based on Vue's front-end technical architecture, taking advantage of Vue's MVVM, the Model-View- ViewModel, we have done it to componentize the front-end development.
+			
+			% END CONTENT ABS------------------------------------------
+			\noindent
+			\textit{\textbf{Keywords: }%
+				Vue; SQLite.} \\ %% <-- Keywords HERE!
+			\noindent
+			% \textit{\textbf{JEL Classification: }%
+			% Q12; C22; D81.} %% <-- JEL code HERE!
+			
+		\end{abstract}
+	}
 	
-	\flushbottom
-	\maketitle
-	\thispagestyle{empty}
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% BODY OF THE DOCUMENT
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	\section*{Introduction}
+	% --------------------
+	\section{Introduction}
+	% --------------------
 	
-We have created a website that generates resumes called Simple Resume Maker. The website provides basic user registration and login functionality. Once logged in, the user can edit the resume template provided on the website on the web page and download a .pdf version of the resume.
+	We have created a website that generates resumes called Simple Resume Maker. The website provides basic user registration and login functionality. Once logged in, the user can edit the resume template provided on the website on the web page and download a .pdf version of the resume.
 	
-	\section*{Self-Evaluation}
+	We try to simulate the user experience of editing documents online so that what the user sees is what they get. What would otherwise be a cumbersome formatting process is made easier with different CSS. This addresses the initial point we made in designing the product, which was to make things easier.
 	
-	Guidelines can be included for standard research article sections, such as this one.
+	In building this site, we used the VUE framework, which is a progressive framework for building user interfaces. 
 	
-	\subsection*{HTML}
-	\subsection*{CSS}
-	\subsection*{JS}
-	\subsection*{PNG}
-	\subsection*{SVG}
-	\subsection*{Server}
-	\subsection*{Database}
-	\subsection*{Dynamic pages}
+	\begin{center}
+		\fbox{\shortstack[l]{
+				Unlike other monolithic frameworks, Vue is designed from the ground up to be\\ incrementally adoptable. The core library is focused on the view layer only, and\\ is easy to pick up and integrate with other libraries or existing projects. On the\\ other hand, Vue is also perfectly capable of powering sophisticated Single-Page\\ Applications when used in combination with modern tooling and supporting\\ libraries.\\
+				----- Official development documentation from Vue
+			}}
+		
+	\end{center}
 
 	
-	\section*{CSS}
-	\label{sec:examples}
+	\subsection{Project setup}
+		npm install
+	\subsection{Compiles and hot-reloads for development}
+	npm run serve
+	\subsection{Compiles and minifies for production}
+	npm run build
+	\subsection{Lints and fixes files}
+	npm run lint
+	\subsection{Start the server}
+	npm start
+	\subsection{Start the server}
+	See \href{https://cli.vuejs.org/config/}{Configuration Reference}.
+		
+	% --------------------
+	\section{Self Evalutation}
+	\subsection{Estimation of marks}
+\begin{itemize}
+	\item A for HTML
+	\item A for CSS
+	\item A for JS
+	\item A for PNG	
+	\item A for SVG
+	\item A for Server
+	\item A for Database
+	\item A for Dynamic pages
+\end{itemize}
+	\subsection{Client Side}
+	\subsubsection{HTML}
+	\subsubsection{CSS}
+	\subsubsection{JS}
+	\subsubsection{PNG}
+	\subsubsection{SVG}
+	\subsection{Server Side}
+	\subsubsection{Server}
+	\subsubsection{Database}
+	\subsubsection{Dynamic pages}
 	
-	Use section and subsection commands to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use ref and label commands for cross-references.
+	% --------------------
+	% --------------------
+	\section{Working practices of the group}
+	% --------------------
 	
-	\subsection*{JS}
+
 	
-	Use the table and tabular commands for basic tables --- see Table~\ref{tab:widgets}, for example. You can upload a figure (JPEG, PNG or PDF) using the project menu. To include it in your document, use the includegraphics command as in the code for Figure~\ref{fig:view} below.
+	% --------------------
 	
-	\begin{figure}[ht]
-		\centering
-		\includegraphics[width=0.7\linewidth]{frog}
-		\caption{An example image of a frog.}
-		\label{fig:view}
-	\end{figure}
 	
-	\begin{table}[ht]
-		\centering
-		\begin{tabular}{l|r}
-			Item & Quantity \\\hline
-			Candles & 4 \\
-			Fork handles & ?  
-		\end{tabular}
-		\caption{\label{tab:widgets}An example table.}
-	\end{table}
-	
-	\subsection*{Citations}
-	
-	LaTeX formats citations and references automatically using the bibliography records in your .bib file, which you can edit via the project menu. Use the cite command for an inline citation, like \cite{lees2010theoretical}, and the citep command for a citation in parentheses \citep{lees2010theoretical}.
-	
-	\subsection*{Mathematics}
-	
-	\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-	$$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-	= \frac{1}{n}\sum_{i}^{n} X_i$$
-	denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
-	
-	\subsection*{Lists}
-	
-	You can make lists with automatic numbering \dots
-	
-	\begin{enumerate}[noitemsep] 
-		\item Like this,
-		\item and like this.
-	\end{enumerate}
-	\dots or bullet points \dots
-	\begin{itemize}[noitemsep] 
-		\item Like this,
-		\item and like this.
-	\end{itemize}
-	\dots or with words and descriptions \dots
-	\begin{description}
-		\item[Word] Definition
-		\item[Concept] Explanation
-		\item[Idea] Text
-	\end{description}
-	
-	\section*{Acknowledgments}
-	
-	Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
-	
-	\bibliography{sample}
 	
 \end{document}
