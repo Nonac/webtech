@@ -23,6 +23,9 @@ yarn-error.log*
 // database
 /db
 
+// cert
+/util/https/cloud
+
 // pdf temp files
 /tmp
 

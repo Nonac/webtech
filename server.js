@@ -13,6 +13,12 @@
     is_localhost = true;
   }
 
+  // hosting at cloud
+  let is_http = false;
+  if(process.argv.includes('-http')){
+    is_http = true;
+  }
+
   await require('./util/serverInit');
   await require('./util/dbInsertTemplates').init();
 
@@ -49,25 +55,39 @@
   })
 
 
-  // listening
-  const port = process.env.PORT || 443;
-  let key, cert;
-  if(is_localhost){
-    key = fs.readFileSync('./util/https/localhost/server.key');
-    cert = fs.readFileSync('./util/https/localhost/server.cert');
-  }else{
 
+  let port = process.env.PORT || 443;
+  if(!is_http){
+    // listening
+    let key, cert;
+    if(is_localhost){
+      key = fs.readFileSync('./util/https/localhost/server.key');
+      cert = fs.readFileSync('./util/https/localhost/server.cert');
+    }else{
+
+    }
+
+    https.createServer({
+      key: key,
+      cert: cert,
+    }, app).listen(port, () => {
+      console.log(`https server listening on port ${port}`);
+    })
+
+  }else{
+    port = process.env.PORT_HTTP || 80;
+    app.listen(port, () => {
+      console.log(`http Server listening on port ${port}`);
+    })
+    return;
   }
 
-  https.createServer({
-    key: key,
-    cert: cert,
-  }, app).listen(port, () => {
-    console.log(`https server listening on port ${port}`);
-  })
 
 
-  // http server
+
+
+
+  // http redirct server
   const app_http = express();
   const port_http = process.env.PORT_HTTP || 80;
   // rediret http to https
