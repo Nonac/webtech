@@ -12,6 +12,7 @@ const { validateSaveCv } = require('../util/validation');
 
 const imgTmpDir = path.resolve(__dirname + `/../tmp/img/avatar`);
 
+
 // returns the fullname (with ext) of the most recent file in the dir
 const getMostRecentFileName = async (dir) => {
   let files = await fs.readdir(dir);
@@ -21,6 +22,21 @@ const getMostRecentFileName = async (dir) => {
       return fs.old.statSync(fullPath).ctime;
     }));
   })
+}
+
+// cleans the temp img dir for the user except the most recent file and the one named avatarInDb
+const cleanAvatarDir = async(userId, avatarInDb) => {
+  let userAvatarDir = path.resolve(`${imgTmpDir}/${userId}`);
+  let files = await fs.readdir(userAvatarDir);
+  let mostRecentImg = await getMostRecentFileName(userAvatarDir);
+  for(let fileName of files){
+    if(fileName === mostRecentImg || fileName === avatarInDb){
+      continue;
+    }
+    fs.old.unlink(`${userAvatarDir}/${fileName}`, (err) => {
+      if(err) console.log(err);
+    });
+  }
 }
 
 
@@ -131,11 +147,18 @@ router.post('/save', verifyJwt, async(req, res) =>{
   const cvContents = cv.cvContents;
   const avatarUrl = cv.avatarUrl;
 
+  let dbImgName = path.basename(avatarUrl).match(/(?<=(avatar\?name=)).*/g)[0];
+  if(dbImgName === undefined){
+    return res.status(400).send('Please use a image with an ordinary file name.');
+  }
+
   const sql = `INSERT OR REPLACE INTO UserCv
                 (userId, htmlHeaders, cvContents, templateId, avatarUrl)
                 VALUES (?, ?, ?, ?, ?);`
   let rv = await db.async_run(sql,
     [userId, htmlHeaders, cvContents, templateId, avatarUrl]);
+
+  cleanAvatarDir(userId, dbImgName);
 
   if(rv !== null){
     console.log(rv);
