@@ -6,6 +6,7 @@ const verifyJwt = require('./verifyJwt');
 
 // root/api/toPdf
 router.get('/', verifyJwt, async(req, res) =>{
+  const serverRootUrl = `${req.protocol}://${req.headers.host}`
   let userId = req.userId;
   if(userId === undefined) return res.status(500).end();
 
@@ -22,7 +23,7 @@ router.get('/', verifyJwt, async(req, res) =>{
   `<html><head>${htmlHeaders}</head><body><div class="cv-contents">${cvContents}</div></body></html>`;
 
   try{
-    const newPdf = await pdf.toPdf(html, userId, req.jwt);
+    const newPdf = await pdf.toPdf(html, userId, req.jwt, serverRootUrl);
     res.status(201).send(newPdf);
   }catch(err){
     console.log(err);

@@ -27,7 +27,7 @@ router.get('/templateBriefs', async(req, res) => {
         let brief = {
           id: row.id,
           description: row.description,
-          thumbnailUrl: `${process.env.SERVER_ROOT_URL}/img/templates/thumbnails/${row.id}.jpg`
+          thumbnailUrl: `/img/templates/thumbnails/${row.id}.jpg`
         }
         briefs.push(brief);
       }
