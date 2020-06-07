@@ -1,11 +1,11 @@
-# webtech
+# SIMPLE RESUME MAKER
 
 ### Installs node modules
 ```
 npm install
 ```
 
-### Compiles and minifies frontend pages
+### Compiles the frontend
 ```
 npm run build
 ```
@@ -15,7 +15,7 @@ npm run build
 ```
 node server.js
 ```
-* #### cloud https
+* #### cloud https (needs key and certificate, not included in this repo)
 ```
 node server.js -cloud
 ```
