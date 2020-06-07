@@ -18,6 +18,7 @@
 
 
 
+  const path = require('path');
   const fs = require('fs');
   const https = require('https');
   const express = require('express');
@@ -30,11 +31,13 @@
   app.use(bodyParser.json({limit:'10mb'}));
   app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
   app.use(cookieParser());
+
   // Route middlewares
   app.use('/api/user', require('./routes/auth'));
   app.use('/api/template', require('./routes/template'));
   app.use('/api/toPdf', require('./routes/toPdf'));
   app.use('/api/cvMaker', require('./routes/cvMaker'));
+
 
   // public dirs
   const publicDir = __dirname + '/dist/'
@@ -46,6 +49,12 @@
   // root get request
   app.get('/', (req, res) => {
     res.sendFile(publicDir + 'index.html');
+  })
+
+  // handle 404
+  app.use((req, res, next) => {
+    res.status(404);
+    res.sendFile(path.resolve('./assets/public/404.html'));
   })
 
 
