@@ -1,8 +1,6 @@
 .img404{
     background-color: #343A40;
     position: fixed;
-    display: flex;
-    justify-content: space-between;
     top:50%;
     left: 50%;
     -webkit-transform: translateX(-50%) translateY(-50%);
