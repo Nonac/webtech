@@ -9,6 +9,7 @@ import selectTemplate from "@/components/selectTemplate";
 import cvMaker from "@/components/cvMaker";
 import about from "@/components/aboutUs";
 import userProfile from "@/components/userProfile";
+import error from "@/components/error";
 
 import Vue from 'vue'
 
@@ -51,6 +52,11 @@ const routes = [{
     }
   ]
 },
+  {
+    name: '404',
+    path: '/404',
+    component: error,
+  },
 
 {
   path: '/cvMaker',
@@ -67,8 +73,11 @@ const routes = [{
     },
   ]
 
-}
-
+},
+  {
+    path: "*",
+    redirect: '/404'
+  }
 ];
 
 
