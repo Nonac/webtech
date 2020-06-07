@@ -10,7 +10,7 @@ npm install
 npm run build
 ```
 
-### Startss the server
+### Starts the server
 * #### localhost https
 ```
 node server.js
