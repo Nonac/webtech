@@ -51,17 +51,19 @@
 		\begin{abstract}
 			% CONTENT OF ABS HERE--------------------------------------
 			
-			Our two-person team consists of Tao Xu (si19010) and Yinan Yang (ff19085). Due to the impact of Covid19, we collaboarated remotely via GitHub to co-develop this project.
+			Our team consists of Tao Xu (si19010) and Yinan Yang (ff19085). Due to the impact of Covid19, we collaboarated remotely via GitHub to co-develop this project.
 			
 			Our website is an online CV maker, featuring a simple and convenient interface for editing, online storage (at our server) and extensibility (the CV templates are easy to make).
 			
 			The frontend of our website was based on the Vue framework, taking advantage of Vue's MVVM, the Model-View-View Model, which helped us in keeping code modular and implementing reactive user interfaces.
+			
 			The backend of our website was powered by Node.js with Express.js and SQLite.
+			
 			
 			% END CONTENT ABS------------------------------------------
 			\noindent
 			\textit{\textbf{Keywords: }%
-				Vue; SQLite.} \\ %% <-- Keywords HERE!
+				Vue, Node-Js, SQLite.} \\ %% <-- Keywords HERE!
 			\noindent
 			% \textit{\textbf{JEL Classification: }%
 			% Q12; C22; D81.} %% <-- JEL code HERE!
@@ -81,9 +83,15 @@
 	\section{Introduction}
 	% --------------------
 	
-	We have created a website that generates resumes called Simple Resume Maker. The website provides basic user registration and login functionality. Once logged in, the user can edit the resume template provided on the website on the web page and download a .pdf version of the resume.
+	\hspace{\parindent}The website we created, named "Simple Resume Maker", was an online CV maker, where users could employ the CV templates provided by us to make tailored resumes of their own. 
 	
-	We try to simulate the user experience of editing documents online so that what the user sees is what they get. What would otherwise be a cumbersome formatting process is made easier with different CSS. This addresses the initial point we made in designing the product, which was to make things easier.
+	Basic editing features like text editing, adding/removing pages, inserting/deleting sections, italicising/boldifing text, increasing/decreasing font size, and uploading avatar have been implemented in the frontend. Users could also save and load their progress and generate their CVs in pdf format, these features are powered by the backend.
+	
+	In short, the idea behind our CV-maker was that the contents of a CV was just the plain html in the container enclosing the CV pages, and how the CV was displayed were only affected by the CSS code applied, which were present in the "\textless head\textgreater" section of the document. Therefore, when saving and loading the progress, the "\textless head\textgreater" and the "\textless div\textgreater" containing the CV contents were uploaded to and downloaded from our server, respectively. Applying different templates was actually just replacing one CSS file that was being used with another, which also made our templates quite easy to make since they were just CSS files. When a user requests to download a pdf version of their CV, the backend loads their data from the database and creates a temporary html file that contains all the information needed to regenerate the CV pages that the user sees. This temporary html is then loaded by the "puppeteer" module at our server, which is a headless Chrome browser. So the temporary html page should appear exactly the same as the related section of the page that the user sees (if the user is using a Chrome browser or other browsers that have the same behaviour as chrome). The "puppeteer" module then convert the page into pdf, which will be related by our server to the user.
+	
+	Logging in is required for users to access any information regarding CV contents stored at the backend, including avatars and text. After logging in, each user is assigned an encryped JSON web token (JWT) containing their user Id. This JWT is stored as a Cookie so that it will be present in every request to the server from the user thereafter. Our server identifies users by verifying the JWTs and reading the user Id information from the JWTs. Therefore, as long as a user do not leak the JWT, no one else could access their data, which protects the users' privacy to some extent.
+	
+	Although our website does not provides extensive functionalities regarding text editing compared to mainstream text editors, our aim was to give users experience of editing documents online. Moreover, what would otherwise be a cumbersome formatting process was made easier with employing different CSS code. This addresses the initial point we made in designing the product, which was to make things easier.
 	
 	In building this site, we used the VUE framework, which is a progressive framework for building user interfaces. 
 	
@@ -96,24 +104,32 @@
 	\end{center}
 
 	
-	\subsection{Project setup}
-		npm install
-	\subsection{Compiles and hot-reloads for development}
-	npm run serve
-	\subsection{Compiles and minifies for production}
-	npm run build
-	\subsection{Lints and fixes files}
-	npm run lint
-	\subsection{Start the server}
-	npm start
-	\subsection{Start the server}
-	See \href{https://cli.vuejs.org/config/}{Configuration Reference}.
+	\subsection{Set up the environment}
+	\hspace{\parindent}\hspace*{1cm}npm install
+	\subsection{Compile the frontend}
+	\hspace{\parindent}\hspace*{1cm}npm run build
+	\subsection{Run the server}
+	\begin{itemize}
+  		\item localhost https (recommended):\\
+  		\hspace*{1cm} node server.js
+  		\item cloud https:\\
+  		\hspace*{1cm} node server.js -cloud
+  		\item http only:\\
+  		\hspace*{1cm} node server.js -http
+  		\item query the database:\\
+  		\hspace*{1cm} node server.js -sql
+	\end{itemize}
+
+	\subsection{NOTE}
+	For the server-side node module "puppeteer" to function, you may need to install some dependencies if you don't have:
+	\href{https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix%20dependencies}{Puppeteer dependencies}.
+	Otherwise, the pdf generator may not work, although it won't crash the server.
 		
 	% --------------------
 	\section{Self Evalutation}
 	\subsection{Estimation of marks}
 \begin{itemize}
-	\item A for HTML
+	\item A+ for HTML
 	\item A for CSS
 	\item A for JS
 	\item A for PNG	
@@ -124,9 +140,14 @@
 \end{itemize}
 	\subsection{Client Side}
 	\subsubsection{HTML}
-	In terms of front-end architecture, we introduced the Vue architecture, using Vue-CLI as a pre-development generation tool. We chose Vue because we tend to develop a less web-heavy application. If we had used React, it would have been the right choice at some level, but the whole architecture would have been weighty. And that is a departure from the original intent.
+	\begin{itemize}
+  		\item We have been quite proficient in generating HTML pages via the Vue framework. \\
+
+	\hspace{\parindent}In terms of front-end technology, we utilised the Vue architecture, with Vue-CLI aiding our development. We chose Vue because we wanted to develop a less web-heavy application, which is the trend in some part of the world. Had we used React, it might have been the right choice at some point, but the frontend pages as a whole would have been weighty and heavily dependent on communications to and from the backend, which would have been a departure from our original intent.
 	
-	For front-end routing, we use vue-route to perform page hops. We compromised on this point because vue is better at performing single-page operations. If you preview our project, you will see that while it looks like we are doing multiple pages, the user is in fact only on one page. We are using routing to control the display of components, which plays to the strengths of vue.
+	\hspace{\parindent}The Vue-router facilitates routing at the frontend, which reduces the burden of the server.
+The Vue compiler compiles and compresses a project into a single page website, where all the HTML contents are injected to that page at run-time, which reduces the overall size of a website. 
+	If you visit our website, you will see that while it appears like there are multiple pages, there is actually only one page with dynamically changing contents, which is achieved with the power of the Vue-router:
 	\begin{figure}[H]
 	\centering
 	\includegraphics[scale=.3]{figures/routes.png}
@@ -134,7 +155,7 @@
 	\label{fig:8}
 \end{figure}
 	
-	We completed a total of more than 30 Vue components. Thanks to Vue's component-based development, our front-end applications are not the mess they were a decade ago. Moreover, this design is effortless to maintain later.
+	We completed a total of more than 30 Vue components with multiple levels of parent-child relationships, and they worked quite perfectly. Thanks to Vue's component-based design model, our front-end application is not as messy as what it would have been a decade ago. Moreover, this design pattern will make maintenance in the future  quite effortless.
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=.5]{figures/components.png}
@@ -142,21 +163,73 @@
 		\label{fig:7}
 	\end{figure}
 
-We make full use of the strengths of Vue component communication in the mutual communication of components. Below is an example of a parent component calling a child component method. In the CVMaker page, when we press the bold button in the tools bar and complete the click, the button in an active state.
-
+	Below is an example of multi-level hierarchy, where the "cvMakerPage" has two children components: "mainPage" and "subPage", which will never be visible at the same time, while the "mainPage" has a child "avatar". Furthermore, the "avatar" has a child "imageUploader":
 	\begin{figure}[H]
 	\centering
-	\includegraphics[scale=.3]{figures/componentsRefs.png}
-	\caption{component communication}
-	\label{fig:9}
-\end{figure}
-	\subsubsection{CSS}
-	We use a separate CSS file that is loaded inside the Vue component. Although the Vue template allows us to define styles internally using the <style> tag, we still load all the CSS placed separately under the folder $src/view/index/assets$ for easy management. For CSS, we have three instructions.
-	\begin{itemize}
-		\item Use of basic CSS and changing style dynamically by changing style parameters.\\
-		Each CSS file contains multiple class ids that are used on specific pages. We also set up a global background CSS, one with a furry glass effect to give the whole screen more colour.
+	\includegraphics[scale=.3]{figures/html/2_cvMakerPage.jpg}
+	\caption{cvMakerPage}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.4]{figures/html/2_cvMakerMainPage.jpg}
+	\caption{mainPage}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.3]{figures/html/2_avatar.jpg}
+	\caption{avatar}
+	\end{figure}
+
+
+	\item The main functionality of our website is online CV making, which was implemented by editing the html. Without decent understanding about the HTML, we wouldn’t have made it functioning.
+	For example, the italicising, boldifing and font size increasing/decreasing functionalities were implemented by inserting "i", "b", "larger", "smaller" tags around the text that users select, respectively:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/html/3_insertTag.jpg}
+	\caption{Inserting tags}
+	\end{figure}
 		
-		The following is an example of how to adjust the progress bar according to the download progress in the downloadButton. We dynamically adjust the width of the bar to match the expected download. Of course, to avoid single-threaded js blocking, we set a timer to control how often the progress bar refreshes.
+	We explored many HTML features such as contenteditable, which powered the text-editing functionality of the CV pages, and custom attributes, which we used to distinguish something that should be treated differently from their siblings.
+	
+	As the above Fig.5 avatar shows, the first div has a custom attribute "dont-replace", because we do not want it to be replaced during loading progress. And this information is captured in the "loadSavedData" method of the cvMaker.vue component:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/html/3_customAttr.jpg}
+	\caption{custom attribute}
+	\end{figure}
+	
+	\item I think the idea behind our project, i.e. employing HTML and CSS and their manipulation to make text editors with built-in templates is quite innovative and creative, and we came up with it by ourselves, which I think might worth some meagre credit. That is why I am so arrogantly claiming an A+. 
+	
+	\end{itemize}
+	\subsubsection{CSS}
+	\begin{itemize}
+	\item
+	We used the Vue framework to deliver pages, so it’s quite difficult to tell whether we had “style” tag in HTML pages because we did not have HTML pages during development. The styles resided in the “style” section for each Vue file and they were injected into the $<head>$ part of the page as $<style>$ tags at runtime. It’s just how the framework worked.
+However, we made sure we didn’t have style attributes in the template section of Vue files.
+	\item
+	Each Vue file could have any number of "style" tags to contain CSS code, which already satisfies the purpose of not having internal or inline CSS code in traditional website, that is to keep different things at different places so that everything is more modular and therefore easier to maintain. The CSS code in Vue files are already separate from HTML as long as we do not put them in the "template" section, and we did not. Despite that, we still placed most CSS code in separate files under the folder $src/view/index/assets$ for easier management.
+
+	\item
+	We successfully used basic CSS, Vue specific CSS and the classes provided by the Bootstrap framwork to make our frontend pages satisfy our poor and abnormal aesthetics. 
+	
+	Vue has two options for CSS code positioned in the "style" section: global or scoped. Although they will both be injected to the "head" section of the page when the pages are rendered, scoped CSS will have a "data-?" attribute attached to them, where ? is a seemly random value but is resolved at compile time. All the tags that related to a scoped CSS will be added the same attribute as the CSS. That is how the Vue identifies them.
+	
+	Scoped CSS with combined or descendant selectors were used for precise location in specific pages while global class like .background (one with a furry glass effect to give the whole screen more colour) is accessible from all the pages.
+	
+	Below is an example of using Vue specific CSS (the deep selector $>>>$):
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/html/4_basicCSS.jpg}
+	\caption{Vue CSS}
+	\end{figure}
+
+	,which means every item that has class "preview" inside a container with class "A4paper" will have a yellow dashed border even those that are rendered by child components. Similarly, every item that has class "to-be-deleted" inside a "A4paper" container will have a red-purplish double border and a lightcoral background. In insertion/deletion mode of the CVmaker page, these two classes are added to the item that the user's mouse cursor is currently pointing at, and removed from that item when the cursor moves away. 
+	
+
+		\item 
+		The following is an example of how to adjust the progress bar according to the download progress in the downloadButton. We dynamically adjust the width of the bar to match the expected download time. By the way, a timer was used to control how often the progress bar refreshed to avoid blocking the execution since javascript is single-threaded.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=.5]{figures/css.png}
@@ -165,21 +238,26 @@ We make full use of the strengths of Vue component communication in the mutual c
 \end{figure}
 
 \item SVG-based animation\\
- We completed the svg-based animation in CSS, which is also explained in detail in the SVG section.
+ We completed some svg-based animation in CSS, which will be explained further in detail in the SVG section.
  \begin{figure}[H]
  	\centering
  	\includegraphics[scale=.5]{figures/cssAnimation2.png}
  	\caption{css animation}
  	\label{fig:11}
  \end{figure}
-\item Store CSS in the back-end database for dynamic retrieval\\
-The main feature of our website, making different templates for resumes is based on the replacement of different CSS. This is the main logic behind the primary function of our website. In CVMaker, we dynamically retrieve the CSS stored in the database according to the user's choice, to generate the user's Selected resume template. This feature set makes it easier to run this system, maintain it later, and increase the number of resume templates without spending vast resources.
+\item Dynamically retrieving CSS from the server\\
+The main feature of our website, i.e. making CVs with different templates is facilitated by dynamically fetching and replacing stylesheets at run-time.  
+In CVMaker, the CSS that is responsible for the CV pages are fetched from the server according to the user's choice. Below is the method we wrote to remove existing template(s) and fetch the template that the user choose from the server. To be honest, this method does not fetch the template, it just adds a link to the template to the "head" of the page. 
  \begin{figure}[H]
 	\centering
 	\includegraphics[scale=.4]{figures/cssTemplate.png}
-	\caption{resume template}
+	\caption{fetch template}
 	\label{fig:12}
 \end{figure}
+
+	\item
+	Again, I think using CSS files as templates is quite a good innovation since they are stylesheets themselves but we use them for other purposes rather than just for the sake of beautifying web pages. Furthermore, this also makes our templates quite easy to make: creating a new template is just a matter of creating a new CSS file, which makes our application quite extensible.
+		
 		
 	\end{itemize}
 	\subsubsection{JS}Because of the vue template, it becomes straightforward to embed js in the page. Each page component exists separately as an element, and we write js methods internally or externally that can change the arithmetic. Of course, this is not technically a javascript file anymore, but primarily at the developmental level, they are a kind of Stuff.
@@ -191,6 +269,17 @@ The main feature of our website, making different templates for resumes is based
 		\caption{resume template}
 		\label{fig:14}
 	\end{figure}
+	
+
+We also made full use of the strengths of Vue component communication in the mutual communication of components. Below is an example of a parent component calling a child component method. In the CVMaker page, when we press the bold button in the tools bar and complete the click, the button in an active state.
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.3]{figures/componentsRefs.png}
+	\caption{component communication}
+	\label{fig:9}
+\end{figure}	
+	
 	\subsubsection{PNG}
 	We used GMIP for mapping, including the default resume header and png diagrams for 404 pages. The source file of the 404 page is saved in $src/view/index/img$. We used masks, filters and transparent alaph channels, among other techniques.
 	\begin{figure}[H]

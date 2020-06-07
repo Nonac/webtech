@@ -221,7 +221,7 @@ export default {
             let old_div_cvPage = old_div_A4paper.firstElementChild;
             let old_elem = old_div_cvPage.firstElementChild;
             // handle 'dont-replace' elems
-            // which should be the first children of elem with 'cv-page' attr
+            // which should be the direct children of elem with 'cv-page' attr
             while(new_elem){
               if(old_elem){ // old elem enough
                 const is_old_replacable = !old_elem.hasAttribute('dont-replace');
