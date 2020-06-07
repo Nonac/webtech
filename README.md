@@ -27,3 +27,7 @@ node server.js -http
 ```
 node server.js -sql
 ```
+
+**NOTE: For the server-side node module "puppeteer" to function, you may need to install some dependencies if you don't have:**
+[Puppeteer dependencies](https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix%20dependencies)<br>
+Otherwise, the pdf generator may not work, although it won't crash the server.
