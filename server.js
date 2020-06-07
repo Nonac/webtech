@@ -2,22 +2,16 @@
 // todo delete before release
 // require('./util/test');
 (async function(){
+  // command line args
   // tiny dbms interface
   if(process.argv.includes('-sql')){
     return require('./util/dbManager').dbms();
   }
-
   // hosting at cloud
-  let is_localhost = false;
-  if(!process.argv.includes('-cloud')){
-    is_localhost = true;
-  }
+  let is_localhost = !process.argv.includes('-cloud');
+  // http mode
+  let is_http = process.argv.includes('-http');
 
-  // hosting at cloud
-  let is_http = false;
-  if(process.argv.includes('-http')){
-    is_http = true;
-  }
 
   await require('./util/serverInit');
   await require('./util/dbInsertTemplates').init();

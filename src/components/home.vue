@@ -34,7 +34,7 @@ export default {
         startClick(){
             var c_start=document.cookie.indexOf("jwt");
             if(c_start === -1){
-                this.$router.replace('/login');
+                this.$router.replace('/register');
             }
             else{
                 this.$router.replace('/userProfile');
