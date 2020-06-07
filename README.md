@@ -1,6 +1,6 @@
 # webtech
 
-## Installs node modules
+### Installs node modules
 ```
 npm install
 ```
@@ -10,20 +10,20 @@ npm install
 npm run build
 ```
 
-### Start the server
-#### localhost https
+### Startss the server
+* #### localhost https
 ```
 node server.js
 ```
-#### cloud https
+* #### cloud https
 ```
 node server.js -cloud
 ```
-#### http only
+* #### http only
 ```
 node server.js -http
 ```
-#### query the database
+* #### query the database
 ```
 node server.js -sql
 ```
