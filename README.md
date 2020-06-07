@@ -1,29 +1,29 @@
 # webtech
 
-## Project setup
+## Installs node modules
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
+### Compiles and minifies frontend pages
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
 ### Start the server
+#### localhost https
 ```
-npm start
+node server.js
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### cloud https
+```
+node server.js -cloud
+```
+#### http only
+```
+node server.js -http
+```
+#### query the database
+```
+node server.js -sql
+```
