@@ -543,7 +543,127 @@ Since this lottie tool is so new, we think we have made it pretty far ahead of t
 	
 		\end{itemize}
 	\subsubsection{Database}
+	\begin{itemize}
+	\item All access to the database is done via our module "dbManager", although some query strings may reside somewhere else for simplicity.
+	
+	($/util/dbManager.js$)
+	
+	\item Callback style methods that we needed were wrapped in Promises so that they could be used with async-await syle.
+	
+	($/util/dbManager.js$)
+	
+	\item Database schemas were placed in a separate file for easier management. 
+	
+	($/util/dbSchemas.js$)
+	
+	\item Auto setting up the database when the server starts and if the database folder is not found.
+	
+	($/util/serverInit.js$)
+	
+	($/util/resetDb.js$)
+	
+	\item Auto updating CV template info into the database when the server starts.
+	
+	($/util/dbInsertTemplates.js$)
+	
+	\item Update/insert/extract data without problem. The database works fine.
+	
+	Here is an example update/insert usage of saving users' CV data into the database:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/db/save.jpg}
+	\caption{save}
+\end{figure}
+
+	And this is an example extract usage of retrieving user CV data from the database:
+	
+		\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/db/load.jpg}
+	\caption{load}
+\end{figure}
+	
+	\item Simple command line database management system for debugging which reads sql commands from the command line and query the database with the command and then prints the result to the console:
+	
+			\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/db/dbms.jpg}
+	\caption{load}
+\end{figure}
+	
+	
+	\end{itemize}
+	
+	
 	\subsubsection{Dynamic pages}
+	
+	\begin{itemize}
+	\item In select template page, templates' information is retrieved from the database when the component reached the life-cycle hook of "created":
+	
+				\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/dp/selectTemplate.jpg}
+	\caption{select template}
+\end{figure}
+	
+	One instance of the component "templateBriefView" will then be created for each template received. Those instances will then be appended to the right position of the DOM.
+	
+	As you can see, this dynamic delivery takes advantages of many Vue features. 
+	
+	($/src/components/selectTemplate.vue$)	
+	
+	\item The style of CV pages is dynamically loaded.
+				\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/dp/cvMakerCreated.jpg}
+	\caption{get template}
+\end{figure}	
+	
+	When the CVMaker component is created, it needs to fetch the CSS for the CV pages from our server, either by loading the user's saved data or by creating a new stylesheet link depending on the query passed by the previous page. 
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/dp/fetchTemplate.jpg}
+	\caption{fetch template}
+\end{figure}	
+	
+	As for fetching template, existing template is replaced with the new one by deleting previous "link" tag and inserting new link so the server will responds with the new template.
+	
+		($/src/components/cvMaker.vue$)	
+	
+	\item When a user loads their saved progress, what is displayed on their screen will be replaced with what the server responds.
+	
+	The method that is responsible for this functionality is quite long, so please refer to the source code "loadSavedData" at
+	($/src/components/cvMaker.vue$).
+	
+	Why did we wrote this seemingly complex, typical newbie programmers' not refactored method? And you will find that the "save" method is much shorter than the "load" one. Was it really necessary?
+	
+	Well, yes. For loading, the "head" tag of the current page is replaced with what is in the server's response directly, and there is no problem with that. However, in the "body" section, we need to be careful with those elements with event listeners. What we did was actually ignoring all elements with event listeners (such as the image uploader).
+	
+	What would otherwise be an alternative would have been replacing just text instead of html, which would have been a better choice but requiring more labour since the number of elements currently on the page is very likely not the same as that in the saved data, and therefore more logics would have been needed to implement that functionality.
+	
+	And I have to admit that there is a problem with the existing implementation because the Vue inserts a custom attribute "data-?" as identifier for scoped CSS code and those elements that it affects. The problem is that this attribute is likely to differ each time we compile the frontend, which means if a user saved their data before us compiling the frontend again and loads their data afterwards, some elements on the page may no longer display properly.
+	\newline\newline
+	There are several ways to fix this issue:
+	
+	1. Make all the styles global.
+	
+	2. Be more specific in saving the "head" section, ignoring anything other than the CV template.
+	
+	3. Disable "load" functionality and inform the users to start again after recompiling the frontend.
+	
+	4. Never recompile the frontend again after release.
+	\newline\newline
+	However, Since this project is not funded, we are just happy that it works. And as far as we are concerned, there is no perceptible bug except this one because we have fixed all the others. 
+	
+	
+	
+	\end{itemize}
+	
+	
+	
+	
+	
 	
 	% --------------------
 	% --------------------
