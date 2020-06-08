@@ -260,9 +260,83 @@ In CVMaker, the CSS that is responsible for the CV pages are fetched from the se
 		
 		
 	\end{itemize}
-	\subsubsection{JS}Because of the vue template, it becomes straightforward to embed js in the page. Each page component exists separately as an element, and we write js methods internally or externally that can change the arithmetic. Of course, this is not technically a javascript file anymore, but primarily at the developmental level, they are a kind of Stuff.
+	\subsubsection{JS}We have written a substantial amount of vanilla and Vue-specific javascript code and have implemented all the features we intended. Here we will only discuss some of the code we have written to demonstrate our understanding. 
+	\begin{itemize}
+	\item DOM manipulation
 	
-	We wrote a lot of front-end and back-end js logic to ensure that the complete project documentation worked adequately. Similar to the button or switch screen functions are used to implement the vue methods. The example below is the js method after the download button is pressed.
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/getClonable.jpg}
+	\caption{getClonable()}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/handleInsertion.jpg}
+	\caption{handleInsertion()}
+\end{figure}
+	The function getClonable and the method handleInsertion are resposible for the "add element" functionality in the CVMaker page. When a mousemove event is triggered and the CVMaker is in the right mode, the event is passed to the handleInsertion method. The method then finds the element that the user's mouse cursor is currently pointing at, checks whether the element is contained in a container with class "clonable". If so, then checks whether the clonable container was created in the previous events or if it is a new target. If it is a new target, the clonable container is cloned and the newly created copy is added a class "preview" for visual effects, then it is inserted before or after the clonable container that was cloned if the cursor is at the upper half or lower half of the container, respectively.
+	
+	\item HTTP request and save file
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/generatePdf.jpg}
+	\caption{handleInsertion()}
+\end{figure}
+
+	\item Components communication via Vue reference
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/componentsRefs.png}
+	\caption{component communication}
+\end{figure}
+	
+	
+	Above is an example of a parent component calling a child component method. In the CVMaker page, when we press the boldify button in the tools bar, the "active" method of the button will be called.
+	
+		\item Components communication via event bus
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/evbus.jpg}
+	\caption{event bus}
+\end{figure}		
+		
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/event bus.jpg}
+	\caption{event bus}
+\end{figure}
+	An event bus is just another Vue instance. If imported, all the components that have access to it could use it to communicate.
+	
+	Here is an example of using event bus. The menu bar listens to "getLoginStatus" event. If the event occurs, the menu bar emits another event called "loginStatus" to the bus, passing the login status as a parameter to the potential event handler:
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/getLoginStatus.jpg}
+	\caption{getLoginStatus}
+\end{figure}
+	
+	Here in userProfile.vue, the method "getLoginStatus" emits a "getLoginStatus" event to the bus. After the menu bar responded, the login status will be stored in the variable "isLoggedIn".
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/userpr.jpg}
+	\caption{getLoginStatus()}
+\end{figure}	
+	
+	
+Here we used Promise because we wanted to make sure the data was available before we used it. Any method that needs to get the login status could then just await the Promise to be resolved, which guarantees the data to be available:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.5]{figures/js/startNewWork.jpg}
+	\caption{startNewWork}
+\end{figure}
+
+
+
+	
+	
+	\item Animation\\
+	The example below is the method in charge of animating the download button after press:
 	 \begin{figure}[H]
 		\centering
 		\includegraphics[scale=.4]{figures/downloadButtonJS.png}
@@ -270,18 +344,26 @@ In CVMaker, the CSS that is responsible for the CV pages are fetched from the se
 		\label{fig:14}
 	\end{figure}
 	
+	\item Dynamically creating and deleting Vue component instances at run-time.
+	 \begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{figures/js/addSubPage.jpg}
+		\caption{dynamic component creation/deletion}
 
-We also made full use of the strengths of Vue component communication in the mutual communication of components. Below is an example of a parent component calling a child component method. In the CVMaker page, when we press the bold button in the tools bar and complete the click, the button in an active state.
-
-	\begin{figure}[H]
-	\centering
-	\includegraphics[scale=.3]{figures/componentsRefs.png}
-	\caption{component communication}
-	\label{fig:9}
-\end{figure}	
+	\end{figure}
+	Here is how we implement the add page and delete page at CVMaker page. Each page is an instance of the Vue component "cvMakerPage"
+	
+	\end{itemize}
 	
 	\subsubsection{PNG}
-	We used GMIP for mapping, including the default resume header and png diagrams for 404 pages. The source file of the 404 page is saved in $src/view/index/img$. We used masks, filters and transparent alaph channels, among other techniques.
+	We made all the artworks used in our website by ourselves except the background image, which was free to use and no need to mention the source.
+	The licence of the background image could be found here:
+	 $https://www.pexels.com/es-es/foto/analisis-analitica-aplicacion-crecimiento-590016/$
+	 
+	\begin{itemize}
+	\item 404 page for front-end router.
+	
+	We used GMIP for painting. The source file of the 404 page is saved in $src/view/index/img$. We used masks, filters and transparent alaph channels, among other techniques.
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=.3]{figures/404.png}
@@ -289,11 +371,81 @@ We also made full use of the strengths of Vue component communication in the mut
 		\label{fig:13}
 	\end{figure}
 	
+	check it out:
+	\href{https://royalcvmaker.uk/#/Imlost}{Non-existing page}.
+	
+	\item back-end 404 page.	
+	
+	Progress:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.4]{figures/png/1.jpg}
+		\caption{1}
+
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.4]{figures/png/2.jpg}
+		\caption{2}
+
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.4]{figures/png/3.jpg}
+		\caption{3}
+	
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.4]{figures/png/4.jpg}
+		\caption{4}
+
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.4]{figures/png/5.jpg}
+		\caption{5}
+
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.4]{figures/png/6.jpg}
+		\caption{6}
+
+	\end{figure}
+	
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.3]{figures/png/gimp.jpg}
+		\caption{workspace}
+
+	\end{figure}
+	Basically, I used paintbrush and airbrush for coloring. "Multiply" and "linear burn" were used as the blending modes for shadow layers, while "addition" was used for highlights. "Overlay" was used for adding opposite or distant colors to some places to make the image appear more vivid, while transparency was adjusted to mitigate effects.
+	
+	check it out:
+	\href{https://royalcvmaker.uk/Imlost}{Non-existing page}.
+	
+	
+	\item Example avatar
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.5]{figures/png/example_avatar.png}
+		\caption{example avatar}
+		
+	Above artworks pale into insignificance compared to this masterpiece. This is the best picture that I have drawn in my entire life. Detailed facial features, vibrant colors, with the solemn expression as the finishing touch indicating the harsh reality that the concurrent white collar is facing. If this masterpiece is not going to be passed down generation to generation, I don't know what art is all about.
+
+	\end{figure}	
+	
+	
+	\end{itemize}
+	
+	
 	\subsubsection{SVG}
-	In the use of SVG, we have used a variety of ways to construct SVG images to take full advantage of his benefits. We even created SVG  animation on the home page. We will describe this in detail below.
+	We have used a variety of ways to construct SVG images to make full use of its advantages. We even created SVG  animation on the home page. We will describe this in detail below.
 	\begin{itemize}
 		\item Basic SVG images\\
-		We used tools like Inkscape to draw simple SVG portraits, and since the team has the skills to operate adobe Kit experience, so we are light on SVG production. 
+		We used tools like Inkscape to draw simple SVG portraits, and since the team had experience of  adobe Kit, SVG graphics were light work to us. 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[scale=.3]{figures/svg1.png}
@@ -343,6 +495,53 @@ Since this lottie tool is so new, we think we have made it pretty far ahead of t
 	\end{itemize}
 	\subsection{Server Side}
 	\subsubsection{Server}
+	
+	\begin{itemize}
+	
+
+	\item Port numbers
+	
+	Port numbers are read from process.env if they exist. Otherwise, 80 and 443 were used for http and https, respectively. 
+	
+	\item Https and http redirect
+	
+	The server runs on https mode by default. There is another http server that redirects the users to https if they attempt to connect via http.
+	
+	For localhost, a self-signed certificate was used for development and demonstration of concept, although some browsers will complain about that.
+	For our cloud server, we successfully applied one from ZeroSSL RS Domain Secure Site CA. This certificate and its corresponding key are not included in this repository for security concerns, but their presence could be verified by visiting our website at https://royalcvmaker.uk
+	
+	\item Cloud hosting
+	
+	We are hosting this website at https://royalcvmaker.uk
+	
+	\item JSON web token (JWT) and cookies
+	
+	JWTs was used both to identify users and to provide some level of security since they are encrypted.
+	When a user successfully logs in, a JWT containing their userId will be issued for them. After receiving the JWT, it will be stored in the cookies, so subsequent requests by the user will contain the JWT. All sensitive operations (e.g. get avatar, load CV contents) will require verification of the JWT. In this way, the privacy of the users is protected.
+	
+	($/routes/verifyJwt.js$)
+
+	\item Hashed password
+	
+	Users' passwords are not stored in the database directly. Instead, their hashes are stored. Whenever a user request to login, their password is passed to the same hash function and then be compared with that stored in the database, which provides some level of security. We used the node module "bcrypt" to accomplish this task.
+	
+	($/routes/auth.js$)
+	
+	\item Validation of request
+	
+	Some important or complex requests are validated before being processed in order to give users some information (when register/log in) or just check the validity of the request (when save progress). 
+	
+	($/util/validation.js$)
+	
+	\item Wrap some callback-styled library methods in Promises so they fit better in this project, whose main style is async-await.
+	
+	($/util/async_fs.js$)
+	
+	($/util/dbManager.js$)
+	
+	\item Most importantly, the server works fine.
+	
+		\end{itemize}
 	\subsubsection{Database}
 	\subsubsection{Dynamic pages}
 	
