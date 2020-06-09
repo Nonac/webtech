@@ -51,7 +51,6 @@
 
         <div class="split right">
             <self-evaluation/>
-
         </div>
     </div>
 

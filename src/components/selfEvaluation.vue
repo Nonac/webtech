@@ -7,88 +7,92 @@
       </h2>
     </div>
     <div class="col-md-10 offset-md-1 row-block">
-      <ul id="sortable">
-        <li>
+
+        <div>
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>HTML</h4>
               <p>
-                content
+                A+
               </p>
             </div>
           </div>
         </li>
-        <li>
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>CSS</h4>
               <p>
-                content
+                A
               </p>
             </div>
           </div>
         </li>
-        <li>
+
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>JS</h4>
               <p>
-                content
+                A
               </p>
             </div>
           </div>
         </li>
-        <li>
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>PNG</h4>
               <p>
-                content
+                A
               </p>
             </div>
           </div>
         </li>
-        <li>
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>SVG</h4>
               <p>
-                content
+                A
               </p>
             </div>
           </div>
         </li>
-        <li>
+        </div>
+      <div>
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>Server</h4>
               <p>
-                content
+                A
               </p>
             </div>
           </div>
         </li>
-        <li>
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>Database</h4>
               <p>
-                content
+                A
               </p>
             </div>
           </div>
         </li>
-        <li>
+        <li class="sameLineDisplay">
           <div class="media">
             <div class="media-body">
               <h4>Dynamic pages</h4>
               <p>
-                content
+                A
               </p>
             </div>
           </div>
         </li>
-      </ul>
+        </div>
     </div>
   </a>
 </section>

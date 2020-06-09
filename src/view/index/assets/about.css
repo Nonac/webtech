@@ -78,7 +78,7 @@ a {
 
 .left {
     top: 0;
-    left: -150px;
+    left: 0;
     padding: 10px;
     /*background-color: #111;*/
 }
@@ -92,8 +92,8 @@ a {
 
 .row-section{
     float:left;
-    top:-200px;
-    width:300%;
+    top:100%;
+    width:200%;
     position: relative;
     background: #343A40;
     border-radius: 16px;
@@ -144,6 +144,8 @@ a {
     border-radius: 5px;
     box-shadow:0px 2px 1px rgba(0,0,0,0.04);
     background:#fff;
+    margin: 5px;
+    width: 210px;
 }
 
 .row-section .media .media-body p{
@@ -166,5 +168,9 @@ a {
 .imgSize{
     width:300px;
     height:300px;
+}
+
+.sameLineDisplay{
+    display: inline-block;
 }
 
